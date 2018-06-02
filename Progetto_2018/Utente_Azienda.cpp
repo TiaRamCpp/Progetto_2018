@@ -93,7 +93,7 @@ string Utente_Azienda::stampa_Utente_Azienda() const
 	output = _id + SEPARATORE;
 
 	//stampa id_tipo_utente
-	output += to_string(ID_TIPO_AZIENDA) + SEPARATORE + PARENTESI_SX;
+	output += ID_TIPO_AZIENDA + SEPARATORE + PARENTESI_SX;
 
 	//stampa nome
 	output += STR_NOME;
