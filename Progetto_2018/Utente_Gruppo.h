@@ -5,7 +5,7 @@
 
 #include "Data.h"
 
-#define ID_TIPO_GRUPPO 3
+#define ID_TIPO_GRUPPO "utente_gruppo"
 
 #define STR_NOME "nome"
 #define STR_SEDE_LEGALE "sede legale"

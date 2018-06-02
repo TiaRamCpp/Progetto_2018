@@ -5,7 +5,7 @@
 
 #include "Data.h"
 
-#define ID_TIPO_AZIENDA 2
+#define ID_TIPO_AZIENDA "utente_azienda"
 
 #define STR_NOME "nome"
 #define STR_SEDE_FISCALE "sede fiscale"

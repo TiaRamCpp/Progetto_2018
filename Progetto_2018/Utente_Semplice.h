@@ -5,7 +5,7 @@
 
 #include "Data.h"
 
-#define ID_TIPO_SEMPLICE 1
+#define ID_TIPO_SEMPLICE "utente_semplice"
 
 #define STR_NOME "nome"
 #define STR_COGNOME "cognome"
