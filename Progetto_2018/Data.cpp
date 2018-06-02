@@ -18,7 +18,7 @@ Data::Data(const int &giorno, const int &mese, const int &anno)
 	_giorno = giorno;
 	_mese = mese;
 	_anno = anno;
-	if (!_is_Valid()) {
+	if (!is_Valid()) {
 		cerr << "Data non valida" << endl;
 		getchar();
 		getchar();
@@ -40,7 +40,7 @@ Data::~Data()
 string Data::stampa_Data() const
 {
 	string output;
-	output = to_string(_giorno) + "/" + to_string(_mese) + "/" + to_string(_anno);
+	output = to_string(_giorno) + SEPARATORE_DATA + to_string(_mese) + SEPARATORE_DATA + to_string(_anno);
 	return output;
 }
 
@@ -51,18 +51,7 @@ int Data::get_Anni_Da(const Data &data_input) const
 	return data_input._anno - _anno;
 }
 
-int Data::_calcola_Numero_Giorno() const
-{
-	int giorni_nel_mese[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
-	int numero_giorno = _giorno;
-	for (int i = 1; i < _mese; i++)
-	{
-		numero_giorno += giorni_nel_mese[i];
-	}
-	return numero_giorno;
-}
-
-bool Data::_is_Valid() const
+bool Data::is_Valid() const
 {
 	//manca bisestile
 	bool valido = true;
@@ -113,6 +102,17 @@ bool Data::_is_Valid() const
 	return valido;
 }
 
+int Data::_calcola_Numero_Giorno() const
+{
+	int giorni_nel_mese[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	int numero_giorno = _giorno;
+	for (int i = 1; i < _mese; i++)
+	{
+		numero_giorno += giorni_nel_mese[i];
+	}
+	return numero_giorno;
+}
+
 int Data::get_Anno() const
 {
 	return _anno;
@@ -130,14 +130,19 @@ int Data::get_Giorno() const
 
 bool Data::operator<(const Data &data_destra) const
 {
+	//data_sx<data_dx true se data_sx più nel passato rispetto a data_dx
+
+	//controllo se differiscono di anno/i
 	if (this->_anno < data_destra._anno)
 		return true;
 	if (this->_anno > data_destra._anno)
 		return false;
+	//altrimenti controllo se differiscono per mese/i
 	if (this->_mese < data_destra._mese)
 		return true;
 	if (this->_mese > data_destra._mese)
 		return false;
+	//altrimenti controllo se differiscono per giorno/i
 	if (this->_giorno < data_destra._giorno)
 		return true;
 	return false;
@@ -150,8 +155,8 @@ void Data::operator=(const Data &da_assegnare)
 	this->_giorno = da_assegnare._giorno;
 }
 
-ostream & operator<<(ostream &stream, const Data &da_stampare)
+ostream & operator<<(ostream &output, const Data &da_stampare)
 {
-	stream << da_stampare.stampa_Data();
-	return stream;
+	output << da_stampare.stampa_Data();
+	return output;
 }

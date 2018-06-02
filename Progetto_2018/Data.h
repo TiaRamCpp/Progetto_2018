@@ -5,6 +5,8 @@
 #include <string>
 #include <ctime>
 
+#define SEPARATORE_DATA '/'
+
 #pragma warning(disable : 4996)
 
 using namespace std;
@@ -13,7 +15,7 @@ class Data
 {
 public:
 
-	//costruttori e distruttore ciao ciao
+	//costruttori e distruttore
 	Data();
 	Data(const int &giorno, const int &mese, const int &anno);
 	Data(const Data &da_copiare);	// Copy Constructor
@@ -27,9 +29,10 @@ public:
 	//metodi della classe
 	string stampa_Data() const;
 	int get_Anni_Da(const Data &data_input = Data()) const;
+	bool is_Valid() const;
 
 	//operatori della classe
-	friend ostream & operator<<(ostream &stream, const Data &da_stampare);	// overload of the << operator for the Data class. ---- the fried keyword is mandatory to define the overload.
+	friend ostream & operator<<(ostream &output, const Data &da_stampare);	// overload of the << operator for the Data class. ---- the fried keyword is mandatory to define the overload.
 	bool operator<(const Data &data_destra) const;
 	void operator=(const Data &da_assegnare);
 
@@ -37,7 +40,6 @@ private:
 
 	//metodi privati
 	int _calcola_Numero_Giorno() const;
-	bool _is_Valid() const;
 
 	//variabili private
 	int _anno;
