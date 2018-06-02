@@ -27,6 +27,15 @@
     <ClInclude Include="Data.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Utente_Azienda.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Notizia.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Utente_Gruppo.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -39,6 +48,15 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="Data.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Utente_Azienda.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Notizia.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Utente_Gruppo.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
