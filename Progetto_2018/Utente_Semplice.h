@@ -44,6 +44,8 @@ public:
 
 	//metodi della classe
 	int calcola_Eta() const;
+	bool stringa_Valida(const string &stringa) const;
+	bool utente_Valido() const;
 
 	//metodi di stampa
 	string stampa_Utente_Semplice() const;

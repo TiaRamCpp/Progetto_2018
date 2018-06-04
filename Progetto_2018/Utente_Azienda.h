@@ -45,6 +45,10 @@ public:
 	string get_Tipo_Prodotto() const;
 	Data get_Data_Creazione() const;
 
+	//metodi della classe
+	bool stringa_Valida(const string &stringa) const;
+	bool utente_Valido() const;
+
 	//metodi di stampa
 	string stampa_Utente_Azienda() const;
 	friend ostream & operator<<(ostream &output, const Utente_Azienda &da_stampare);

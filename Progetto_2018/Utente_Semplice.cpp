@@ -76,6 +76,36 @@ int Utente_Semplice::calcola_Eta() const
 	return _data_nascita.get_Anni_Da(); //con default la data di oggi
 }
 
+bool Utente_Semplice::stringa_Valida(const string &stringa) const
+{
+	bool ok = true;
+	//controllo che non ci sia uno dei caratteri non permessi
+	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
+		if ((stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+			ok = false;
+	return ok;
+}
+
+bool Utente_Semplice::utente_Valido() const
+{
+	//controlla che tutto l'utente sia valido
+	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
+	bool ok = true;
+	//controllo che nessuna stringa sia vuota
+	ok &= !_id.empty();
+	ok &= !_nome.empty();
+	ok &= !_cognome.empty();
+	ok &= !_domicilio.empty();
+	//controllo che nessuna stringa contenga caratteri speciali
+	ok &= stringa_Valida(_id);
+	ok &= stringa_Valida(_nome);
+	ok &= stringa_Valida(_cognome);
+	ok &= stringa_Valida(_domicilio);
+	//controllo che la data inserita sia valida
+	ok &= _data_nascita.is_Valid();
+	return false;
+}
+
 string Utente_Semplice::stampa_Utente_Semplice() const
 {
 	string output;

@@ -42,6 +42,10 @@ public:
 	string get_Tipologia_Attività() const;
 	Data get_Data_Creazione() const;
 
+	//metodi della classe
+	bool stringa_Valida(const string &stringa) const;
+	bool utente_Valido() const;
+
 	//metodi di stampa
 	string stampa_Utente_Gruppo() const;
 	friend ostream & operator<<(ostream &output, const Utente_Gruppo &da_stampare);

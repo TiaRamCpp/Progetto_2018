@@ -83,6 +83,38 @@ Data Utente_Azienda::get_Data_Creazione() const
 	return _data_creazione;
 }
 
+bool Utente_Azienda::stringa_Valida(const string &stringa) const
+{
+	bool ok = true;
+	//controllo che non ci sia uno dei caratteri non permessi
+	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
+		if ((stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+			ok = false;
+	return ok;
+}
+
+bool Utente_Azienda::utente_Valido() const
+{
+	//controlla che tutto l'utente sia valido
+	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
+	bool ok = true;
+	//controllo che nessuna stringa sia vuota
+	ok &= !_id.empty();
+	ok &= !_nome.empty();
+	ok &= !_sede_fiscale.empty();
+	ok &= !_sede_operativa.empty();
+	ok &= !_tipo_prodotto.empty();
+	//controllo che nessuna stringa contenga caratteri speciali
+	ok &= stringa_Valida(_id);
+	ok &= stringa_Valida(_nome);
+	ok &= stringa_Valida(_sede_fiscale);
+	ok &= stringa_Valida(_sede_operativa);
+	ok &= stringa_Valida(_tipo_prodotto);
+	//controllo che la data inserita sia valida
+	ok &= _data_creazione.is_Valid();
+	return false;
+}
+
 string Utente_Azienda::stampa_Utente_Azienda() const
 {
 	string output;
