@@ -2,11 +2,11 @@
 
 Notizia::Notizia()
 {
-	_id_mittente = ID_VUOTO;
+	_id_mittente.clear();
 	_messaggio.clear();
 }
 
-Notizia::Notizia(const int &id_mittente, const string &messaggio, const vector<int> &like, const vector<int> &dislike, const Data &data_pubblicazione)
+Notizia::Notizia(const string &id_mittente, const string &messaggio, const Data &data_pubblicazione, const vector<string> &like, const vector<string> &dislike)
 {
 	_id_mittente = id_mittente;
 	_messaggio = messaggio;
@@ -19,7 +19,7 @@ Notizia::~Notizia()
 {
 }
 
-void Notizia::set_Id_Mittente(const int &id_mittente)
+void Notizia::set_Id_Mittente(const string &id_mittente)
 {
 	_id_mittente = id_mittente;
 }
@@ -29,22 +29,22 @@ void Notizia::set_Messaggio(const string &messaggio)
 	_messaggio = messaggio;
 }
 
-void Notizia::set_Like(const vector<int> &like)
-{
-	_like = like;
-}
-
-void Notizia::set_Dislike(const vector<int> &dislike)
-{
-	_dislike = dislike;
-}
-
 void Notizia::set_Data_Pubblicazione(const Data &data_pubblicazione)
 {
 	_data_pubblicazione = data_pubblicazione;
 }
 
-int Notizia::get_Id_Mittente() const
+void Notizia::set_Like(const vector<string> &like)
+{
+	_like = like;
+}
+
+void Notizia::set_Dislike(const vector<string> &dislike)
+{
+	_dislike = dislike;
+}
+
+string Notizia::get_Id_Mittente() const
 {
 	return _id_mittente;
 }
@@ -54,24 +54,54 @@ string Notizia::get_Messaggio() const
 	return _messaggio;
 }
 
-vector<int> Notizia::get_Like() const
-{
-	return _like;
-}
-
-vector<int> Notizia::get_Dislike() const
-{
-	return _dislike;
-}
-
 Data Notizia::get_Data_Pubblicazione() const
 {
 	return _data_pubblicazione;
 }
 
+vector<string> Notizia::get_Like() const
+{
+	return _like;
+}
+
+vector<string> Notizia::get_Dislike() const
+{
+	return _dislike;
+}
+
+bool Notizia::stringa_Valida(const string &stringa) const
+{
+	bool ok = true;
+	//controllo che non ci sia uno dei caratteri non permessi
+	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
+		if ((stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+			ok = false;
+	return ok;
+}
+
 bool Notizia::notizia_Valida() const
 {
 	bool valida = true;
+
+	//controllo che nessuna stringa sia vuota
+	valida &= !_id_mittente.empty();
+	valida &= !_messaggio.empty();
+	for (unsigned int i = 0; ((i < _like.size())&(valida)); i++)
+		valida &= !_like[i].empty();
+	for (unsigned int i = 0; ((i < _dislike.size())&(valida)); i++)
+		valida &= !_dislike[i].empty();
+
+	//controllo che nessuna stringa contenga caratteri speciali
+	valida &= stringa_Valida(_id_mittente);
+	valida &= stringa_Valida(_messaggio);
+	for (unsigned int i = 0; ((i < _like.size())&(valida)); i++)
+		valida &= stringa_Valida(_like[i]);
+	for (unsigned int i = 0; ((i < _dislike.size())&(valida)); i++)
+		valida &= stringa_Valida(_dislike[i]);
+
+	//controllo che la data sia valida
+	valida &= _data_pubblicazione.is_Valid();
+
 	//controllo che chi abbia messo like ne abbia messo solo uno e nessun dislike
 	for (unsigned int i = 0; ((i < _like.size())&(valida)); i++)
 	{
@@ -83,6 +113,7 @@ bool Notizia::notizia_Valida() const
 		if (valida)
 			valida = _id_Trovato(_dislike, _like[i]);
 	}
+
 	//controllo che chi abbia messo dislike ne abbia messo solo uno e nessun like
 	for (unsigned int i = 0; ((i < _dislike.size())&(valida)); i++)
 	{
@@ -94,20 +125,21 @@ bool Notizia::notizia_Valida() const
 		if (valida)
 			valida = _id_Trovato(_like, _dislike[i]);
 	}
+
 	return valida;
 }
 
-bool Notizia::aggiungi_Like(const int &id)
+bool Notizia::aggiungi_Like(const string &id)
 {
 	return _aggiungi_Reazione(_like, id);
 }
 
-bool Notizia::aggiungi_Dislike(const int &id)
+bool Notizia::aggiungi_Dislike(const string &id)
 {
 	return _aggiungi_Reazione(_dislike, id);
 }
 
-bool Notizia::rimuovi_Reazione(const int &id)
+bool Notizia::rimuovi_Reazione(const string &id)
 {
 	bool like_espresso = _id_Trovato(_like, id);
 	bool dislike_espresso = _id_Trovato(_dislike, id);
@@ -135,19 +167,22 @@ string Notizia::stampa_Notizia() const
 	string output;
 
 	//output=<id_mittente>,<messaggio>,like:{<id1>,...,<idn>},dislike:{<id1>,...,<idn>}
-	//manca stampa data pubblicazione
 
 	//stampa id mittente
-	output = to_string(_id_mittente) + SEPARATORE;
+	output = _id_mittente + SEPARATORE;
 
 	//stampa messaggio
 	output += _messaggio + SEPARATORE;
 
+	//stampa data
+	output += _data_pubblicazione.stampa_Data() + SEPARATORE;
+
 	//stampa like
-	output += "like" + DIVISORE + PARENTESI_SX;
+	output += "like" + DIVISORE;
+	output += PARENTESI_SX;
 	for (unsigned int i = 0; i < _like.size(); i++)
 	{
-		output += to_string(_like[i]);
+		output += _like[i];
 		//se non è l'ultimo
 		if (i < _like.size() - 1)
 			output += SEPARATORE;
@@ -155,10 +190,11 @@ string Notizia::stampa_Notizia() const
 	output += PARENTESI_DX;
 
 	//stampa dislike
-	output += SEPARATORE + "dislike" + DIVISORE + PARENTESI_SX;
+	output += SEPARATORE + "dislike" + DIVISORE;
+	output += PARENTESI_SX;
 	for (unsigned int i = 0; i < _dislike.size(); i++)
 	{
-		output += to_string(_dislike[i]);
+		output += _dislike[i];
 		//se non è l'ultimo
 		if (i < _dislike.size() - 1)
 			output += SEPARATORE;
@@ -174,7 +210,7 @@ ostream & operator<<(ostream &output, const Notizia &notizia_da_stampare)
 	return output;
 }
 
-bool Notizia::_id_Trovato(const vector<int> &dati, const int &id) const
+bool Notizia::_id_Trovato(const vector<string> &dati, const string &id) const
 {
 	bool trovato = false;
 	//cerco se c'è l'id nella reazione passata
@@ -184,7 +220,7 @@ bool Notizia::_id_Trovato(const vector<int> &dati, const int &id) const
 	return trovato;
 }
 
-int Notizia::_trova_Pos_Id(const vector<int> &dati, const int &id) const
+int Notizia::_trova_Pos_Id(const vector<string> &dati, const string &id) const
 {
 	//funzione usata sempre dopo il controllo _id_Trovato() per essere sicuro che sia presente e non restituire una posizione sbagliata
 	unsigned int posizione = 0;
@@ -193,7 +229,7 @@ int Notizia::_trova_Pos_Id(const vector<int> &dati, const int &id) const
 	return posizione;
 }
 
-bool Notizia::_aggiungi_Reazione(vector<int> &reazione, const int &id)
+bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
 {
 	bool like_espresso = _id_Trovato(_like, id);
 	bool dislike_espresso = _id_Trovato(_dislike, id);
