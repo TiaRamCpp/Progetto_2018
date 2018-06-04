@@ -81,7 +81,9 @@ string Utente_Gruppo::stampa_Utente_Gruppo() const
 	output = _id + SEPARATORE;
 
 	//stampa id_tipo_utente
-	output += ID_TIPO_GRUPPO + SEPARATORE + PARENTESI_SX;
+	output += ID_TIPO_GRUPPO;
+	output += SEPARATORE;
+	output += PARENTESI_SX;
 
 	//stampa nome
 	output += STR_NOME;

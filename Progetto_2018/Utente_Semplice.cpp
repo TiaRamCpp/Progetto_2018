@@ -86,7 +86,9 @@ string Utente_Semplice::stampa_Utente_Semplice() const
 	output = _id + SEPARATORE;
 
 	//stampa id_tipo_utente
-	output += ID_TIPO_SEMPLICE + SEPARATORE + PARENTESI_SX;
+	output += ID_TIPO_SEMPLICE;
+	output += SEPARATORE;
+	output += PARENTESI_SX;
 
 	//stampa nome
 	output += STR_NOME;
