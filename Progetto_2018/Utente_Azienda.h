@@ -17,6 +17,8 @@
 #define DIVISORE ':'
 #define PARENTESI_SX '{'
 #define PARENTESI_DX '}'
+#define NEW_LINE_CHARACTER '\n'
+#define NULL_TERMINATED_STRING '\0'
 
 using namespace std;
 
