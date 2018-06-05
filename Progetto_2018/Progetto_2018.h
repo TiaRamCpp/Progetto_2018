@@ -31,7 +31,7 @@ bool id_utente_gruppo_trovato(const vector<Utente_Gruppo> &associazione, const s
 	for (unsigned int i = 0; ((i < associazione.size()) && (!trovato)); i++)
 		if (associazione[i].get_Id() == id_utente)
 			trovato = true;
-	return trovato;
+return trovato;
 }
 bool id_utente_trovato(const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione, const string &id_utente)
 {
@@ -46,16 +46,34 @@ void aggiorna_file_utenti(const vector<Utente_Semplice> &persona, const vector<U
 	file_output.open(nome_file_utenti);
 	//stampa utenti semplici
 	for (unsigned int i = 0; i < persona.size(); i++)
-		file_output << persona[i] << endl;
+	{
+		file_output << persona[i];
+		//se non è l'ultima riga
+		if (i < persona.size() - 1)
+			file_output << endl;
+		else
+			//se dopo devo stampare altri dati
+			if ((impresa.size() != 0) || (associazione.size() != 0))
+				file_output << endl;
+	}
 	//stampa utenti aziende
 	for (unsigned int i = 0; i < impresa.size(); i++)
-		file_output << impresa[i] << endl;
+	{
+		file_output << impresa[i];
+		//se non è l'ultima riga
+		if (i < impresa.size() - 1)
+			file_output << endl;
+		else
+			//se dopo devo stampare altri dati
+			if (associazione.size() != 0)
+				file_output << endl;
+	}
 	//stampa utenti gruppi
 	for (unsigned int i = 0; i < associazione.size(); i++)
 	{
 		file_output << associazione[i];
 		//se non è l'ultima riga
-		if (i < persona.size() - 1)
+		if (i < associazione.size() - 1)
 			file_output << endl;
 	}
 	file_output.close();
@@ -88,17 +106,35 @@ string stampa_utenti(const vector<Utente_Semplice> &persona, const vector<Utente
 	output.clear();
 	//stampa utenti semplici
 	for (unsigned int i = 0; i < persona.size(); i++)
-		output += persona[i].stampa_Utente_Semplice() + "\n";
+	{
+		output += persona[i].stampa_Utente_Semplice();
+		//se non è l'ultima riga
+		if (i < persona.size() - 1)
+			output += '\n';
+		else
+			//se dopo devo stampare altri dati
+			if ((impresa.size() != 0) || (associazione.size() != 0))
+				output += '\n';
+	}
 	//stampa utenti aziende
 	for (unsigned int i = 0; i < impresa.size(); i++)
-		output += impresa[i].stampa_Utente_Azienda() + "\n";
+	{
+		output += impresa[i].stampa_Utente_Azienda();
+		//se non è l'ultima riga
+		if (i < impresa.size() - 1)
+			output += '\n';
+		else
+			//se dopo devo stampare altri dati
+			if (associazione.size() != 0)
+				output += '\n';
+	}
 	//stampa utenti gruppi
 	for (unsigned int i = 0; i < associazione.size(); i++)
 	{
 		output += associazione[i].stampa_Utente_Gruppo();
 		//se non è l'ultima riga
-		if (i < persona.size() - 1)
-			output += "\n";
+		if (i < associazione.size() - 1)
+			output += '\n';
 	}
 	return output;
 }
@@ -111,15 +147,19 @@ string stampa_notizie(const vector<Notizia> &news)
 		output += news[i].stampa_Notizia();
 		//se non è l'ultima riga
 		if (i < news.size() - 1)
-			output += "\n";
+			output += '\n';
 	}
 	return output;
 }
 //string stampa_relazioni(...);
 string stampa_dati(const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione, const vector<Notizia> &news)
 {
-	string output = stampa_utenti(persona, impresa, associazione) + "\n";
+	string output = stampa_utenti(persona, impresa, associazione);
+	//se prima ho stampato qualcosa e dopo devo stampare qualcosa
+	if ((!output.empty()) && (news.size() != 0))
+		output += '\n';
 	output += stampa_notizie(news);
+
 	//aggiungi stampa relazioni e aggiungi variabili da passare;
 	return output;
 }
@@ -256,7 +296,7 @@ bool leggi_stringa_data_valida(const string &data, Data &data_letta)
 			if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
 			{
 				//assegno valori a data_letta
-				data_letta = Data(atoi(giorno.c_str()), atoi(mese.c_str()), atoi(anno.c_str()));
+				data_letta = Data(atoi(giorno.c_str()), atoi(mese.c_str()), atoi(anno.c_str())); 
 				//c.str() trasforma la stringa in una stringa di c
 				//cioe aggiunge il terminatore '\0' e cosi è compatibile con la funzione atoi()
 				//la quale trasforma la stringa in un numero intero
