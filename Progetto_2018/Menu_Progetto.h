@@ -5,51 +5,58 @@
 
 using namespace std;
 
-void menu_tipologia_utenti() {
-	char u;
+//menu principale
+void menu_tipologia_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_principale)
+{
+	//inizializzo variabili booleane per evitare di tornare a menu precedenti
+	torna_al_menu_principale = false;
+	torna_al_menu_precedente = false;
+	
+	char scelta_tipologia;
 
-	cout << "S) Aggiungi Utente" << endl;
-	cout << "A) Rimuovi Utente" << endl;
-	cout << "G) Modifica Utente" << endl;
+	cout << "S) Utente Semplice" << endl;
+	cout << "A) Utente Azienda" << endl;
+	cout << "G) Utente Gruppo" << endl;
 	cout << "P) Torna al Menu Precedente" << endl;
 	cout << "E) Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
-	cin >> u;
+	cin >> scelta_tipologia;
 	cout << endl;
 
 	//controllo se lettera e converto in maiuscolo
-	if (isalpha(u))
+	if (isalpha(scelta_tipologia))
 	{
-		toupper(u);
+		scelta_tipologia=toupper(scelta_tipologia);
 	}
 
-
-	switch (u)
+	switch (scelta_tipologia)
 	{
 	case 'S':
 	{
-
+		//Utente semplice
 	}
 	break;
 	case 'A':
 	{
-
+		//Utente Azienda
 	}
 	break;
 	case 'G':
 	{
-
+		//Utente Gruppo
 	}
 	break;
 	case 'P':
 	{
-		menu_gestione_utenti();
+		//torna al menu precedente
+		torna_al_menu_precedente = true;
 	}
 	break;
 	case 'E':
 	{
-		menu_principale();
+		//torna al menu principale
+		torna_al_menu_principale = true;
 	}
 	break;
 	default:
@@ -60,9 +67,14 @@ void menu_tipologia_utenti() {
 	}
 }
 
-void menu_gestione_utenti() {
-
-	char a;
+//menu gestione utenti
+void menu_gestione_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_principale)
+{
+	//inizializzo variabili booleane per evitare di tornare a menu precedenti
+	torna_al_menu_principale = false;
+	torna_al_menu_precedente = false;
+	
+	char scelta_gestione;
 
 	cout << "A) Aggiungi Utente" << endl;
 	cout << "R) Rimuovi Utente" << endl;
@@ -70,249 +82,39 @@ void menu_gestione_utenti() {
 	cout << "E) Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
-	cin >> a;
+	cin >> scelta_gestione;
 	cout << endl;
 
 	//controllo se lettera e converto in maiuscolo
-	if (isalpha(a))
+	if (isalpha(scelta_gestione))
 	{
-		toupper(a);
+		scelta_gestione=toupper(scelta_gestione);
 	}
 
-	
-		switch (a)
-		{
-		case 'A':
-		{
-			menu_tipologia_utenti();
-		}
-		break;
-		case 'R':
-		{
-			menu_tipologia_utenti();
-		}
-		break;
-		case 'M':
-		{
-			menu_tipologia_utenti();
-		}
-		break;
-		case 'E':
-		{
-			menu_principale();
-		}
-		break;
-		default:
-		{
-			cout << "Opzione non valida" << endl;
-		}
-		break;
-		}
-	
-
-}
-
-void menu_principale() {
-	char m;
-	bool esci = false;
-
-	while (esci==false) {
-		//stampo voci menu
-		cout << "1) Gestione Utenti" << endl;
-		cout << "2) Gestione Relazioni" << endl;
-		cout << "3) Gestione Notizie" << endl;
-		cout << "4) Statistiche" << endl;
-		cout << "5) Ricerche" << endl;
-		cout << "6) Esci" << endl;
-		cout << endl;
-		cout << "Selezionare una voce del menu: ";
-		cin >> m;
-		cout << endl;
-
-		//controllo ed eseguo operazione scelta
-		switch (m) {
-		case '1':
-		{
-			menu_gestione_utenti();
-		}
-		break;
-		case '2':
-		{
-
-		}
-		break;
-		case '3':
-		{
-
-		}
-		break;
-		case '4':
-		{
-
-		}
-		break;
-		case '5':
-		{
-
-		}
-		break;
-		case '6':
-		{
-			esci = true;
-		}
-		break;
-		default:
-		{
-			cout << "Opzione non valida" << endl;
-			cout << endl;
-		}
-		break;
-		}
-	}
-
-}
-
-//menu di prova poi elimina pure
-void menu_terzo(bool &torna_al_menu_precedente)
-{
-	torna_al_menu_precedente = false;
-	char a;
-	cout << " 1) menu minni" << endl;
-	cout << " 2) menu pippo" << endl;
-	cout << " 3) menu pluto" << endl;
-	cout << " 4) menu principale " << endl;
-	cout << " 5) menu precedente " << endl;
-	cout << endl;
-	cout << "Selezionare una voce del menu: ";
-	cin >> a;
-	//controllo se lettera e converto in maiuscolo
-	if (isalpha(a))
+	switch (scelta_gestione)
 	{
-		toupper(a);
-	}
-	switch (a)
+	case 'A':
 	{
-	case '1':
-	{
-		//opz1
+		//Tipologia da aggiungere
+		menu_tipologia_utenti(torna_al_menu_precedente,torna_al_menu_principale);
 	}
 	break;
-	case '2':
+	case 'R':
 	{
-		//opz 2
+		//Tipologia da rimuovere
+		menu_tipologia_utenti(torna_al_menu_precedente, torna_al_menu_principale);
 	}
 	break;
-	case '3':
+	case 'M':
 	{
-		//opzione 3
-	}
-	break;
-	case '4':
-	{
-		//menu principale
-	}
-	break;
-	case '5':
-	{
-		//menu precedente
-		torna_al_menu_precedente = true;
-	}
-	break;
-	default:
-	{
-		cout << "Opzione non valida" << endl;
-	}
-	break;
-	}
-}
-
-void menu_secondo(bool &torna_al_menu_precedente)
-{
-	torna_al_menu_precedente = false;
-	char a;
-	cout << " 1) menu terzo" << endl;
-	cout << " 2) menu pippo" << endl;
-	cout << " 3) menu pluto" << endl;
-	cout << " 4) menu principale " << endl;
-	cout << endl;
-	//nessun menu precedente tanto il menu principale è già il menu principale oppure li mettiamo tutti e due ma rimanderebbero tutti e due a menu_primo()
-	cout << "Selezionare una voce del menu: ";
-	cin >> a;
-	//controllo se lettera e converto in maiuscolo
-	if (isalpha(a))
-	{
-		toupper(a);
-	}
-	switch (a)
-	{
-	case '1':
-	{
-		menu_terzo(torna_al_menu_precedente);
-	}
-	break;
-	case '2':
-	{
-		//opz 2
-		//menu_quarto(torna_al_menu_precedente);
-	}
-	break;
-	case '3':
-	{
-		//opzione 3
-	}
-	break;
-	case '4':
-	{
-		//menu principale
-	}
-	break;
-	default:
-	{
-		cout << "Opzione non valida" << endl;
-	}
-	break;
-	}
-	if (torna_al_menu_precedente)
-		menu_secondo(torna_al_menu_precedente);
-}
-
-void menu_primo()
-{
-	bool torna_al_menu_precedente = false;
-	char a;
-	cout << " 2) menu secondo" << endl;
-	cout << " 3) menu blabla" << endl;
-	cout << " 4) menu sbdiabdasb" << endl;
-	cout << " E) esci" << endl;
-	cout << endl;
-	//nessun menu principale o precedente come opzione perchè è l'inizio
-	cout << "Selezionare una voce del menu: ";
-	cin >> a;
-	//controllo se lettera e converto in maiuscolo
-	if (isalpha(a))
-	{
-		toupper(a);
-	}
-	switch (a)
-	{
-	case '2':
-	{
-		menu_secondo(torna_al_menu_precedente);
-	}
-	break;
-	case '3':
-	{
-		//opzione 3
-	}
-	break;
-	case '4':
-	{
-		//opzione 4
+		//Tipologia da modificare
+		menu_tipologia_utenti(torna_al_menu_precedente, torna_al_menu_principale);
 	}
 	break;
 	case 'E':
 	{
-		//vuoto per uscire e non fare nulla
+		//torna al menu principale
+		torna_al_menu_principale = true;
 	}
 	break;
 	default:
@@ -321,6 +123,78 @@ void menu_primo()
 	}
 	break;
 	}
+	//controllo se c'è richiesta di tornare al menu precedente e lo ricarico
 	if (torna_al_menu_precedente)
-		menu_primo();
+		menu_gestione_utenti(torna_al_menu_precedente,torna_al_menu_principale);
+}
+
+//menu principale
+void menu_principale()
+{
+	//variabili booleane che mi permettono di tornare indietro nei menu
+	bool torna_al_menu_principale = false;
+	bool torna_al_menu_precedente = false;
+	
+	char scelta_principale;
+
+	//stampo voci menu
+	cout << "1) Gestione Utenti" << endl;
+	cout << "2) Gestione Relazioni" << endl;
+	cout << "3) Gestione Notizie" << endl;
+	cout << "4) Statistiche" << endl;
+	cout << "5) Ricerche" << endl;
+	cout << "6) Esci" << endl;
+	cout << endl;
+	cout << "Selezionare una voce del menu: ";
+	cin >> scelta_principale;
+	cout << endl;
+
+	//controllo se lettera e converto in maiuscolo
+	if (isalpha(scelta_principale))
+	{
+		scelta_principale=toupper(scelta_principale);
+	}
+
+	switch (scelta_principale)
+	{
+	case '1':
+	{
+		//menu gestione utenti
+		menu_gestione_utenti(torna_al_menu_precedente,torna_al_menu_principale);
+	}
+	break;
+	case '2':
+	{
+		//menu gestione relazioni
+	}
+	break;
+	case '3':
+	{
+		//menu gestione notizie
+	}
+	break;
+	case '4':
+	{
+		//menu statistiche
+	}
+	break;
+	case '5':
+	{
+		//menu ricerche
+	}
+	break;
+	case '6':
+	{
+		//uscita
+	}
+	break;
+	default:
+	{
+		cout << "Opzione non valida" << endl;
+	}
+	break;
+	}
+	//controllo se c'è richiesta di tornare al menu pricipale e lo ricarico
+	if (torna_al_menu_principale)
+		menu_principale();
 }
