@@ -16,6 +16,8 @@
 #define DIVISORE ':'
 #define PARENTESI_SX '{'
 #define PARENTESI_DX '}'
+#define NEW_LINE_CHARACTER '\n'
+#define NULL_TERMINATED_STRING '\0'
 
 using namespace std;
 
@@ -44,6 +46,8 @@ public:
 
 	//metodi della classe
 	int calcola_Eta() const;
+	bool stringa_Valida(const string &stringa) const;
+	bool utente_Valido() const;
 
 	//metodi di stampa
 	string stampa_Utente_Semplice() const;

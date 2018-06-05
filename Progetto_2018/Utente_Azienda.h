@@ -17,6 +17,8 @@
 #define DIVISORE ':'
 #define PARENTESI_SX '{'
 #define PARENTESI_DX '}'
+#define NEW_LINE_CHARACTER '\n'
+#define NULL_TERMINATED_STRING '\0'
 
 using namespace std;
 
@@ -44,6 +46,10 @@ public:
 	string get_Sede_Operativa() const;
 	string get_Tipo_Prodotto() const;
 	Data get_Data_Creazione() const;
+
+	//metodi della classe
+	bool stringa_Valida(const string &stringa) const;
+	bool utente_Valido() const;
 
 	//metodi di stampa
 	string stampa_Utente_Azienda() const;

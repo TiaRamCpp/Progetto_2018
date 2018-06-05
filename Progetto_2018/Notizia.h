@@ -6,12 +6,12 @@
 
 #include "Data.h"
 
-#define ID_VUOTO 0
-
 #define SEPARATORE ','
 #define DIVISORE ':'
 #define PARENTESI_SX '{'
 #define PARENTESI_DX '}'
+#define NEW_LINE_CHARACTER '\n'
+#define NULL_TERMINATED_STRING '\0'
 
 using namespace std;
 
@@ -21,33 +21,33 @@ public:
 
 	//costruttori e distruttore
 	Notizia();
-	Notizia(const int &id_mittente, const string &messaggio, const vector<int> &like, const vector<int> &dislike, const Data &data_pubblicazione);
+	Notizia(const string &id_mittente, const string &messaggio, const Data &data_pubblicazione, const vector<string> &like, const vector<string> &dislike);
 	~Notizia();
 
 	//metodi di set
-	void set_Id_Mittente(const int &id_mittente);
+	void set_Id_Mittente(const string &id_mittente);
 	void set_Messaggio(const string &messaggio);
-	void set_Like(const vector<int> &like);
-	void set_Dislike(const vector<int> &dislike);
 	void set_Data_Pubblicazione(const Data &data_pubblicazione);
+	void set_Like(const vector<string> &like);
+	void set_Dislike(const vector<string> &dislike);
 
 	//metodi di get
-	int get_Id_Mittente() const;
+	string get_Id_Mittente() const;
 	string get_Messaggio() const;
-	vector<int> get_Like() const;
-	vector<int> get_Dislike() const;
 	Data get_Data_Pubblicazione() const;
+	vector<string> get_Like() const;
+	vector<string> get_Dislike() const;
 
 	//metodi della classe
-
+	bool stringa_Valida(const string &stringa) const;
 	bool notizia_Valida() const;
 
 	//aggiunta reazione
-	bool aggiungi_Like(const int &id);
-	bool aggiungi_Dislike(const int &id);
+	bool aggiungi_Like(const string &id);
+	bool aggiungi_Dislike(const string &id);
 
 	//rimuovi reazione
-	bool rimuovi_Reazione(const int &id);
+	bool rimuovi_Reazione(const string &id);
 
 	//metodi di stampa
 	string stampa_Notizia() const;
@@ -56,14 +56,14 @@ public:
 private:
 
 	//metodi privati
-	bool _id_Trovato(const vector<int> &dati, const int &id) const;
-	int _trova_Pos_Id(const vector<int> &dati, const int &id) const;
-	bool _aggiungi_Reazione(vector<int> &reazione, const int &id);
+	bool _id_Trovato(const vector<string> &dati, const string &id) const;
+	int _trova_Pos_Id(const vector<string> &dati, const string &id) const;
+	bool _aggiungi_Reazione(vector<string> &reazione, const string &id);
 
 	//variabili private
-	int _id_mittente;
+	string _id_mittente;
 	string _messaggio;
-	vector<int> _like;
-	vector<int> _dislike;
 	Data _data_pubblicazione;
+	vector<string> _like;
+	vector<string> _dislike;
 };

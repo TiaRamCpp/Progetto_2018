@@ -71,6 +71,36 @@ Data Utente_Gruppo::get_Data_Creazione() const
 	return _data_creazione;
 }
 
+bool Utente_Gruppo::stringa_Valida(const string &stringa) const
+{
+	bool ok = true;
+	//controllo che non ci sia uno dei caratteri non permessi
+	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
+		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+			ok = false;
+	return ok;
+}
+
+bool Utente_Gruppo::utente_Valido() const
+{
+	//controlla che tutto l'utente sia valido
+	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
+	bool ok = true;
+	//controllo che nessuna stringa sia vuota
+	ok &= !_id.empty();
+	ok &= !_nome.empty();
+	ok &= !_sede_legale.empty();
+	ok &= !_tipologia_attività.empty();
+	//controllo che nessuna stringa contenga caratteri speciali
+	ok &= stringa_Valida(_id);
+	ok &= stringa_Valida(_nome);
+	ok &= stringa_Valida(_sede_legale);
+	ok &= stringa_Valida(_tipologia_attività);
+	//controllo che la data inserita sia valida
+	ok &= _data_creazione.is_Valid();
+	return ok;
+}
+
 string Utente_Gruppo::stampa_Utente_Gruppo() const
 {
 	string output;
