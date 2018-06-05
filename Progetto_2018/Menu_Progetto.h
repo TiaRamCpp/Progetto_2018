@@ -173,6 +173,108 @@ void menu_principale() {
 }
 
 //menu di prova poi elimina pure
+void menu_terzo(bool &torna_al_menu_precedente)
+{
+	torna_al_menu_precedente = false;
+	char a;
+	cout << " 1) menu minni" << endl;
+	cout << " 2) menu pippo" << endl;
+	cout << " 3) menu pluto" << endl;
+	cout << " 4) menu principale " << endl;
+	cout << " 5) menu precedente " << endl;
+	cout << endl;
+	cout << "Selezionare una voce del menu: ";
+	cin >> a;
+	//controllo se lettera e converto in maiuscolo
+	if (isalpha(a))
+	{
+		toupper(a);
+	}
+	switch (a)
+	{
+	case '1':
+	{
+		//opz1
+	}
+	break;
+	case '2':
+	{
+		//opz 2
+	}
+	break;
+	case '3':
+	{
+		//opzione 3
+	}
+	break;
+	case '4':
+	{
+		//menu principale
+	}
+	break;
+	case '5':
+	{
+		//menu precedente
+		torna_al_menu_precedente = true;
+	}
+	break;
+	default:
+	{
+		cout << "Opzione non valida" << endl;
+	}
+	break;
+	}
+}
+
+void menu_secondo(bool &torna_al_menu_precedente)
+{
+	torna_al_menu_precedente = false;
+	char a;
+	cout << " 1) menu terzo" << endl;
+	cout << " 2) menu pippo" << endl;
+	cout << " 3) menu pluto" << endl;
+	cout << " 4) menu principale " << endl;
+	cout << endl;
+	//nessun menu precedente tanto il menu principale è già il menu principale oppure li mettiamo tutti e due ma rimanderebbero tutti e due a menu_primo()
+	cout << "Selezionare una voce del menu: ";
+	cin >> a;
+	//controllo se lettera e converto in maiuscolo
+	if (isalpha(a))
+	{
+		toupper(a);
+	}
+	switch (a)
+	{
+	case '1':
+	{
+		menu_terzo(torna_al_menu_precedente);
+	}
+	break;
+	case '2':
+	{
+		//opz 2
+		//menu_quarto(torna_al_menu_precedente);
+	}
+	break;
+	case '3':
+	{
+		//opzione 3
+	}
+	break;
+	case '4':
+	{
+		//menu principale
+	}
+	break;
+	default:
+	{
+		cout << "Opzione non valida" << endl;
+	}
+	break;
+	}
+	if (torna_al_menu_precedente)
+		menu_secondo(torna_al_menu_precedente);
+}
 
 void menu_primo()
 {
@@ -182,6 +284,7 @@ void menu_primo()
 	cout << " 3) menu blabla" << endl;
 	cout << " 4) menu sbdiabdasb" << endl;
 	cout << " E) esci" << endl;
+	cout << endl;
 	//nessun menu principale o precedente come opzione perchè è l'inizio
 	cout << "Selezionare una voce del menu: ";
 	cin >> a;
@@ -220,105 +323,4 @@ void menu_primo()
 	}
 	if (torna_al_menu_precedente)
 		menu_primo();
-}
-
-void menu_secondo(bool &torna_al_menu_precedente)
-{
-	torna_al_menu_precedente = false;
-	char a;
-	cout << " 1) menu terzo" << endl;
-	cout << " 2) menu pippo" << endl;
-	cout << " 3) menu pluto" << endl;
-	cout << " 4) menu principale " << endl;
-	//nessun menu precedente tanto il menu principale è già il menu principale oppure li mettiamo tutti e due ma rimanderebbero tutti e due a menu_primo()
-	cout << "Selezionare una voce del menu: ";
-	cin >> a;
-	//controllo se lettera e converto in maiuscolo
-	if (isalpha(a))
-	{
-		toupper(a);
-	}
-	switch (a)
-	{
-	case '1':
-	{
-		menu_terzo(torna_al_menu_precedente);
-	}
-	break;
-	case '2':
-	{
-		//opz 2
-		//menu_quarto(torna_al_menu_precedente);
-	}
-	break;
-	case '3':
-	{
-		//opzione 3
-	}
-	break;
-	case '4':
-	{
-		//menu principale
-	}
-	break;
-	default:
-	{
-		cout << "Opzione non valida" << endl;
-	}
-	break;
-	}
-	if(torna_al_menu_precedente)
-		menu_secondo()
-}
-
-void menu_terzo(bool &torna_al_menu_precedente)
-{
-	torna_al_menu_precedente = false;
-	char a;
-	cout << " 1) menu minni" << endl;
-	cout << " 2) menu pippo" << endl;
-	cout << " 3) menu pluto" << endl;
-	cout << " 4) menu principale " << endl;
-	cout << " 5) menu precedente " << endl;
-	cout << "Selezionare una voce del menu: ";
-	cin >> a;
-	//controllo se lettera e converto in maiuscolo
-	if (isalpha(a))
-	{
-		toupper(a);
-	}
-	switch (a)
-	{
-	case '1':
-	{
-		//opz1
-	}
-	break;
-	case '2':
-	{
-		//opz 2
-	}
-	break;
-	case '3':
-	{
-		//opzione 3
-	}
-	break;
-	case '4':
-	{
-		//menu principale
-	}
-	break; 
-	case '5':
-	{
-		//menu precedente
-		torna_al_menu_precedente = true;
-	}
-	break;
-	default:
-	{
-		cout << "Opzione non valida" << endl;
-	}
-	break;
-	}
 }
