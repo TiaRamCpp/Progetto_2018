@@ -570,7 +570,7 @@ bool leggi_id_utente(ifstream &file_utenti, string &id_utente, const vector<Uten
 		{
 			//elimino ultimo carattere ,
 			id_utente.pop_back();
-			//controllo che non sia vuoto
+			//controllo che non sia vuoto prima di controllare che sia univoco
 			if (!id_utente.empty())
 			{
 				//se l'id utente è univoco
@@ -646,7 +646,224 @@ bool leggi_tipo_utente(ifstream &file_utenti, string &id_tipo_utente)
 }
 
 //lettura informazioni e valore informazioni per il file notizia
-// leggi id mittente
+bool leggi_id_mittente(ifstream &file_notizie, string &id_mittente, const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione, const vector<Notizia> &news)
+{
+	//legge e controlla "<id_mittente>," e '\n' prima dell id nel caso in cui non sia la prima notizia
+
+	bool ok = true;
+	//leggo id mittente
+	id_mittente = leggi_valore_informazione(file_notizie);
+	//se non è la prima notizia implica che deve essere a capo come nuova notizia rispetto a quella prima
+	if (news.size() != 0)
+	{
+		//quindi all inizio avrà un a capo da eliminare rispetto a quello prima
+		if (id_mittente.front() == '\n')
+		{
+			//allora lo elimino
+			id_mittente.erase(id_mittente.begin()); //elimina il primo '\n'
+		}
+		//errore formattazione o fine file
+		else
+		{
+			//se non era a fine file
+			if (!file_notizie.eof())
+			{
+				cerr << "Errore formattazione testo id_mittente, previsto : /n" << endl;
+			}
+			ok = false;
+		}
+	}
+	if (ok)
+	{
+		ok = false;
+		//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
+		if (id_mittente.back() == SEPARATORE)
+		{
+			//elimino ultimo carattere ,
+			id_mittente.pop_back();
+			//controllo che non sia vuoto prima di controllare che sia un id utente esistente
+			if (!id_mittente.empty())
+			{
+				//se l'id utente esiste
+				if (id_utente_trovato(persona, impresa, associazione, id_mittente))
+				{
+					ok = true;
+				}
+				//se l'id non esiste
+				else
+				{
+					cerr << "Errore : l'id_mittente = " << id_mittente << " non esiste" << endl;
+				}
+			}
+			//id_mittente vuoto
+			else
+			{
+				cerr << "Errore : l'id_mittente e' vuoto" << endl;
+			}
+		}
+	}
+	return ok;
+}
+bool leggi_messaggio(ifstream &file_notizie, string &messaggio)
+{
+	//legge e controlla "<messaggio>,"
+
+	bool ok = false;
+	messaggio = leggi_valore_informazione(file_notizie);
+	//controllo che alla fine ci sia ,
+	if (messaggio.back() == SEPARATORE)
+	{
+		//elimino ultimo carattere ,
+		messaggio.pop_back();
+		//controllo che non sia vuoto
+		if (!messaggio.empty())
+		{
+			ok = true;
+		}
+		//messaggio vuoto
+		else
+		{
+			cerr << "Errore : il messaggio e' vuoto" << endl;
+		}
+	}
+	//non formattato correttamente
+	else
+	{
+		cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+	}
+	return ok;
+}
+bool leggi_data_pubblicazione(ifstream &file_notizie, Data &data_pubblicazione)
+{
+	//legge "<data_pubblicazione>," la converte per salvarla e controlla che sia valida
+
+	bool ok = false;
+	string data_pubblicazione_str;
+	//leggo data
+	data_pubblicazione_str = leggi_valore_informazione(file_notizie);
+	//controllo che alla fine ci sia ,
+	if (data_pubblicazione_str.back() == SEPARATORE)
+	{
+		//elimino ultimo carattere ,
+		data_pubblicazione_str.pop_back();
+		//controllo che non sia vuota
+		if (!data_pubblicazione_str.empty())
+		{
+			//converto la stringa per salvarla e contemporaneamente verifico che sia valida
+			if (leggi_stringa_data_valida(data_pubblicazione_str, data_pubblicazione))
+			{
+				ok = true;
+			}
+		}
+		//data vuota
+		else
+		{
+			cerr << "Errore : la data di pubblicazione è vuota" << endl;
+		}
+	}
+	//non formattato correttamente
+	else
+	{
+		cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+	}
+	return ok;
+}
+bool leggi_id_utenti_reazione(ifstream &file_notizie, vector<string> &id_utenti_reazione)
+{
+	//legge "{<id1>,...,<idn>}" e li salva
+	bool ok = true;
+	char carattere;
+	string id_utente;
+	//leggo carattere
+	file_notizie >> carattere;
+	//controllo che sia '{'
+	if (carattere == PARENTESI_SX)
+	{
+		do
+		{
+			id_utente.clear();
+			do
+			{
+				file_notizie >> carattere;
+				id_utente.push_back(carattere);
+			} while ((carattere != SEPARATORE) && (carattere != PARENTESI_DX));
+			//elimino ultimo carattere
+			id_utente.pop_back();
+			//nel caso in cui non ci fosse nemmeno una reazione di quel tipo
+			if (!id_utente.empty())
+				id_utenti_reazione.push_back(id_utente);
+			else
+				//non formattato correttamente nel caso in cui ci sia almeno una reazione allora controllo che non sia vuoto l'id utente
+				if (id_utenti_reazione.size() != 0)
+				{
+					cerr << "Errore : id utente vuoto" << endl;
+					ok = false;
+				}
+		} while (carattere != PARENTESI_DX);
+	}
+	//non formattato correttamente
+	else
+	{
+		cerr << "Errore formattazione testo, prevista : " << PARENTESI_SX << endl;
+		ok = false;
+	}
+	return ok;
+}
+bool leggi_reazione(ifstream &file_notizie, const string &tipo_reazione, vector<string> &id_utenti_reazione, const bool ultima_reazione = false)
+{
+	//legge "<tipo_reazione>:{<id1>,...,<idn>}" + ',' o niente nel caso in cui sia l'ultima reazione (dislike)
+
+	bool ok = true;
+	string lettura;
+	char carattere;
+	//leggo tipo reazione
+	lettura = leggi_tipo_informazione(file_notizie);
+	//controllo che alla fine del tipo informazione ci sia :
+	if (lettura.back() == DIVISORE)
+	{
+		//elimino carattere alla fine
+		lettura.pop_back();
+		//controllo che abbia letto "tipo_reazione"
+		if (lettura == tipo_reazione)
+		{
+			//leggo id utenti reazione
+			if (leggi_id_utenti_reazione(file_notizie, id_utenti_reazione))
+			{
+				//se non è l'ultima reazione
+				if (!ultima_reazione)
+				{
+					//leggo carattere
+					file_notizie >> carattere;
+					//controllo che sia ','
+					if (carattere != SEPARATORE)
+					{
+						cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+						ok = false;
+					}
+				}
+			}
+			//se da errore la lettura degli id reazione
+			else
+			{
+				cerr << "Errore id utenti reazione : " << tipo_reazione << endl;
+				ok = false;
+			}
+		}
+		//tipo reazione non valido
+		else
+		{
+			cerr << "Errore formattazione testo, previsto : " << tipo_reazione << endl;
+			ok = false;
+		}
+	}
+	//non formattato correttamente
+	else
+	{
+		cerr << "Errore formattazione testo, previsto : " << DIVISORE << endl;
+		ok = false;
+	}
+	return ok;
+}
 
 //lettura file
 bool leggi_file_utenti(vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impresa, vector<Utente_Gruppo> &associazione, const string &nome_file_utenti)
@@ -720,24 +937,106 @@ bool leggi_file_notizie(const vector<Utente_Semplice> &persona, const vector<Ute
 		{
 			string id_mittente;
 			string messaggio;
+			Data data_pubblicazione;
+			vector<string> like;
+			vector<string> dislike;
+			//leggo id mittente e contemporaneamente verifico sia valido e esistente
+			if (leggi_id_mittente(file_notizie, id_mittente, persona, impresa, associazione, news))
+			{
+				news.resize(news.size() + 1);
+				//salvo il mittente
+				news.back().set_Id_Mittente(id_mittente);
+				//leggo messaggio
+				if (leggi_messaggio(file_notizie, messaggio))
+				{
+					//salvo il messaggio
+					news.back().set_Messaggio(messaggio);
+					//leggo data
+					if (leggi_data_pubblicazione(file_notizie, data_pubblicazione))
+					{
+						//salvo la data
+						news.back().set_Data_Pubblicazione(data_pubblicazione);
+						//leggo like
+						if (leggi_reazione(file_notizie, STR_LIKE, like))
+						{
+							//salvo like
+							news.back().set_Like(like);
+							//leggo dislike
+							if (leggi_reazione(file_notizie, STR_DISLIKE, dislike, true))
+							{
+								//salvo dislike
+								news.back().set_Dislike(dislike);
+								//verifico che la notizia sia valida
+								//cioè che like e dislike siano validi, no ripetizioni e voti diversi
+								if (news.back().notizia_Valida())
+								{
+									//verifico che tutti gli id utenti nelle reazioni siano esistenti
 
-			//leggo id_mittente
-			//verifico che esista l'id contemporaneamente
-
-			//leggo messaggio
-
-			//leggo data
-
-			//leggo like
-			//leggo dislike
-
-			//verifico che like e dislike siano validi, no ripetizioni e voti diversi
-			//verifico sia valida come notizia no errori
-
-			//verifico che tutti gli id siano esistenti
-			ok = false; //rimuovi
+									//verifico che tutti i like esistano
+									for (unsigned int i = 0; ((i<like.size()) && (ok)); i++)
+									{
+										if (!id_utente_trovato(persona, impresa, associazione, like[i]))
+										{
+											cerr << "Errore : l'id_utente ''" << like[i] << "'' ha messo " << STR_LIKE << " ma non esiste" << endl;
+											ok = false;
+										}
+									}
+									//verifico che tutti i dislike esistano
+									for (unsigned int i = 0; ((i<dislike.size()) && (ok)); i++)
+									{
+										if (!id_utente_trovato(persona, impresa, associazione, dislike[i]))
+										{
+											cerr << "Errore : l'id_utente ''" << dislike[i] << "'' ha messo " << STR_DISLIKE << " ma non esiste" << endl;
+											ok = false;
+										}
+									}
+								}
+								//se non è valida
+								else
+								{
+									cerr << "Errore : notizia non valida " << endl;
+									ok = false;
+								}
+							}
+							//se non ha letto i dislike
+							else
+							{
+								cerr << "Errore lettura " << STR_DISLIKE << endl;
+								ok = false;
+							}
+						}
+						//se non ha letto i like
+						else
+						{
+							cerr << "Errore lettura " << STR_LIKE << endl;
+							ok = false;
+						}
+					}
+					//se non ha letto la data
+					else
+					{
+						cerr << "Errore lettura data pubblicazione" << endl;
+						ok = false;
+					}
+				}
+				//se non ha letto il messaggio
+				else
+				{
+					cerr << "Errore lettura messaggio" << endl;
+					ok = false;
+				}
+			}
+			//se non ha letto l'id mittente
+			else
+			{
+				//se non era a fine file
+				if (!file_notizie.eof())
+				{
+					cerr << "Errore lettura id_mittente" << endl;
+					ok = false;
+				}
+			}
 		}
-		ok = true; //rimuovi
 	}
 	//se non si è aperto
 	else
@@ -763,4 +1062,8 @@ bool leggi_file(vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impres
 				return true;
 	//se la lettura di qualche file non è riuscita
 	return false;
+
+
+	//oppure + leggi file relazioni tanto se uno non va da errore e si ferma subito
+	return ((leggi_file_utenti(persona, impresa, associazione, nome_file_utenti)) && (leggi_file_notizie(persona, impresa, associazione, news, nome_file_notizie)));
 }
