@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Data.h" />
+    <ClInclude Include="Menu_Progetto.h" />
     <ClInclude Include="Notizia.h" />
     <ClInclude Include="Progetto_2018.h" />
     <ClInclude Include="targetver.h" />

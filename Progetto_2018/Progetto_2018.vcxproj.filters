@@ -36,6 +36,9 @@
     <ClInclude Include="Progetto_2018.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Menu_Progetto.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Progetto_2018.cpp">
