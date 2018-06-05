@@ -31,7 +31,7 @@ bool id_utente_gruppo_trovato(const vector<Utente_Gruppo> &associazione, const s
 	for (unsigned int i = 0; ((i < associazione.size()) && (!trovato)); i++)
 		if (associazione[i].get_Id() == id_utente)
 			trovato = true;
-return trovato;
+	return trovato;
 }
 bool id_utente_trovato(const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione, const string &id_utente)
 {
@@ -296,7 +296,7 @@ bool leggi_stringa_data_valida(const string &data, Data &data_letta)
 			if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
 			{
 				//assegno valori a data_letta
-				data_letta = Data(atoi(giorno.c_str()), atoi(mese.c_str()), atoi(anno.c_str())); 
+				data_letta = Data(atoi(giorno.c_str()), atoi(mese.c_str()), atoi(anno.c_str()));
 				//c.str() trasforma la stringa in una stringa di c
 				//cioe aggiunge il terminatore '\0' e cosi è compatibile con la funzione atoi()
 				//la quale trasforma la stringa in un numero intero
@@ -331,7 +331,7 @@ bool leggi_stringa_data_valida(const string &data, Data &data_letta)
 	return ok;
 }
 
-//lettura utenti informazioni e valore informazioni
+//lettura utenti informazioni e valore informazioni per il file utenti
 bool leggi_utente_semplice(ifstream &file_utenti, vector<Utente_Semplice> &persona)
 {
 	bool ok = false;
@@ -537,6 +537,8 @@ bool leggi_utente(ifstream &file_utenti, vector<Utente_Semplice> &persona, vecto
 }
 bool leggi_id_utente(ifstream &file_utenti, string &id_utente, const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione)
 {
+	//legge e controlla "<id_utente>," e '\n' prima dell id nel caso in cui non sia il primo
+
 	bool ok = true;
 	//leggo id
 	id_utente = leggi_valore_informazione(file_utenti);
@@ -555,7 +557,7 @@ bool leggi_id_utente(ifstream &file_utenti, string &id_utente, const vector<Uten
 			//se non era a fine file
 			if (!file_utenti.eof())
 			{
-				cerr << "Errore formattazione testo, previsto : /n" << endl;
+				cerr << "Errore formattazione testo id_utente, previsto : /n" << endl;
 			}
 			ok = false;
 		}
@@ -568,15 +570,24 @@ bool leggi_id_utente(ifstream &file_utenti, string &id_utente, const vector<Uten
 		{
 			//elimino ultimo carattere ,
 			id_utente.pop_back();
-			//se l'id utente è univoco
-			if (!id_utente_trovato(persona, impresa, associazione, id_utente))
+			//controllo che non sia vuoto
+			if (!id_utente.empty())
 			{
-				ok = true;
+				//se l'id utente è univoco
+				if (!id_utente_trovato(persona, impresa, associazione, id_utente))
+				{
+					ok = true;
+				}
+				//se l'id esiste già
+				else
+				{
+					cerr << "Errore : l'id_utente = " << id_utente << " non e' univoco" << endl;
+				}
 			}
-			//se l'id esiste già
+			//id_utente vuoto
 			else
 			{
-				cerr << "Errore : l'id_utente = " << id_utente << " non e' univoco" << endl;
+				cerr << "Errore : l'id_utente e' vuoto" << endl;
 			}
 		}
 	}
@@ -584,30 +595,58 @@ bool leggi_id_utente(ifstream &file_utenti, string &id_utente, const vector<Uten
 }
 bool leggi_tipo_utente(ifstream &file_utenti, string &id_tipo_utente)
 {
+	//legge e controlla "<id_tipo_utente>,{"
+
 	char carattere;
 	bool ok = false;
 	//leggo id tipo utente
 	id_tipo_utente = leggi_valore_informazione(file_utenti);
-	//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
+	//controllo che alla fine ci sia ,
 	if (id_tipo_utente.back() == SEPARATORE)
 	{
 		//elimino ultimo carattere ,
 		id_tipo_utente.pop_back();
-		//leggo carattere dopo
-		file_utenti.get(carattere);
-		//verifico che sia una parentesi {
-		if (carattere == PARENTESI_SX)
+		//controllo che non sia vuoto
+		if (!id_tipo_utente.empty())
 		{
-			ok = true;
+			//se l'id tipo utente esiste
+			if ((id_tipo_utente == ID_TIPO_SEMPLICE) || (id_tipo_utente == ID_TIPO_AZIENDA) || (id_tipo_utente == ID_TIPO_GRUPPO))
+			{
+				//leggo carattere dopo
+				file_utenti.get(carattere);
+				//verifico che sia una parentesi {
+				if (carattere == PARENTESI_SX)
+				{
+					ok = true;
+				}
+				//non formattato correttamente
+				else
+				{
+					cerr << "Errore formattazione testo, prevista : " << PARENTESI_SX << endl;
+				}
+			}
+			//se non è nessuno dei tipi previsti
+			else
+			{
+				cerr << "Errore : id_tipo_utente = ''" << id_tipo_utente << "'' non previsto" << endl;
+			}
 		}
-		//non formattato correttamente
+		//id_utente vuoto
 		else
 		{
-			cerr << "Errore formattazione testo, prevista : " << PARENTESI_SX << endl;
+			cerr << "Errore : l'id_tipo_utente e' vuoto" << endl;
 		}
+	}
+	//non formattato correttamente
+	else
+	{
+		cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
 	}
 	return ok;
 }
+
+//lettura informazioni e valore informazioni per il file notizia
+// leggi id mittente
 
 //lettura file
 bool leggi_file_utenti(vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impresa, vector<Utente_Gruppo> &associazione, const string &nome_file_utenti)
@@ -628,10 +667,10 @@ bool leggi_file_utenti(vector<Utente_Semplice> &persona, vector<Utente_Azienda> 
 		{
 			string id_utente;
 			string id_tipo_utente;
-			//leggo id utente
+			//leggo id utente e contemporaneamente verifico sia valido e univoco
 			if (leggi_id_utente(file_utenti, id_utente, persona, impresa, associazione))
 			{
-				//leggo tipo utente
+				//leggo tipo utente e contemporaneamente verifico che sia valido
 				if (leggi_tipo_utente(file_utenti, id_tipo_utente))
 				{
 					//leggo le informazioni a seconda del tipo di utente
@@ -677,16 +716,28 @@ bool leggi_file_notizie(const vector<Utente_Semplice> &persona, const vector<Ute
 	if (file_notizie.is_open())
 	{
 		//comincio a leggere il file
+		while ((!file_notizie.eof()) && (ok))
+		{
+			string id_mittente;
+			string messaggio;
 
+			//leggo id_mittente
+			//verifico che esista l'id contemporaneamente
 
+			//leggo messaggio
 
+			//leggo data
 
+			//leggo like
+			//leggo dislike
 
-		//leggo id_mittente
-		//verifico che esista l'id
-		//leggo messaggio,like,dislike
-		//verifico che tutti gli id siano esistenti
-		//verifico che like e dislike siano validi, no ripetizioni e voti diversi
+			//verifico che like e dislike siano validi, no ripetizioni e voti diversi
+			//verifico sia valida come notizia no errori
+
+			//verifico che tutti gli id siano esistenti
+			ok = false; //rimuovi
+		}
+		ok = true; //rimuovi
 	}
 	//se non si è aperto
 	else
