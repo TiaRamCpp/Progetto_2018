@@ -320,7 +320,16 @@ bool leggi_utente_semplice(ifstream &file_utenti, vector<Utente_Semplice> &perso
 					{
 						//salvo la data
 						persona.back().set_Data_Nascita(data_letta);
-						ok = true;
+						//controllo che tutto quello che ho letto sia valido
+						if (persona.back().utente_Valido())
+						{
+							ok = true;
+						}
+						//utente non valido
+						else
+						{
+							cerr << "Errore : utente semplice non valido" << endl;
+						}
 					}
 				}
 			}
@@ -361,7 +370,16 @@ bool leggi_utente_azienda(ifstream &file_utenti, vector<Utente_Azienda> &impresa
 						{
 							//salvo la data
 							impresa.back().set_Data_Creazione(data_letta);
-							ok = true;
+							//controllo che tutto quello che ho letto sia valido
+							if (impresa.back().utente_Valido())
+							{
+								ok = true;
+							}
+							//utente non valido
+							else
+							{
+								cerr << "Errore : utente azienda non valido" << endl;
+							}
 						}
 					}
 				}
@@ -398,10 +416,154 @@ bool leggi_utente_gruppo(ifstream &file_utenti, vector<Utente_Gruppo> &associazi
 					{
 						//salvo la data
 						associazione.back().set_Data_Creazione(data_letta);
-						ok = true;
+						//controllo che tutto quello che ho letto sia valido
+						if (associazione.back().utente_Valido())
+						{
+							ok = true;
+						}
+						//utente non valido
+						else
+						{
+							cerr << "Errore : utente gruppo non valido" << endl;
+						}
 					}
 				}
 			}
+		}
+	}
+	return ok;
+}
+bool leggi_utente(ifstream &file_utenti, vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impresa, vector<Utente_Gruppo> &associazione, const string &id_utente, const string &id_tipo_utente)
+{
+	bool ok = true;
+	//se è un utente semplice
+	if (id_tipo_utente == ID_TIPO_SEMPLICE)
+	{
+		//incremento la dimensione
+		persona.resize(persona.size() + 1);
+		//precarico le cose che ho già letto
+		persona.back().set_Id(id_utente);
+		//leggo altri eventuali dati
+		if (!leggi_utente_semplice(file_utenti, persona))
+		{
+			//se non legge correttamente l'utente
+			cerr << "Errore lettura utente id : " << id_utente << endl;
+			ok = false;
+		}
+	}
+	else
+	{
+		//se è un utente azienda
+		if (id_tipo_utente == ID_TIPO_AZIENDA)
+		{
+			//incremento la dimensione
+			impresa.resize(impresa.size() + 1);
+			//precarico le cose che ho già letto
+			impresa.back().set_Id(id_utente);
+			//leggo altri eventuali dati
+			if (!leggi_utente_azienda(file_utenti, impresa))
+			{
+				//se non legge correttamente l'utente
+				cerr << "Errore lettura utente id : " << id_utente << endl;
+				ok = false;
+			}
+		}
+		else
+		{
+			//se è un utente gruppo
+			if (id_tipo_utente == ID_TIPO_GRUPPO)
+			{
+				//incremento la dimensione
+				associazione.resize(associazione.size() + 1);
+				//precarico le cose che ho già letto
+				associazione.back().set_Id(id_utente);
+				//leggo altri eventuali dati
+				if (!leggi_utente_gruppo(file_utenti, associazione))
+				{
+					//se non legge correttamente l'utente
+					cerr << "Errore lettura utente id : " << id_utente << endl;
+					ok = false;
+				}
+			}
+			//se non è nessuno dei tipi previsti
+			else
+			{
+				cerr << "Errore : id_tipo_utente = ''" << id_tipo_utente << "'' non previsto" << endl;
+				ok = false;
+			}
+		}
+	}
+	return ok;
+}
+bool leggi_id_utente(ifstream &file_utenti, string &id_utente, const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione)
+{
+	bool ok = true;
+	//leggo id
+	id_utente = leggi_valore_informazione(file_utenti);
+	//se non è il primo utente implica che deve essere a capo come nuovo utente rispetto a quello prima
+	if ((persona.size() != 0) || (impresa.size() > 0) || (associazione.size() > 0))
+	{
+		//quindi all inizio avra un a capo da eliminare rispetto a quello prima
+		if (id_utente.front() == '\n')
+		{
+			//allora lo elimino
+			id_utente.erase(id_utente.begin()); //elimina il primo '\n'
+		}
+		//errore formattazione o fine file
+		else
+		{
+			//se non era a fine file
+			if (!file_utenti.eof())
+			{
+				cerr << "Errore formattazione testo, previsto : /n" << endl;
+			}
+			ok = false;
+		}
+	}
+	if (ok)
+	{
+		ok = false;
+		//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
+		if (id_utente.back() == SEPARATORE)
+		{
+			//elimino ultimo carattere ,
+			id_utente.pop_back();
+			//se l'id utente è univoco
+			if (!id_utente_trovato(persona, impresa, associazione, id_utente))
+			{
+				ok = true;
+			}
+			//se l'id esiste già
+			else
+			{
+				cerr << "Errore : l'id_utente = " << id_utente << " non e' univoco" << endl;
+			}
+		}
+	}
+	return ok;
+}
+bool leggi_tipo_utente(ifstream &file_utenti, string &id_tipo_utente)
+{
+	char carattere;
+	bool ok = false;
+	//leggo id tipo utente
+	id_tipo_utente = leggi_valore_informazione(file_utenti);
+	//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
+	if (id_tipo_utente.back() == SEPARATORE)
+	{
+		//elimino ultimo carattere ,
+		id_tipo_utente.pop_back();
+		//leggo carattere dopo
+		file_utenti.get(carattere);
+		//verifico che sia una parentesi {
+		if (carattere == PARENTESI_SX)
+		{
+			ok = true;
+		}
+		//non formattato correttamente
+		else
+		{
+			cerr << "Errore formattazione testo, prevista : " << PARENTESI_SX << endl;
 		}
 	}
 	return ok;
@@ -426,108 +588,19 @@ bool leggi_file_utenti(vector<Utente_Semplice> &persona, vector<Utente_Azienda> 
 		{
 			string id_utente;
 			string id_tipo_utente;
-			char carattere;
-			//leggo id
-			id_utente = leggi_valore_informazione(file_utenti);
-			//se non è il primo utente implica che deve essere a capo come nuovo utente rispetto a quello prima
-			//quindi all inizio avra un a capo da eliminare rispetto a quello prima
-			if (id_utente.front() == '\n')
+			//leggo id utente
+			if (leggi_id_utente(file_utenti, id_utente, persona, impresa, associazione))
 			{
-				//allora lo elimino
-				id_utente.erase(id_utente.begin()); //elimina il primo '\n'
-			}
-			//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
-			if (id_utente.back() == SEPARATORE)
-			{
-				//elimino ultimo carattere ,
-				id_utente.pop_back();
-				//se l'id utente è univoco
-				if (!id_utente_trovato(persona, impresa, associazione, id_utente))
+				//leggo tipo utente
+				if (leggi_tipo_utente(file_utenti, id_tipo_utente))
 				{
-					//leggo tipo utente
-					id_tipo_utente = leggi_valore_informazione(file_utenti);
-					//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
-					if (id_tipo_utente.back() == SEPARATORE)
-					{
-						//elimino ultimo carattere ,
-						id_tipo_utente.pop_back();
-						//leggo carattere dopo
-						file_utenti.get(carattere);
-						//verifico che sia una parentesi {
-						if (carattere == PARENTESI_SX)
-						{
-							//leggo le informazioni a seconda del tipo di utente
-
-							//se è un utente semplice
-							if (id_tipo_utente == ID_TIPO_SEMPLICE)
-							{
-								//incremento la dimensione
-								persona.resize(persona.size() + 1);
-								//precarico le cose che ho già letto
-								persona.back().set_Id(id_utente);
-								//leggo altri eventuali dati
-								if (!leggi_utente_semplice(file_utenti, persona))
-								{
-									//se non legge correttamente l'utente
-									cerr << "Errore lettura utente id : " << id_utente << endl;
-									ok = false;
-								}
-							}
-							else
-							{
-								//se è un utente azienda
-								if (id_tipo_utente == ID_TIPO_AZIENDA)
-								{
-									//incremento la dimensione
-									impresa.resize(impresa.size() + 1);
-									//precarico le cose che ho già letto
-									impresa.back().set_Id(id_utente);
-									//leggo altri eventuali dati
-									if (!leggi_utente_azienda(file_utenti, impresa))
-									{
-										//se non legge correttamente l'utente
-										cerr << "Errore lettura utente id : " << id_utente << endl;
-										ok = false;
-									}
-								}
-								else
-								{
-									//se è un utente gruppo
-									if (id_tipo_utente == ID_TIPO_GRUPPO)
-									{
-										//incremento la dimensione
-										associazione.resize(associazione.size() + 1);
-										//precarico le cose che ho già letto
-										associazione.back().set_Id(id_utente);
-										//leggo altri eventuali dati
-										if (!leggi_utente_gruppo(file_utenti, associazione))
-										{
-											//se non legge correttamente l'utente
-											cerr << "Errore lettura utente id : " << id_utente << endl;
-											ok = false;
-										}
-									}
-									//se non è nessuno dei tipi previsti
-									else
-									{
-										cerr << "Errore : id_tipo_utente = ''" << id_tipo_utente << "'' non previsto" << endl;
-										ok = false;
-									}
-								}
-							}
-						}
-						//non formattato correttamente
-						else
-						{
-							cerr << "Errore formattazione testo, prevista : " << PARENTESI_SX << endl;
-							ok = false;
-						}
-					}
+					//leggo le informazioni a seconda del tipo di utente
+					ok = leggi_utente(file_utenti, persona, impresa, associazione, id_utente, id_tipo_utente);
 				}
-				//se l'id esiste già
+				//se non ha letto l'id tipo utente
 				else
 				{
-					cerr << "Errore : l'id_utente = " << id_utente << " non e' univoco" << endl;
+					cerr << "Errore lettura id_tipo_utente" << endl;
 					ok = false;
 				}
 			}
@@ -537,8 +610,8 @@ bool leggi_file_utenti(vector<Utente_Semplice> &persona, vector<Utente_Azienda> 
 				//se non era a fine file
 				if (!file_utenti.eof())
 				{
-					ok = false;
 					cerr << "Errore lettura id_utente" << endl;
+					ok = false;
 				}
 			}
 		}
@@ -587,24 +660,16 @@ bool leggi_file_notizie(const vector<Utente_Semplice> &persona, const vector<Ute
 //bool leggi_file_relazioni(...)
 bool leggi_file(vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impresa, vector<Utente_Gruppo> &associazione, vector<Notizia> &news, const string &nome_file_utenti, const string &nome_file_notizie)
 {
-	bool lettura_file_utenti = leggi_file_utenti(persona, impresa, associazione, nome_file_utenti);
-	bool lettura_file_notizie = false;
-	bool lettura_file_relazioni = false;
-	//se il file utenti non da errori
-	if (lettura_file_utenti)
-	{
-		//leggo file notizie
-		lettura_file_notizie = leggi_file_notizie(persona, impresa, associazione, news, nome_file_notizie);
-		//se il file utenti non da errori
-		if (lettura_file_notizie)
-		{
-			//leggo file relazioni
-			//lettura_file_relazioni=leggi_file_relazioni(...);
-		}
-	}
-	return ((lettura_file_utenti) && (lettura_file_notizie) && (lettura_file_relazioni));
-
 	//aggiungi &&leggi file relazioni e nome file relazioni
 
-	//controlla tutti i dati letti validi
+
+	//leggo il file utenti
+	if (leggi_file_utenti(persona, impresa, associazione, nome_file_utenti))
+		//se non da errori leggo file notizie
+		if (leggi_file_notizie(persona, impresa, associazione, news, nome_file_notizie))
+			//se non da errori leggo file relazioni
+			if (true)
+				return true;
+	//se la lettura di qualche file non è riuscita
+	return false;
 }
