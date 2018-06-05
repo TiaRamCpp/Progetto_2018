@@ -81,7 +81,7 @@ bool Utente_Semplice::stringa_Valida(const string &stringa) const
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri non permessi
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
 			ok = false;
 	return ok;
 }
@@ -103,7 +103,7 @@ bool Utente_Semplice::utente_Valido() const
 	ok &= stringa_Valida(_domicilio);
 	//controllo che la data inserita sia valida
 	ok &= _data_nascita.is_Valid();
-	return false;
+	return ok;
 }
 
 string Utente_Semplice::stampa_Utente_Semplice() const

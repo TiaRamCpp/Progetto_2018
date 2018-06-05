@@ -76,7 +76,7 @@ bool Utente_Gruppo::stringa_Valida(const string &stringa) const
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri non permessi
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
 			ok = false;
 	return ok;
 }
@@ -98,7 +98,7 @@ bool Utente_Gruppo::utente_Valido() const
 	ok &= stringa_Valida(_tipologia_attività);
 	//controllo che la data inserita sia valida
 	ok &= _data_creazione.is_Valid();
-	return false;
+	return ok;
 }
 
 string Utente_Gruppo::stampa_Utente_Gruppo() const
