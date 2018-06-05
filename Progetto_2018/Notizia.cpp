@@ -74,7 +74,7 @@ bool Notizia::stringa_Valida(const string &stringa) const
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri non permessi
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
 			ok = false;
 	return ok;
 }
@@ -110,8 +110,7 @@ bool Notizia::notizia_Valida() const
 			if (_like[i] == _like[j])
 				valida = false;
 		//controllo che non abbia messo anche dislike
-		if (valida)
-			valida = _id_Trovato(_dislike, _like[i]);
+		valida &= !_id_Trovato(_dislike, _like[i]);
 	}
 
 	//controllo che chi abbia messo dislike ne abbia messo solo uno e nessun like
@@ -122,8 +121,7 @@ bool Notizia::notizia_Valida() const
 			if (_dislike[i] == _dislike[j])
 				valida = false;
 		//controllo che non abbia messo anche like
-		if (valida)
-			valida = _id_Trovato(_like, _dislike[i]);
+		valida &= !_id_Trovato(_like, _dislike[i]);
 	}
 
 	return valida;
@@ -178,7 +176,8 @@ string Notizia::stampa_Notizia() const
 	output += _data_pubblicazione.stampa_Data() + SEPARATORE;
 
 	//stampa like
-	output += "like" + DIVISORE;
+	output += STR_LIKE;
+	output += DIVISORE;
 	output += PARENTESI_SX;
 	for (unsigned int i = 0; i < _like.size(); i++)
 	{
@@ -188,9 +187,11 @@ string Notizia::stampa_Notizia() const
 			output += SEPARATORE;
 	}
 	output += PARENTESI_DX;
+	output += SEPARATORE;
 
 	//stampa dislike
-	output += SEPARATORE + "dislike" + DIVISORE;
+	output += STR_DISLIKE;
+	output += DIVISORE;
 	output += PARENTESI_SX;
 	for (unsigned int i = 0; i < _dislike.size(); i++)
 	{
@@ -199,7 +200,7 @@ string Notizia::stampa_Notizia() const
 		if (i < _dislike.size() - 1)
 			output += SEPARATORE;
 	}
-	output += DIVISORE;
+	output += PARENTESI_DX;
 
 	return output;
 }
@@ -240,9 +241,10 @@ bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
 	{
 		//identificazione reazione da aggiungere
 		if (reazione == _dislike)
-			tipo_reazione = "Dislike";
+			tipo_reazione = STR_DISLIKE;
 		else
-			tipo_reazione = "Like";
+			tipo_reazione = STR_DISLIKE;
+		tipo_reazione[0] = toupper(tipo_reazione[0]);
 		//aggiungo reazione
 		reazione.push_back(id);
 		//stampa aggiunta reazione
@@ -253,9 +255,9 @@ bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
 	{
 		//identificazione reazione già espressa
 		if (dislike_espresso)
-			tipo_reazione = "dislike";
+			tipo_reazione = STR_DISLIKE;
 		else
-			tipo_reazione = "like";
+			tipo_reazione = STR_LIKE;
 		//stampa tipo errore già espresso
 		cout << "L'ID = " << id << " ha gia' messo " << tipo_reazione << " a questa notizia" << endl;
 	}

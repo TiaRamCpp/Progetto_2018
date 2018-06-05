@@ -13,6 +13,9 @@
 #define NEW_LINE_CHARACTER '\n'
 #define NULL_TERMINATED_STRING '\0'
 
+#define STR_LIKE "like"
+#define STR_DISLIKE "dislike"
+
 using namespace std;
 
 class Notizia
