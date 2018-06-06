@@ -45,6 +45,9 @@
     <ClInclude Include="Gestione_Notizie.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Utente.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Progetto_2018.cpp">
@@ -63,6 +66,9 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="Utente_Gruppo.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Utente.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

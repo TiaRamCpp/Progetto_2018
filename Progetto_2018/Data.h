@@ -15,7 +15,7 @@ class Data
 {
 public:
 
-	//costruttori e distruttore
+	//costruttori e distruttor
 	Data();
 	Data(const int &giorno, const int &mese, const int &anno);
 	Data(const Data &da_copiare);	// Copy Constructor

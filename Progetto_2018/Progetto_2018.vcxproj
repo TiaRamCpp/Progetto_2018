@@ -154,6 +154,7 @@
     <ClInclude Include="Notizia.h" />
     <ClInclude Include="Progetto_2018.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utente.h" />
     <ClInclude Include="Utente_Azienda.h" />
     <ClInclude Include="Utente_Gruppo.h" />
     <ClInclude Include="Utente_Semplice.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Notizia.cpp" />
     <ClCompile Include="Progetto_2018.cpp" />
+    <ClCompile Include="Utente.cpp" />
     <ClCompile Include="Utente_Azienda.cpp" />
     <ClCompile Include="Utente_Gruppo.cpp" />
     <ClCompile Include="Utente_Semplice.cpp" />
