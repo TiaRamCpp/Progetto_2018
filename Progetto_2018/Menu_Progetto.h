@@ -5,18 +5,18 @@
 
 using namespace std;
 
-//menu principale
-void menu_tipologia_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_principale)
+//menu tipologia aggiunta utenti
+bool menu_tipologia_utenti_aggiungi(bool &torna_al_menu_precedente)
 {
+	bool modifica = false;
 	//inizializzo variabili booleane per evitare di tornare a menu precedenti
-	torna_al_menu_principale = false;
 	torna_al_menu_precedente = false;
 	
 	char scelta_tipologia;
 
-	cout << "S) Utente Semplice" << endl;
-	cout << "A) Utente Azienda" << endl;
-	cout << "G) Utente Gruppo" << endl;
+	cout << "S) Aggiungi Utente Semplice" << endl;
+	cout << "A) Aggiungi Utente Azienda" << endl;
+	cout << "G) Aggiungi Utente Gruppo" << endl;
 	cout << "P) Torna al Menu Precedente" << endl;
 	cout << "E) Torna al Menu Principale" << endl;
 	cout << endl;
@@ -35,6 +35,7 @@ void menu_tipologia_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_p
 	case 'S':
 	{
 		//Utente semplice
+		modifica = true;
 	}
 	break;
 	case 'A':
@@ -56,7 +57,6 @@ void menu_tipologia_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_p
 	case 'E':
 	{
 		//torna al menu principale
-		torna_al_menu_principale = true;
 	}
 	break;
 	default:
@@ -65,13 +65,14 @@ void menu_tipologia_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_p
 	}
 	break;
 	}
+	return modifica;
 }
 
 //menu gestione utenti
-void menu_gestione_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_principale)
+bool menu_gestione_utenti(bool &torna_al_menu_precedente)
 {
-	//inizializzo variabili booleane per evitare di tornare a menu precedenti
-	torna_al_menu_principale = false;
+	bool modifica = false;
+	//inizializzo variabile booleana per evitare di tornare a menu precedenti
 	torna_al_menu_precedente = false;
 	
 	char scelta_gestione;
@@ -96,25 +97,24 @@ void menu_gestione_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_pr
 	case 'A':
 	{
 		//Tipologia da aggiungere
-		menu_tipologia_utenti(torna_al_menu_precedente,torna_al_menu_principale);
+		modifica=menu_tipologia_utenti_aggiungi(torna_al_menu_precedente);
 	}
 	break;
 	case 'R':
 	{
 		//Tipologia da rimuovere
-		menu_tipologia_utenti(torna_al_menu_precedente, torna_al_menu_principale);
+		
 	}
 	break;
 	case 'M':
 	{
 		//Tipologia da modificare
-		menu_tipologia_utenti(torna_al_menu_precedente, torna_al_menu_principale);
+		
 	}
 	break;
 	case 'E':
 	{
 		//torna al menu principale
-		torna_al_menu_principale = true;
 	}
 	break;
 	default:
@@ -124,15 +124,17 @@ void menu_gestione_utenti(bool &torna_al_menu_precedente, bool &torna_al_menu_pr
 	break;
 	}
 	//controllo se c'è richiesta di tornare al menu precedente e lo ricarico
-	if (torna_al_menu_precedente)
-		menu_gestione_utenti(torna_al_menu_precedente,torna_al_menu_principale);
+	if (torna_al_menu_precedente) {
+		modifica = menu_gestione_utenti(torna_al_menu_precedente);
+	}
+	return modifica;
 }
 
 //menu principale
-void menu_principale()
+bool menu_principale()
 {
+	bool modifica = false;
 	//variabili booleane che mi permettono di tornare indietro nei menu
-	bool torna_al_menu_principale = false;
 	bool torna_al_menu_precedente = false;
 	
 	char scelta_principale;
@@ -160,7 +162,7 @@ void menu_principale()
 	case '1':
 	{
 		//menu gestione utenti
-		menu_gestione_utenti(torna_al_menu_precedente,torna_al_menu_principale);
+		modifica=menu_gestione_utenti(torna_al_menu_precedente);
 	}
 	break;
 	case '2':
@@ -194,7 +196,5 @@ void menu_principale()
 	}
 	break;
 	}
-	//controllo se c'è richiesta di tornare al menu pricipale e lo ricarico
-	if (torna_al_menu_principale)
-		menu_principale();
+	return modifica;
 }
