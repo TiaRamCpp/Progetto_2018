@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Caratteri.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="Gestione_Notizie.h" />
     <ClInclude Include="Menu_Progetto.h" />
     <ClInclude Include="Notizia.h" />
     <ClInclude Include="Progetto_2018.h" />

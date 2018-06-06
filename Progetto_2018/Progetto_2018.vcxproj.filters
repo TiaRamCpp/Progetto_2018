@@ -42,6 +42,9 @@
     <ClInclude Include="Caratteri.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Gestione_Notizie.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Progetto_2018.cpp">
