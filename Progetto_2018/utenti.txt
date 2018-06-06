@@ -1,6 +1,0 @@
-pippo.baudo,utente_semplice,{nome:pippo,cognome:baudo,domicilio:roma via lazio 10,data di nascita:20/10/1950}
-luca.giurato,utente_semplice,{nome:luca,cognome:giurato,domicilio:roma via lazio 20,data di nascita:2/2/1963}
-apple.iphone,utente_azienda,{nome:apple,sede fiscale:torino via roma 1,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni,data di creazione:10/12/1970}
-samsung.electronics,utente_azienda,{nome:samsung,sede fiscale:seul street uinpin 208,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni televisori ed elettrodomestici,data di creazione:1/2/1983}
-a.i.r.c.,utente_gruppo,{nome:airc,sede legale:candiolo strada vinovo 110,tipologia attivita':ricerca cancro,data di creazione:5/8/1987}
-a.i.b.,utente_gruppo,{nome:aib,sede legale:reano via rivoli 290,tipologia attivita':antincendio boschivi,data di creazione:25/9/1993}

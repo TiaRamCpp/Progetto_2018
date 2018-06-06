@@ -131,7 +131,7 @@ bool menu_gestione_utenti(bool &torna_al_menu_precedente)
 }
 
 //menu principale
-bool menu_principale()
+bool menu_principale(bool &esci)
 {
 	bool modifica = false;
 	//variabili booleane che mi permettono di tornare indietro nei menu
@@ -188,6 +188,7 @@ bool menu_principale()
 	case '6':
 	{
 		//uscita
+		esci = true;
 	}
 	break;
 	default:
