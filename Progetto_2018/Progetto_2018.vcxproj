@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Caratteri.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Menu_Progetto.h" />
     <ClInclude Include="Notizia.h" />
