@@ -3,7 +3,8 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
+#include "Progetto_2018.h"
+
 
 //menu tipologia aggiunta utenti
 bool menu_tipologia_utenti_aggiungi(bool &torna_al_menu_precedente)
@@ -28,6 +29,68 @@ bool menu_tipologia_utenti_aggiungi(bool &torna_al_menu_precedente)
 	if (isalpha(scelta_tipologia))
 	{
 		scelta_tipologia=toupper(scelta_tipologia);
+	}
+
+	switch (scelta_tipologia)
+	{
+	case 'S':
+	{
+		//Utente semplice
+		modifica = true;
+	}
+	break;
+	case 'A':
+	{
+		//Utente Azienda
+	}
+	break;
+	case 'G':
+	{
+		//Utente Gruppo
+	}
+	break;
+	case 'P':
+	{
+		//torna al menu precedente
+		torna_al_menu_precedente = true;
+	}
+	break;
+	case 'E':
+	{
+		//torna al menu principale
+	}
+	break;
+	default:
+	{
+		cout << "Opzione non valida" << endl;
+	}
+	break;
+	}
+	return modifica;
+}
+//menu tipologia aggiunta utenti
+bool menu_tipologia_utenti_modifica(bool &torna_al_menu_precedente)
+{
+	bool modifica = false;
+	//inizializzo variabili booleane per evitare di tornare a menu precedenti
+	torna_al_menu_precedente = false;
+
+	char scelta_tipologia;
+
+	cout << "S) Aggiungi Utente Semplice" << endl;
+	cout << "A) Aggiungi Utente Azienda" << endl;
+	cout << "G) Aggiungi Utente Gruppo" << endl;
+	cout << "P) Torna al Menu Precedente" << endl;
+	cout << "E) Torna al Menu Principale" << endl;
+	cout << endl;
+	cout << "Selezionare una voce del menu: ";
+	cin >> scelta_tipologia;
+	cout << endl;
+
+	//controllo se lettera e converto in maiuscolo
+	if (isalpha(scelta_tipologia))
+	{
+		scelta_tipologia = toupper(scelta_tipologia);
 	}
 
 	switch (scelta_tipologia)

@@ -1053,7 +1053,7 @@ bool leggi_file(vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impres
 	//aggiungi &&leggi file relazioni e nome file relazioni
 
 
-	//leggo il file utenti
+	/*//leggo il file utenti
 	if (leggi_file_utenti(persona, impresa, associazione, nome_file_utenti))
 		//se non da errori leggo file notizie
 		if (leggi_file_notizie(persona, impresa, associazione, news, nome_file_notizie))
@@ -1062,7 +1062,7 @@ bool leggi_file(vector<Utente_Semplice> &persona, vector<Utente_Azienda> &impres
 				return true;
 	//se la lettura di qualche file non è riuscita
 	return false;
-
+	*/
 
 	//oppure + leggi file relazioni tanto se uno non va da errore e si ferma subito
 	return ((leggi_file_utenti(persona, impresa, associazione, nome_file_utenti)) && (leggi_file_notizie(persona, impresa, associazione, news, nome_file_notizie)));
