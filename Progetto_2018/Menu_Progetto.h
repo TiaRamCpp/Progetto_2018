@@ -15,7 +15,7 @@ bool menu_attributi_utente_semplice(bool &torna_al_menu_precedente) {
 	cout << "N) Nome" << endl;
 	cout << "C) Cognome" << endl;
 	cout << "D) Domicilio" << endl;
-	cout << "B) Data dui nascita" << endl;
+	cout << "B) Data di nascita" << endl;
 	cout << "P) Torna al Menu Precedente" << endl;
 	cout << "E) Torna al Menu Principale" << endl;
 	cout << endl;
@@ -152,17 +152,17 @@ bool menu_attributi_utente_azienda(bool &torna_al_menu_precedente) {
 	}
 	return modifica;
 }
-//menu attributi utente azienda (4 livello)
-bool menu_attributi_utente_azienda(bool &torna_al_menu_precedente) {
+
+//menu attributi utente gruppo (4 livello)
+bool menu_attributi_utente_gruppo(bool &torna_al_menu_precedente) {
 	bool modifica = false;
 
 	char scelta_attributo;
 
 	cout << "I) Id" << endl;
 	cout << "N) Nome" << endl;
-	cout << "F) Sede fiscale" << endl;
-	cout << "O) Sede operativa" << endl;
-	cout << "T) Tipo prodotto" << endl;
+	cout << "L) Sede legale" << endl;
+	cout << "A) Tipologia attivita'" << endl;
 	cout << "D) Data creazione" << endl;
 	cout << "P) Torna al Menu Precedente" << endl;
 	cout << "E) Torna al Menu Principale" << endl;
@@ -189,19 +189,14 @@ bool menu_attributi_utente_azienda(bool &torna_al_menu_precedente) {
 		//Modifica nome
 	}
 	break;
-	case 'F':
+	case 'L':
 	{
-		//Modifica sede fiscale
+		//Modifica sede legale
 	}
 	break;
-	case 'O':
+	case 'A':
 	{
-		//Modifica sede operativa
-	}
-	break;
-	case 'T':
-	{
-		//Modifica tipologia prodotto
+		//Modifica tipologia attività
 	}
 	break;
 	case 'D':
@@ -228,6 +223,7 @@ bool menu_attributi_utente_azienda(bool &torna_al_menu_precedente) {
 	}
 	return modifica;
 }
+
 //menu tipologia aggiunta utenti (3 livello)
 bool menu_tipologia_utenti_aggiungi(bool &torna_al_menu_precedente)
 {
@@ -323,17 +319,19 @@ bool menu_tipologia_utenti_modifica(bool &torna_al_menu_precedente)
 	case 'S':
 	{
 		//Modifica utente semplice
-		menu_attributi_utente_semplice(torna_al_menu_precedente);
+		modifica=menu_attributi_utente_semplice(torna_al_menu_precedente);
 	}
 	break;
 	case 'A':
 	{
 		//modifica utente Azienda
+		modifica = menu_attributi_utente_azienda(torna_al_menu_precedente);
 	}
 	break;
 	case 'G':
 	{
 		//modifica utente Gruppo
+		modifica = menu_attributi_utente_gruppo(torna_al_menu_precedente);
 	}
 	break;
 	case 'P':
