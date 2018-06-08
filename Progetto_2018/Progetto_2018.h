@@ -296,10 +296,8 @@ bool leggi_stringa_data_valida(const string &data, Data &data_letta)
 			if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
 			{
 				//assegno valori a data_letta
-				data_letta = Data(atoi(giorno.c_str()), atoi(mese.c_str()), atoi(anno.c_str()));
-				//c.str() trasforma la stringa in una stringa di c
-				//cioe aggiunge il terminatore '\0' e cosi è compatibile con la funzione atoi()
-				//la quale trasforma la stringa in un numero intero
+				data_letta = Data(stoi(giorno), stoi(mese), stoi(anno));
+				//la funzione stoi trasforma la stringa in un numero intero
 
 				//se la non data è valida
 				if (!data_letta.is_Valid())

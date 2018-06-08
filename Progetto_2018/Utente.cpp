@@ -51,9 +51,9 @@ string Utente::get_Email() const
 bool Utente::stringa_Valida(const string &stringa) const
 {
 	bool ok = true;
-	//controllo che non ci sia uno dei caratteri non permessi
+	//controllo che non ci sia uno dei caratteri non permessi e che sia stampabile
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+		if (!_carattere_Valido(stringa[i]))
 			ok = false;
 	return ok;
 }
@@ -88,4 +88,22 @@ ostream & operator<<(ostream &output, const Utente &da_stampare)
 {
 	output << da_stampare.stampa_Utente();
 	return output;
+}
+
+bool Utente::_carattere_Valido(const char & carattere) const
+{
+	bool ok = true;
+	//controllo che non ci sia uno dei caratteri proibiti
+	if (carattere == SEPARATORE)
+		ok = false;
+	if (carattere == DIVISORE)
+		ok = false;
+	if (carattere == PARENTESI_SX)
+		ok = false;
+	if (carattere == PARENTESI_DX)
+		ok = false;
+	//controllo che sia un carattere stampabile
+	if (!isprint(carattere))
+		ok = false;
+	return ok;
 }

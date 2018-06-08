@@ -13,8 +13,6 @@
 #define DIVISORE ':'
 #define PARENTESI_SX '{'
 #define PARENTESI_DX '}'
-#define NEW_LINE_CHARACTER '\n'
-#define NULL_TERMINATED_STRING '\0'
 #define CHIOCCIOLA '@'
 
 class Utente
@@ -47,6 +45,9 @@ public:
 	friend ostream & operator<<(ostream &output, const Utente &da_stampare);
 
 protected: 
+
+	bool _carattere_Valido(const char &carattere) const;
+
 	//variabili protette
 
 	string _id;

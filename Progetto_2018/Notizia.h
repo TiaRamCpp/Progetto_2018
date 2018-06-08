@@ -10,8 +10,6 @@
 #define DIVISORE ':'
 #define PARENTESI_SX '{'
 #define PARENTESI_DX '}'
-#define NEW_LINE_CHARACTER '\n'
-#define NULL_TERMINATED_STRING '\0'
 
 #define STR_LIKE "like"
 #define STR_DISLIKE "dislike"
@@ -61,7 +59,8 @@ private:
 	//metodi privati
 	bool _id_Trovato(const vector<string> &dati, const string &id) const;
 	int _trova_Pos_Id(const vector<string> &dati, const string &id) const;
-	bool _aggiungi_Reazione(vector<string> &reazione, const string &id);
+	bool _aggiungi_Reazione(vector<string> &reazione, const string &id);	
+	bool _carattere_Valido(const char &carattere) const;
 
 	//variabili private
 	string _id_mittente;

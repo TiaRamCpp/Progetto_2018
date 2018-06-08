@@ -4,6 +4,8 @@ Notizia::Notizia()
 {
 	_id_mittente.clear();
 	_messaggio.clear();
+	_like.clear();
+	_dislike.clear();
 }
 
 Notizia::Notizia(const string &id_mittente, const string &messaggio, const Data &data_pubblicazione, const vector<string> &like, const vector<string> &dislike)
@@ -69,12 +71,12 @@ vector<string> Notizia::get_Dislike() const
 	return _dislike;
 }
 
-bool Notizia::stringa_Valida(const string &stringa) const
+bool Notizia::stringa_Valida(const string & stringa) const
 {
 	bool ok = true;
-	//controllo che non ci sia uno dei caratteri non permessi
+	//controllo che non ci sia uno dei caratteri non permessi e che sia stampabile
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE_DATA) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
+		if (!_carattere_Valido(stringa[i]))
 			ok = false;
 	return ok;
 }
@@ -261,5 +263,23 @@ bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
 		//stampa tipo errore già espresso
 		cout << "L'ID = " << id << " ha gia' messo " << tipo_reazione << " a questa notizia" << endl;
 	}
+	return ok;
+}
+
+bool Notizia::_carattere_Valido(const char & carattere) const
+{
+	bool ok = true;
+	//controllo che non ci sia uno dei caratteri proibiti
+	if (carattere == SEPARATORE)
+		ok = false;
+	if (carattere == DIVISORE)
+		ok = false;
+	if (carattere == PARENTESI_SX)
+		ok = false;
+	if (carattere == PARENTESI_DX)
+		ok = false;
+	//controllo che sia stampabile
+	if (!isprint(carattere))
+		ok = false;
 	return ok;
 }
