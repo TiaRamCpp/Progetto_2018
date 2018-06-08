@@ -34,9 +34,8 @@ public:
 	int calcola_Eta() const;
 	bool utente_Valido() const;
 
-	//metodi di stampa
-	string stampa_Utente_Semplice() const;
-	friend ostream & operator<<(ostream &output, const Utente_Semplice &da_stampare);
+	//metodo di stampa
+	string stampa_Utente() const;
 
 private:
 

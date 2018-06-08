@@ -40,6 +40,11 @@ public:
 	bool stringa_Valida(const string &stringa) const;
 	bool telefono_Valido() const;
 	bool email_Valida() const;
+	virtual bool utente_Valido() const = 0;
+
+	//metodi di stampa
+	virtual string stampa_Utente() const = 0;
+	friend ostream & operator<<(ostream &output, const Utente &da_stampare);
 
 protected: 
 	//variabili protette

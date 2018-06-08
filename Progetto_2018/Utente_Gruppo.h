@@ -33,9 +33,8 @@ public:
 	//metodi della classe
 	bool utente_Valido() const;
 
-	//metodi di stampa
-	string stampa_Utente_Gruppo() const;
-	friend ostream & operator<<(ostream &output, const Utente_Gruppo &da_stampare);
+	//metodo di stampa
+	string stampa_Utente() const;
 
 private:
 

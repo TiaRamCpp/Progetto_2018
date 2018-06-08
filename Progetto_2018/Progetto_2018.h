@@ -107,7 +107,7 @@ string stampa_utenti(const vector<Utente_Semplice> &persona, const vector<Utente
 	//stampa utenti semplici
 	for (unsigned int i = 0; i < persona.size(); i++)
 	{
-		output += persona[i].stampa_Utente_Semplice();
+		output += persona[i].stampa_Utente();
 		//se non è l'ultima riga
 		if (i < persona.size() - 1)
 			output += '\n';
@@ -119,7 +119,7 @@ string stampa_utenti(const vector<Utente_Semplice> &persona, const vector<Utente
 	//stampa utenti aziende
 	for (unsigned int i = 0; i < impresa.size(); i++)
 	{
-		output += impresa[i].stampa_Utente_Azienda();
+		output += impresa[i].stampa_Utente();
 		//se non è l'ultima riga
 		if (i < impresa.size() - 1)
 			output += '\n';
@@ -131,7 +131,7 @@ string stampa_utenti(const vector<Utente_Semplice> &persona, const vector<Utente
 	//stampa utenti gruppi
 	for (unsigned int i = 0; i < associazione.size(); i++)
 	{
-		output += associazione[i].stampa_Utente_Gruppo();
+		output += associazione[i].stampa_Utente();
 		//se non è l'ultima riga
 		if (i < associazione.size() - 1)
 			output += '\n';

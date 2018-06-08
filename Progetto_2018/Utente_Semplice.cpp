@@ -88,7 +88,7 @@ bool Utente_Semplice::utente_Valido() const
 	return ok;
 }
 
-string Utente_Semplice::stampa_Utente_Semplice() const
+string Utente_Semplice::stampa_Utente() const
 {
 	string output;
 
@@ -128,11 +128,5 @@ string Utente_Semplice::stampa_Utente_Semplice() const
 
 	output += PARENTESI_DX;
 
-	return output;
-}
-
-ostream & operator<<(ostream &output, const Utente_Semplice &da_stampare)
-{
-	output << da_stampare.stampa_Utente_Semplice();
 	return output;
 }

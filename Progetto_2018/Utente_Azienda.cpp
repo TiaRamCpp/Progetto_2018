@@ -97,7 +97,7 @@ bool Utente_Azienda::utente_Valido() const
 	return ok;
 }
 
-string Utente_Azienda::stampa_Utente_Azienda() const
+string Utente_Azienda::stampa_Utente() const
 {
 	string output;
 
@@ -139,11 +139,5 @@ string Utente_Azienda::stampa_Utente_Azienda() const
 	output += STR_DATA_DI_CREAZIONE;
 	output += DIVISORE + _data_creazione.stampa_Data() + PARENTESI_DX;
 
-	return output;
-}
-
-ostream & operator<<(ostream &output, const Utente_Azienda &da_stampare)
-{
-	output << da_stampare.stampa_Utente_Azienda();
 	return output;
 }

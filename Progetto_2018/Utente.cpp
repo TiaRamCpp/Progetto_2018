@@ -83,3 +83,9 @@ bool Utente::email_Valida() const
 		ok=true;
 	return ok;
 }
+
+ostream & operator<<(ostream &output, const Utente &da_stampare)
+{
+	output << da_stampare.stampa_Utente();
+	return output;
+}

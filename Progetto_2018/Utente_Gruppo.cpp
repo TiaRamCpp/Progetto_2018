@@ -83,7 +83,7 @@ bool Utente_Gruppo::utente_Valido() const
 	return ok;
 }
 
-string Utente_Gruppo::stampa_Utente_Gruppo() const
+string Utente_Gruppo::stampa_Utente() const
 {
 	string output;
 
@@ -121,11 +121,5 @@ string Utente_Gruppo::stampa_Utente_Gruppo() const
 	output += STR_DATA_DI_CREAZIONE;
 	output += DIVISORE + _data_creazione.stampa_Data() + PARENTESI_DX;
 
-	return output;
-}
-
-ostream & operator<<(ostream &output, const Utente_Gruppo &da_stampare)
-{
-	output << da_stampare.stampa_Utente_Gruppo();
 	return output;
 }
