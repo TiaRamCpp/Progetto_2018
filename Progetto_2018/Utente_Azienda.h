@@ -1,54 +1,39 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-
-#include "Data.h"
+#include "Utente.h"
 
 #define ID_TIPO_AZIENDA "utente_azienda"
 
-#define STR_NOME "nome"
 #define STR_SEDE_FISCALE "sede fiscale"
 #define STR_SEDE_OPERATIVA "sede operativa"
 #define STR_TIPO_PRODOTTO "tipo prodotto"
 #define STR_DATA_DI_CREAZIONE "data di creazione"
 
-#define SEPARATORE ','
-#define DIVISORE ':'
-#define PARENTESI_SX '{'
-#define PARENTESI_DX '}'
-#define NEW_LINE_CHARACTER '\n'
-#define NULL_TERMINATED_STRING '\0'
-
 using namespace std;
 
-class Utente_Azienda
+class Utente_Azienda :
+	public Utente
 {
 public:
 
 	//costruttori e distruttore
 	Utente_Azienda();
-	Utente_Azienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const Data &data_creazione);
+	Utente_Azienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const string &telefono, const string &email, const Data &data_creazione);
 	~Utente_Azienda();
 
 	//metodi di set
-	void set_Id(const string &id);
-	void set_Nome(const string &nome);
 	void set_Sede_Fiscale(const string &sede_fiscale);
 	void set_Sede_Operativa(const string &sede_operativa);
 	void set_Tipo_Prodotto(const string &tipo_prodotto);
 	void set_Data_Creazione(const Data &data_creazione);
 
 	//metodi di get
-	string get_Id() const;
-	string get_Nome() const;
 	string get_Sede_Fiscale() const;
 	string get_Sede_Operativa() const;
 	string get_Tipo_Prodotto() const;
 	Data get_Data_Creazione() const;
 
 	//metodi della classe
-	bool stringa_Valida(const string &stringa) const;
 	bool utente_Valido() const;
 
 	//metodi di stampa
@@ -58,8 +43,6 @@ public:
 private:
 
 	//variabili private
-	string _id;
-	string _nome;
 	string _sede_fiscale;
 	string _sede_operativa;
 	string _tipo_prodotto;

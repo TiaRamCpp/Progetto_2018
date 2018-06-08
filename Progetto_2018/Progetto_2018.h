@@ -352,23 +352,35 @@ bool leggi_utente_semplice(ifstream &file_utenti, vector<Utente_Semplice> &perso
 			{
 				//salvo domicilio
 				persona.back().set_Domicilio(lettura);
-				//leggo data di nascita
-				if (leggi_informazione_generica(file_utenti, STR_DATA_DI_NASCITA, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
+				//leggo telefono
+				if (leggi_informazione_generica(file_utenti, STR_TELEFONO, lettura))
 				{
-					//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
-					if (leggi_stringa_data_valida(lettura, data_letta))
+					//salvo telefono
+					persona.back().set_Telefono(lettura);
+					//leggo email
+					if (leggi_informazione_generica(file_utenti, STR_EMAIL, lettura))
 					{
-						//salvo la data
-						persona.back().set_Data_Nascita(data_letta);
-						//controllo che tutto quello che ho letto sia valido
-						if (persona.back().utente_Valido())
+						//salvo email
+						persona.back().set_Email(lettura);
+						//leggo data di nascita
+						if (leggi_informazione_generica(file_utenti, STR_DATA_DI_NASCITA, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 						{
-							ok = true;
-						}
-						//utente non valido
-						else
-						{
-							cerr << "Errore : utente semplice non valido" << endl;
+							//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
+							if (leggi_stringa_data_valida(lettura, data_letta))
+							{
+								//salvo la data
+								persona.back().set_Data_Nascita(data_letta);
+								//controllo che tutto quello che ho letto sia valido
+								if (persona.back().utente_Valido())
+								{
+									ok = true;
+								}
+								//utente non valido
+								else
+								{
+									cerr << "Errore : utente semplice non valido" << endl;
+								}
+							}
 						}
 					}
 				}
@@ -402,23 +414,35 @@ bool leggi_utente_azienda(ifstream &file_utenti, vector<Utente_Azienda> &impresa
 				{
 					//salvo tipo prodotto
 					impresa.back().set_Tipo_Prodotto(lettura);
-					//leggo data di creazione
-					if (leggi_informazione_generica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
+					//leggo telefono
+					if (leggi_informazione_generica(file_utenti, STR_TELEFONO, lettura))
 					{
-						//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
-						if (leggi_stringa_data_valida(lettura, data_letta))
+						//salvo telefono
+						impresa.back().set_Telefono(lettura);
+						//leggo email
+						if (leggi_informazione_generica(file_utenti, STR_EMAIL, lettura))
 						{
-							//salvo la data
-							impresa.back().set_Data_Creazione(data_letta);
-							//controllo che tutto quello che ho letto sia valido
-							if (impresa.back().utente_Valido())
+							//salvo email
+							impresa.back().set_Email(lettura);
+							//leggo data di creazione
+							if (leggi_informazione_generica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 							{
-								ok = true;
-							}
-							//utente non valido
-							else
-							{
-								cerr << "Errore : utente azienda non valido" << endl;
+								//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
+								if (leggi_stringa_data_valida(lettura, data_letta))
+								{
+									//salvo la data
+									impresa.back().set_Data_Creazione(data_letta);
+									//controllo che tutto quello che ho letto sia valido
+									if (impresa.back().utente_Valido())
+									{
+										ok = true;
+									}
+									//utente non valido
+									else
+									{
+										cerr << "Errore : utente azienda non valido" << endl;
+									}
+								}
 							}
 						}
 					}
@@ -448,23 +472,35 @@ bool leggi_utente_gruppo(ifstream &file_utenti, vector<Utente_Gruppo> &associazi
 			{
 				//salvo tipologia attività
 				associazione.back().set_Tipologia_Attività(lettura);
-				//leggo data di creazione
-				if (leggi_informazione_generica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
+				//leggo telefono
+				if (leggi_informazione_generica(file_utenti, STR_TELEFONO, lettura))
 				{
-					//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
-					if (leggi_stringa_data_valida(lettura, data_letta))
+					//salvo telefono
+					associazione.back().set_Telefono(lettura);
+					//leggo email
+					if (leggi_informazione_generica(file_utenti, STR_EMAIL, lettura))
 					{
-						//salvo la data
-						associazione.back().set_Data_Creazione(data_letta);
-						//controllo che tutto quello che ho letto sia valido
-						if (associazione.back().utente_Valido())
+						//salvo email
+						associazione.back().set_Email(lettura);
+						//leggo data di creazione
+						if (leggi_informazione_generica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 						{
-							ok = true;
-						}
-						//utente non valido
-						else
-						{
-							cerr << "Errore : utente gruppo non valido" << endl;
+							//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
+							if (leggi_stringa_data_valida(lettura, data_letta))
+							{
+								//salvo la data
+								associazione.back().set_Data_Creazione(data_letta);
+								//controllo che tutto quello che ho letto sia valido
+								if (associazione.back().utente_Valido())
+								{
+									ok = true;
+								}
+								//utente non valido
+								else
+								{
+									cerr << "Errore : utente gruppo non valido" << endl;
+								}
+							}
 						}
 					}
 				}

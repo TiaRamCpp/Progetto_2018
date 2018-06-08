@@ -6,29 +6,23 @@ Utente_Semplice::Utente_Semplice()
 	_nome.clear();
 	_cognome.clear();
 	_domicilio.clear();
+	_telefono.clear();
+	_email.clear();
 }
 
-Utente_Semplice::Utente_Semplice(const string &id, const string &nome, const string &cognome, const string &domicilio, const Data &data_nascita)
+Utente_Semplice::Utente_Semplice(const string &id, const string &nome, const string &cognome, const string &domicilio, const string &telefono, const string &email, const Data &data_nascita)
 {
 	_id = id;
 	_nome = nome;
 	_cognome = cognome;
 	_domicilio = domicilio;
+	_telefono = telefono;
+	_email = email;
 	_data_nascita = data_nascita;
 }
 
 Utente_Semplice::~Utente_Semplice()
 {
-}
-
-void Utente_Semplice::set_Id(const string &id)
-{
-	_id = id;
-}
-
-void Utente_Semplice::set_Nome(const string &nome)
-{
-	_nome = nome;
 }
 
 void Utente_Semplice::set_Cognome(const string &cognome)
@@ -44,16 +38,6 @@ void Utente_Semplice::set_Domicilio(const string &domicilio)
 void Utente_Semplice::set_Data_Nascita(const Data &data_nascita)
 {
 	_data_nascita = data_nascita;
-}
-
-string Utente_Semplice::get_Id() const
-{
-	return _id;
-}
-
-string Utente_Semplice::get_Nome() const
-{
-	return _nome;
 }
 
 string Utente_Semplice::get_Cognome() const
@@ -76,16 +60,6 @@ int Utente_Semplice::calcola_Eta() const
 	return _data_nascita.get_Anni_Da(); //con default la data di oggi
 }
 
-bool Utente_Semplice::stringa_Valida(const string &stringa) const
-{
-	bool ok = true;
-	//controllo che non ci sia uno dei caratteri non permessi
-	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
-			ok = false;
-	return ok;
-}
-
 bool Utente_Semplice::utente_Valido() const
 {
 	//controlla che tutto l'utente sia valido
@@ -96,11 +70,19 @@ bool Utente_Semplice::utente_Valido() const
 	ok &= !_nome.empty();
 	ok &= !_cognome.empty();
 	ok &= !_domicilio.empty();
+	ok &= !_telefono.empty();
+	ok &= !_email.empty();
 	//controllo che nessuna stringa contenga caratteri speciali
 	ok &= stringa_Valida(_id);
 	ok &= stringa_Valida(_nome);
 	ok &= stringa_Valida(_cognome);
 	ok &= stringa_Valida(_domicilio);
+	ok &= stringa_Valida(_telefono);
+	ok &= stringa_Valida(_email);
+	//controllo telefono valido
+	ok &= telefono_Valido();
+	//controllo email valida
+	ok &= email_Valida();
 	//controllo che la data inserita sia valida
 	ok &= _data_nascita.is_Valid();
 	return ok;
@@ -131,6 +113,14 @@ string Utente_Semplice::stampa_Utente_Semplice() const
 	//stampa domicilio
 	output += STR_DOMICILIO;
 	output += DIVISORE + _domicilio + SEPARATORE;
+
+	//stampa telefono
+	output += STR_TELEFONO;
+	output += DIVISORE + _telefono + SEPARATORE;
+
+	//stampa email
+	output += STR_EMAIL;
+	output += DIVISORE + _email + SEPARATORE;
 
 	//stampa data di nascita
 	output += STR_DATA_DI_NASCITA;

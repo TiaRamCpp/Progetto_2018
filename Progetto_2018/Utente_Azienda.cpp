@@ -7,30 +7,24 @@ Utente_Azienda::Utente_Azienda()
 	_sede_fiscale.clear();
 	_sede_operativa.clear();
 	_tipo_prodotto.clear();
+	_telefono.clear();
+	_email.clear();
 }
 
-Utente_Azienda::Utente_Azienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const Data &data_creazione)
+Utente_Azienda::Utente_Azienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const string &telefono, const string &email, const Data &data_creazione)
 {
 	_id = id;
 	_nome = nome;
 	_sede_fiscale = sede_fiscale;
 	_sede_operativa = sede_operativa;
 	_tipo_prodotto = tipo_prodotto;
+	_telefono = telefono;
+	_email = email;
 	_data_creazione = data_creazione;
 }
 
 Utente_Azienda::~Utente_Azienda()
 {
-}
-
-void Utente_Azienda::set_Id(const string &id)
-{
-	_id = id;
-}
-
-void Utente_Azienda::set_Nome(const string &nome)
-{
-	_nome = nome;
 }
 
 void Utente_Azienda::set_Sede_Fiscale(const string &sede_fiscale)
@@ -53,16 +47,6 @@ void Utente_Azienda::set_Data_Creazione(const Data &data_creazione)
 	_data_creazione = data_creazione;
 }
 
-string Utente_Azienda::get_Id() const
-{
-	return _id;
-}
-
-string Utente_Azienda::get_Nome() const
-{
-	return _nome;
-}
-
 string Utente_Azienda::get_Sede_Fiscale() const
 {
 	return _sede_fiscale;
@@ -83,16 +67,6 @@ Data Utente_Azienda::get_Data_Creazione() const
 	return _data_creazione;
 }
 
-bool Utente_Azienda::stringa_Valida(const string &stringa) const
-{
-	bool ok = true;
-	//controllo che non ci sia uno dei caratteri non permessi
-	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if ((stringa[i] == NEW_LINE_CHARACTER) || (stringa[i] == NULL_TERMINATED_STRING) || (stringa[i] == SEPARATORE) || (stringa[i] == DIVISORE) || (stringa[i] == PARENTESI_SX) || (stringa[i] == PARENTESI_DX))
-			ok = false;
-	return ok;
-}
-
 bool Utente_Azienda::utente_Valido() const
 {
 	//controlla che tutto l'utente sia valido
@@ -104,12 +78,20 @@ bool Utente_Azienda::utente_Valido() const
 	ok &= !_sede_fiscale.empty();
 	ok &= !_sede_operativa.empty();
 	ok &= !_tipo_prodotto.empty();
+	ok &= !_telefono.empty();
+	ok &= !_email.empty();
 	//controllo che nessuna stringa contenga caratteri speciali
 	ok &= stringa_Valida(_id);
 	ok &= stringa_Valida(_nome);
 	ok &= stringa_Valida(_sede_fiscale);
 	ok &= stringa_Valida(_sede_operativa);
 	ok &= stringa_Valida(_tipo_prodotto);
+	ok &= stringa_Valida(_telefono);
+	ok &= stringa_Valida(_email);
+	//controllo telefono valido
+	ok &= telefono_Valido();
+	//controllo email valida
+	ok &= email_Valida();
 	//controllo che la data inserita sia valida
 	ok &= _data_creazione.is_Valid();
 	return ok;
@@ -145,6 +127,14 @@ string Utente_Azienda::stampa_Utente_Azienda() const
 	output += STR_TIPO_PRODOTTO;
 	output += DIVISORE + _tipo_prodotto + SEPARATORE;
 
+	//stampa telefono
+	output += STR_TELEFONO;
+	output += DIVISORE + _telefono + SEPARATORE;
+
+	//stampa email
+	output += STR_EMAIL;
+	output += DIVISORE + _email + SEPARATORE;
+
 	//stampa data di creazione
 	output += STR_DATA_DI_CREAZIONE;
 	output += DIVISORE + _data_creazione.stampa_Data() + PARENTESI_DX;
@@ -152,7 +142,7 @@ string Utente_Azienda::stampa_Utente_Azienda() const
 	return output;
 }
 
-ostream & operator<<(ostream & output, const Utente_Azienda & da_stampare)
+ostream & operator<<(ostream &output, const Utente_Azienda &da_stampare)
 {
 	output << da_stampare.stampa_Utente_Azienda();
 	return output;
