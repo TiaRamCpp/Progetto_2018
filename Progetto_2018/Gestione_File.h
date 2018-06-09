@@ -14,51 +14,14 @@ void aggiorna_file_utenti(const vector<Utente_Semplice> &persona, const vector<U
 {
 	ofstream file_output;
 	file_output.open(nome_file_utenti);
-	//stampa utenti semplici
-	for (unsigned int i = 0; i < persona.size(); i++)
-	{
-		file_output << persona[i];
-		//se non è l'ultima riga
-		if (i < persona.size() - 1)
-			file_output << endl;
-		else
-			//se dopo devo stampare altri dati
-			if ((impresa.size() != 0) || (associazione.size() != 0))
-				file_output << endl;
-	}
-	//stampa utenti aziende
-	for (unsigned int i = 0; i < impresa.size(); i++)
-	{
-		file_output << impresa[i];
-		//se non è l'ultima riga
-		if (i < impresa.size() - 1)
-			file_output << endl;
-		else
-			//se dopo devo stampare altri dati
-			if (associazione.size() != 0)
-				file_output << endl;
-	}
-	//stampa utenti gruppi
-	for (unsigned int i = 0; i < associazione.size(); i++)
-	{
-		file_output << associazione[i];
-		//se non è l'ultima riga
-		if (i < associazione.size() - 1)
-			file_output << endl;
-	}
+	file_output << stampa_utenti(persona, impresa, associazione);
 	file_output.close();
 }
 void aggiorna_file_notizie(const vector<Notizia> &news, const string &nome_file_notizie)
 {
 	ofstream file_output;
 	file_output.open(nome_file_notizie);
-	for (unsigned int i = 0; i < news.size(); i++)
-	{
-		file_output << news[i];
-		//se non è l'ultima riga
-		if (i < news.size() - 1)
-			file_output << endl;
-	}
+	file_output << stampa_notizie(news);
 	file_output.close();
 }
 //void aggiorna_file_relazioni(...);
