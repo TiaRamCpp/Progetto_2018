@@ -3,8 +3,6 @@
 #include <iostream>
 #include <string>
 
-#include "Progetto_2018.h"
-
 //menu attributi utente semplice (4 livello)
 bool menu_attributi_utente_semplice(bool &torna_al_menu_precedente) {
 	bool modifica = false;
