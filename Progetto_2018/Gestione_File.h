@@ -77,7 +77,7 @@ string leggi_valore_informazione(ifstream &file_lettura, const bool &ultimo_dato
 		return leggi_fino_a(file_lettura, SEPARATORE);
 }
 
-//lettura tipo informazione
+//lettura tipo informazione generica
 bool leggi_informazione_generica(ifstream &file_utenti, const string &tipo_informazione, string &valore_informazione, const bool &ultimo_dato = false)
 {
 	//legge e controlla <tipo_informazione> ':' <valore_informazione> ',' ( o '}' nel caso sia l'ultimo dato)
@@ -131,85 +131,6 @@ bool leggi_informazione_generica(ifstream &file_utenti, const string &tipo_infor
 	}
 	return ok;
 }
-bool leggi_stringa_data_valida(const string &data, Data &data_letta)
-{
-	//legge e controlla gg/mm/aaaa o g/mm/aaaa o gg/m/aaaa
-
-	bool ok = true;
-	bool stop = false;
-	unsigned int posizione = 0;
-	string giorno;
-	string mese;
-	string anno;
-	giorno.clear();
-	mese.clear();
-	anno.clear();
-	//leggo giorno
-	for (; ((posizione < data.size()) && (!stop)); posizione++)
-	{
-		if (isdigit(data[posizione]))
-			giorno += data[posizione];
-		else
-			stop = true;
-	}
-	//controllo che il carattere dopo sia '/'
-	if (data[posizione - 1] == SEPARATORE_DATA)
-	{
-		//leggo il mese
-		for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
-		{
-			if (isdigit(data[posizione]))
-				mese += data[posizione];
-			else
-				stop = true;
-		}
-		//controllo che il carattere dopo sia '/'
-		if (data[posizione - 1] == SEPARATORE_DATA)
-		{
-			//leggo l'anno
-			for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
-			{
-				if (isdigit(data[posizione]))
-					anno += data[posizione];
-				else
-					stop = true;
-			}
-			//controllo che quello che ho letto sia la data passata e che quindi non ci siano caratteri dopo l'anno
-			if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
-			{
-				//assegno valori a data_letta
-				data_letta = Data(stoi(giorno), stoi(mese), stoi(anno));
-				//la funzione stoi trasforma la stringa in un numero intero
-
-				//se la non data è valida
-				if (!data_letta.is_Valid())
-				{
-					cerr << "Errore : data non valida" << endl;
-					ok = false;
-				}
-			}
-			//errore formattazione data 
-			else
-			{
-				cerr << "Errore formattazione data" << endl;
-				ok = false;
-			}
-		}
-		//errore formattazione data 
-		else
-		{
-			cerr << "Errore formattazione data" << endl;
-			ok = false;
-		}
-	}
-	//errore formattazione data 
-	else
-	{
-		cerr << "Errore formattazione data" << endl;
-		ok = false;
-	}
-	return ok;
-}
 
 //lettura utenti informazioni e valore informazioni per il file utenti
 bool leggi_utente_semplice(ifstream &file_utenti, vector<Utente_Semplice> &persona)
@@ -246,7 +167,7 @@ bool leggi_utente_semplice(ifstream &file_utenti, vector<Utente_Semplice> &perso
 						if (leggi_informazione_generica(file_utenti, STR_DATA_DI_NASCITA, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 						{
 							//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
-							if (leggi_stringa_data_valida(lettura, data_letta))
+							if(data_letta.converti_Stringa_A_Data(lettura))
 							{
 								//salvo la data
 								persona.back().set_Data_Nascita(data_letta);
@@ -308,7 +229,7 @@ bool leggi_utente_azienda(ifstream &file_utenti, vector<Utente_Azienda> &impresa
 							if (leggi_informazione_generica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 							{
 								//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
-								if (leggi_stringa_data_valida(lettura, data_letta))
+								if (data_letta.converti_Stringa_A_Data(lettura))
 								{
 									//salvo la data
 									impresa.back().set_Data_Creazione(data_letta);
@@ -366,7 +287,7 @@ bool leggi_utente_gruppo(ifstream &file_utenti, vector<Utente_Gruppo> &associazi
 						if (leggi_informazione_generica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 						{
 							//verifico che sia stata letta una data corretta e contemporaneamente verifico che sia valida
-							if (leggi_stringa_data_valida(lettura, data_letta))
+							if (data_letta.converti_Stringa_A_Data(lettura))
 							{
 								//salvo la data
 								associazione.back().set_Data_Creazione(data_letta);
@@ -666,7 +587,7 @@ bool leggi_data_pubblicazione(ifstream &file_notizie, Data &data_pubblicazione)
 		if (!data_pubblicazione_str.empty())
 		{
 			//converto la stringa per salvarla e contemporaneamente verifico che sia valida
-			if (leggi_stringa_data_valida(data_pubblicazione_str, data_pubblicazione))
+			if (data_pubblicazione.converti_Stringa_A_Data(data_pubblicazione_str))
 			{
 				ok = true;
 			}

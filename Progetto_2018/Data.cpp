@@ -102,6 +102,88 @@ bool Data::is_Valid() const
 	return valido;
 }
 
+bool Data::converti_Stringa_A_Data(const string &data)
+{
+	//legge e controlla gg/mm/aaaa o g/mm/aaaa o gg/m/aaaa
+
+	bool ok = true;
+	bool stop = false;
+	unsigned int posizione = 0;
+	string giorno;
+	string mese;
+	string anno;
+	giorno.clear();
+	mese.clear();
+	anno.clear();
+	//leggo giorno
+	for (; ((posizione < data.size()) && (!stop)); posizione++)
+	{
+		if (isdigit(data[posizione]))
+			giorno += data[posizione];
+		else
+			stop = true;
+	}
+	//controllo che il carattere dopo sia '/'
+	if (data[posizione - 1] == SEPARATORE_DATA)
+	{
+		//leggo il mese
+		for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
+		{
+			if (isdigit(data[posizione]))
+				mese += data[posizione];
+			else
+				stop = true;
+		}
+		//controllo che il carattere dopo sia '/'
+		if (data[posizione - 1] == SEPARATORE_DATA)
+		{
+			//leggo l'anno
+			for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
+			{
+				if (isdigit(data[posizione]))
+					anno += data[posizione];
+				else
+					stop = true;
+			}
+			//controllo che quello che ho letto sia la data passata e che quindi non ci siano caratteri dopo l'anno
+			if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
+			{
+				//assegno valori a data_letta
+				_giorno = stoi(giorno);
+				_mese = stoi(mese);
+				_anno = stoi(anno);
+				//la funzione stoi trasforma la stringa in un numero intero
+
+				//se la non data è valida
+				if (!is_Valid())
+				{
+					cerr << "Errore : data non valida" << endl;
+					ok = false;
+				}
+			}
+			//errore formattazione data 
+			else
+			{
+				cerr << "Errore formattazione data" << endl;
+				ok = false;
+			}
+		}
+		//errore formattazione data 
+		else
+		{
+			cerr << "Errore formattazione data" << endl;
+			ok = false;
+		}
+	}
+	//errore formattazione data 
+	else
+	{
+		cerr << "Errore formattazione data" << endl;
+		ok = false;
+	}
+	return ok;
+}
+
 int Data::_calcola_Numero_Giorno() const
 {
 	int giorni_nel_mese[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };

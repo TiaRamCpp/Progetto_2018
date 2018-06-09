@@ -141,24 +141,21 @@ bool Notizia::aggiungi_Dislike(const string &id)
 
 bool Notizia::rimuovi_Reazione(const string &id)
 {
-	bool like_espresso = _id_Trovato(_like, id);
-	bool dislike_espresso = _id_Trovato(_dislike, id);
-	bool rimossa = like_espresso || dislike_espresso;
+	bool rimossa = false;
 	//se ha messo like lo rimuovo
-	if (like_espresso)
+	if (_id_Trovato(_like, id))
 	{
 		_like.erase(_like.begin() + _trova_Pos_Id(_like, id));
-		cout << "Like rimosso" << endl;
+		rimossa = true;
 	}
-	//se ha messo dislike lo rimuovo
-	if (dislike_espresso)
-	{
-		_dislike.erase(_dislike.begin() + _trova_Pos_Id(_dislike, id));
-		cout << "Dislike rimosso" << endl;
-	}
-	//se non ha messo nessuna reazione
-	if (!rimossa)
-		cout << "L'ID = " << id << " non ha messo nessuna reazione a questa notizia" << endl;
+	//se non ha messo like
+	else
+		//controllo se abbia messo dislike
+		if (_id_Trovato(_dislike, id))
+		{
+			_dislike.erase(_dislike.begin() + _trova_Pos_Id(_dislike, id));
+			rimossa = true;
+		}
 	return rimossa;
 }
 
@@ -237,31 +234,11 @@ bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
 	bool like_espresso = _id_Trovato(_like, id);
 	bool dislike_espresso = _id_Trovato(_dislike, id);
 	bool ok = !(like_espresso || dislike_espresso);
-	string tipo_reazione;
 	//se non ha già messo una reazione
 	if (ok)
 	{
-		//identificazione reazione da aggiungere
-		if (reazione == _dislike)
-			tipo_reazione = STR_DISLIKE;
-		else
-			tipo_reazione = STR_DISLIKE;
-		tipo_reazione[0] = toupper(tipo_reazione[0]);
 		//aggiungo reazione
 		reazione.push_back(id);
-		//stampa aggiunta reazione
-		cout << tipo_reazione << " aggiunto" << endl;
-	}
-	//se l'ha già messa
-	else
-	{
-		//identificazione reazione già espressa
-		if (dislike_espresso)
-			tipo_reazione = STR_DISLIKE;
-		else
-			tipo_reazione = STR_LIKE;
-		//stampa tipo errore già espresso
-		cout << "L'ID = " << id << " ha gia' messo " << tipo_reazione << " a questa notizia" << endl;
 	}
 	return ok;
 }

@@ -30,6 +30,7 @@ public:
 	string stampa_Data() const;
 	int get_Anni_Da(const Data &data_input = Data()) const;
 	bool is_Valid() const;
+	bool converti_Stringa_A_Data(const string &data);
 
 	//operatori della classe
 	friend ostream & operator<<(ostream &output, const Data &da_stampare);	// overload of the << operator for the Data class. ---- the fried keyword is mandatory to define the overload.

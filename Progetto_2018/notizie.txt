@@ -1,2 +1,5 @@
 pippo.baudo,hello world,3/6/2018,like:{luca.giurato,pippo.baudo},dislike:{apple.iphone}
-apple.iphone,nuovi prodotti a settembre,5/6/2018,like:{luca.giurato},dislike:{samsung.electronics}
+apple.iphone,nuovi prodotti a settembre,5/6/2018,like:{luca.giurato,pippo.baudo},dislike:{samsung.electronics}
+pippo.baudo,prima notizia aggiunta,22/10/2015,like:{pippo.baudo},dislike:{}
+pippo.baudo,seconda notizia aggiunta,9/6/2018,like:{},dislike:{}
+pippo.baudo,terza notizia aggiunta,14/5/2014,like:{},dislike:{}
