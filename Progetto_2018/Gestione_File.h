@@ -133,7 +133,7 @@ bool leggiInformazioneGenerica(ifstream &file_utenti, const string &tipo_informa
 }
 
 //lettura utenti informazioni e valore informazioni per il file utenti
-bool leggiUtenteSemplice(ifstream &file_utenti, vector<UtenteSemplice> &persona)
+bool leggiUtenteSemplice(ifstream &file_utenti, UtenteSemplice &persona)
 {
 	bool ok = false;
 	string lettura;
@@ -142,27 +142,27 @@ bool leggiUtenteSemplice(ifstream &file_utenti, vector<UtenteSemplice> &persona)
 	if (leggiInformazioneGenerica(file_utenti, STR_NOME, lettura))
 	{
 		//salvo nome
-		persona.back().setNome(lettura);
+		persona.setNome(lettura);
 		//leggo cognome
 		if (leggiInformazioneGenerica(file_utenti, STR_COGNOME, lettura))
 		{
 			//salvo cognome
-			persona.back().setCognome(lettura);
+			persona.setCognome(lettura);
 			//leggo domicilio
 			if (leggiInformazioneGenerica(file_utenti, STR_DOMICILIO, lettura))
 			{
 				//salvo domicilio
-				persona.back().setDomicilio(lettura);
+				persona.setDomicilio(lettura);
 				//leggo telefono
 				if (leggiInformazioneGenerica(file_utenti, STR_TELEFONO, lettura))
 				{
 					//salvo telefono
-					persona.back().setTelefono(lettura);
+					persona.setTelefono(lettura);
 					//leggo email
 					if (leggiInformazioneGenerica(file_utenti, STR_EMAIL, lettura))
 					{
 						//salvo email
-						persona.back().setEmail(lettura);
+						persona.setEmail(lettura);
 						//leggo data di nascita
 						if (leggiInformazioneGenerica(file_utenti, STR_DATA_DI_NASCITA, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 						{
@@ -170,9 +170,9 @@ bool leggiUtenteSemplice(ifstream &file_utenti, vector<UtenteSemplice> &persona)
 							if(data_letta.convertiStringaAData(lettura))
 							{
 								//salvo la data
-								persona.back().setDataNascita(data_letta);
+								persona.setDataNascita(data_letta);
 								//controllo che tutto quello che ho letto sia valido
-								if (persona.back().utenteValido())
+								if (persona.utenteValido())
 								{
 									ok = true;
 								}
@@ -190,7 +190,7 @@ bool leggiUtenteSemplice(ifstream &file_utenti, vector<UtenteSemplice> &persona)
 	}
 	return ok;
 }
-bool leggiUtenteAzienda(ifstream &file_utenti, vector<UtenteAzienda> &impresa)
+bool leggiUtenteAzienda(ifstream &file_utenti, UtenteAzienda &impresa)
 {
 	bool ok = false;
 	string lettura;
@@ -199,32 +199,32 @@ bool leggiUtenteAzienda(ifstream &file_utenti, vector<UtenteAzienda> &impresa)
 	if (leggiInformazioneGenerica(file_utenti, STR_NOME, lettura))
 	{
 		//salvo nome
-		impresa.back().setNome(lettura);
+		impresa.setNome(lettura);
 		//leggo sede fiscale
 		if (leggiInformazioneGenerica(file_utenti, STR_SEDE_FISCALE, lettura))
 		{
 			//salvo sede fiscale
-			impresa.back().setSedeFiscale(lettura);
+			impresa.setSedeFiscale(lettura);
 			//leggo sede operativa
 			if (leggiInformazioneGenerica(file_utenti, STR_SEDE_OPERATIVA, lettura))
 			{
 				//salvo sede operativa
-				impresa.back().setSedeOperativa(lettura);
+				impresa.setSedeOperativa(lettura);
 				//leggo tipo prodotto
 				if (leggiInformazioneGenerica(file_utenti, STR_TIPO_PRODOTTO, lettura))
 				{
 					//salvo tipo prodotto
-					impresa.back().setTipoProdotto(lettura);
+					impresa.setTipoProdotto(lettura);
 					//leggo telefono
 					if (leggiInformazioneGenerica(file_utenti, STR_TELEFONO, lettura))
 					{
 						//salvo telefono
-						impresa.back().setTelefono(lettura);
+						impresa.setTelefono(lettura);
 						//leggo email
 						if (leggiInformazioneGenerica(file_utenti, STR_EMAIL, lettura))
 						{
 							//salvo email
-							impresa.back().setEmail(lettura);
+							impresa.setEmail(lettura);
 							//leggo data di creazione
 							if (leggiInformazioneGenerica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 							{
@@ -232,9 +232,9 @@ bool leggiUtenteAzienda(ifstream &file_utenti, vector<UtenteAzienda> &impresa)
 								if (data_letta.convertiStringaAData(lettura))
 								{
 									//salvo la data
-									impresa.back().setDataCreazione(data_letta);
+									impresa.setDataCreazione(data_letta);
 									//controllo che tutto quello che ho letto sia valido
-									if (impresa.back().utenteValido())
+									if (impresa.utenteValido())
 									{
 										ok = true;
 									}
@@ -253,7 +253,7 @@ bool leggiUtenteAzienda(ifstream &file_utenti, vector<UtenteAzienda> &impresa)
 	}
 	return ok;
 }
-bool leggiUtenteGruppo(ifstream &file_utenti, vector<UtenteGruppo> &associazione)
+bool leggiUtenteGruppo(ifstream &file_utenti, UtenteGruppo &associazione)
 {
 	bool ok = false;
 	string lettura;
@@ -262,27 +262,27 @@ bool leggiUtenteGruppo(ifstream &file_utenti, vector<UtenteGruppo> &associazione
 	if (leggiInformazioneGenerica(file_utenti, STR_NOME, lettura))
 	{
 		//salvo nome
-		associazione.back().setNome(lettura);
+		associazione.setNome(lettura);
 		//leggo sede legale
 		if (leggiInformazioneGenerica(file_utenti, STR_SEDE_LEGALE, lettura))
 		{
 			//salvo sede legale
-			associazione.back().setSedeLegale(lettura);
+			associazione.setSedeLegale(lettura);
 			//leggo tipologia attività
 			if (leggiInformazioneGenerica(file_utenti, STR_TIPOLOGIA_ATTIVITA, lettura))
 			{
 				//salvo tipologia attività
-				associazione.back().setTipologiaAttività(lettura);
+				associazione.setTipologiaAttività(lettura);
 				//leggo telefono
 				if (leggiInformazioneGenerica(file_utenti, STR_TELEFONO, lettura))
 				{
 					//salvo telefono
-					associazione.back().setTelefono(lettura);
+					associazione.setTelefono(lettura);
 					//leggo email
 					if (leggiInformazioneGenerica(file_utenti, STR_EMAIL, lettura))
 					{
 						//salvo email
-						associazione.back().setEmail(lettura);
+						associazione.setEmail(lettura);
 						//leggo data di creazione
 						if (leggiInformazioneGenerica(file_utenti, STR_DATA_DI_CREAZIONE, lettura, true)) //true perchè è l'ultimo dato da leggere e deve finire con }
 						{
@@ -290,9 +290,9 @@ bool leggiUtenteGruppo(ifstream &file_utenti, vector<UtenteGruppo> &associazione
 							if (data_letta.convertiStringaAData(lettura))
 							{
 								//salvo la data
-								associazione.back().setDataCreazione(data_letta);
+								associazione.setDataCreazione(data_letta);
 								//controllo che tutto quello che ho letto sia valido
-								if (associazione.back().utenteValido())
+								if (associazione.utenteValido())
 								{
 									ok = true;
 								}
@@ -321,7 +321,7 @@ bool leggiUtente(ifstream &file_utenti, vector<UtenteSemplice> &persona, vector<
 		//precarico le cose che ho già letto
 		persona.back().setId(id_utente);
 		//leggo altri eventuali dati
-		if (!leggiUtenteSemplice(file_utenti, persona))
+		if (!leggiUtenteSemplice(file_utenti, persona.back()))
 		{
 			//se non legge correttamente l'utente
 			cerr << "Errore lettura utente id : " << id_utente << endl;
@@ -338,7 +338,7 @@ bool leggiUtente(ifstream &file_utenti, vector<UtenteSemplice> &persona, vector<
 			//precarico le cose che ho già letto
 			impresa.back().setId(id_utente);
 			//leggo altri eventuali dati
-			if (!leggiUtenteAzienda(file_utenti, impresa))
+			if (!leggiUtenteAzienda(file_utenti, impresa.back()))
 			{
 				//se non legge correttamente l'utente
 				cerr << "Errore lettura utente id : " << id_utente << endl;
@@ -355,7 +355,7 @@ bool leggiUtente(ifstream &file_utenti, vector<UtenteSemplice> &persona, vector<
 				//precarico le cose che ho già letto
 				associazione.back().setId(id_utente);
 				//leggo altri eventuali dati
-				if (!leggiUtenteGruppo(file_utenti, associazione))
+				if (!leggiUtenteGruppo(file_utenti, associazione.back()))
 				{
 					//se non legge correttamente l'utente
 					cerr << "Errore lettura utente id : " << id_utente << endl;
