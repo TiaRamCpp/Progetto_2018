@@ -5,7 +5,7 @@
 #include "Gestione_Utenti.h" //per le funzioni che verificano l'esistenza di un id_utente
 
 //stampa
-string stampa_notizie(const vector<Notizia> &news, const bool &visualizza_posizione = false)
+string stampaNotizie(const vector<Notizia> &news, const bool &visualizza_posizione = false)
 {
 	string output;
 	output.clear();
@@ -14,7 +14,7 @@ string stampa_notizie(const vector<Notizia> &news, const bool &visualizza_posizi
 		//se ho bisogno di vedere la posizione per magari selezionarne una
 		if (visualizza_posizione)
 			output += "Notizia # = '" + to_string(i) + "' : ";
-		output += news[i].stampa_Notizia();
+		output += news[i].stampaNotizia();
 		//se non è l'ultima riga
 		if (i < news.size() - 1)
 			output += '\n';
@@ -22,7 +22,7 @@ string stampa_notizie(const vector<Notizia> &news, const bool &visualizza_posizi
 	return output;
 }
 
-bool aggiungi_notizia(vector<Notizia> &news, const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione)
+bool aggiungiNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	bool modifica = false;
 	string id_mittente;
@@ -34,7 +34,7 @@ bool aggiungi_notizia(vector<Notizia> &news, const vector<Utente_Semplice> &pers
 	cout << endl << "Inserisci id_mittente : ";
 	cin >> id_mittente;
 	//se esiste l'utente
-	if (id_utente_trovato(persona, impresa, associazione, id_mittente))
+	if (idUtenteTrovato(persona, impresa, associazione, id_mittente))
 	{
 		//inserisco messaggio
 		cout << endl << "Inserisci messaggio : ";
@@ -45,13 +45,13 @@ bool aggiungi_notizia(vector<Notizia> &news, const vector<Utente_Semplice> &pers
 		cout << endl << "Inserisci data pubblicazione formato (gg/mm/aaaa) : ";
 		cin >> str_data_pubblicazione;
 		//converte la stringa in una data e contemporaneamente verifica che sia valida
-		if (data_pubblicazione.converti_Stringa_A_Data(str_data_pubblicazione))
+		if (data_pubblicazione.convertiStringaAData(str_data_pubblicazione))
 		{
-			temp.set_Id_Mittente(id_mittente);
-			temp.set_Messaggio(messaggio);
-			temp.set_Data_Pubblicazione(data_pubblicazione);
+			temp.setIdMittente(id_mittente);
+			temp.setMessaggio(messaggio);
+			temp.setDataPubblicazione(data_pubblicazione);
 			//se la notizia non contiene errori
-			if (temp.notizia_Valida())
+			if (temp.notiziaValida())
 			{
 				//aggiungo la notizia
 				news.push_back(temp);
@@ -73,7 +73,7 @@ bool aggiungi_notizia(vector<Notizia> &news, const vector<Utente_Semplice> &pers
 	return modifica;
 }
 
-bool aggiungi_reazione_notizia(vector<Notizia> &news, const vector<Utente_Semplice> &persona, const vector<Utente_Azienda> &impresa, const vector<Utente_Gruppo> &associazione)
+bool aggiungiReazioneNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	bool modifica = false;
 	string str_numero_notizia;
@@ -82,19 +82,19 @@ bool aggiungi_reazione_notizia(vector<Notizia> &news, const vector<Utente_Sempli
 	char tipo_reazione;
 
 	//stampa notizie
-	cout << endl << stampa_notizie(news, true) << endl << endl;
+	cout << endl << stampaNotizie(news, true) << endl << endl;
 	cout << "Seleziona numero notizia a cui aggiungere una reazione : ";
 	//inserimento numero notizia
 	cin >> str_numero_notizia;
 	//conversione da stringa a numero
 	numero_notizia = stoi(str_numero_notizia);
-	//controllo che una notizia esistente
+	//controllo che sia una notizia esistente
 	if ((numero_notizia >= 0) && (numero_notizia < news.size()))
 	{
 		cout << endl << "Inserisci l'utente che vuole aggiungere una reazione : ";
 		cin >> id_utente;
 		//se esiste l'utente
-		if (id_utente_trovato(persona, impresa, associazione, id_utente))
+		if (idUtenteTrovato(persona, impresa, associazione, id_utente))
 		{
 			//scelta tipo reazione
 			cout << endl << "L) " << STR_LIKE;
@@ -109,7 +109,7 @@ bool aggiungi_reazione_notizia(vector<Notizia> &news, const vector<Utente_Sempli
 			case 'L':
 			{
 				//se aggiunge la notizia
-				if (news[numero_notizia].aggiungi_Like(id_utente))
+				if (news[numero_notizia].aggiungiLike(id_utente))
 				{
 					modifica = true;
 					cout << endl << "Like aggiunto" << endl;
@@ -124,7 +124,7 @@ bool aggiungi_reazione_notizia(vector<Notizia> &news, const vector<Utente_Sempli
 			case 'D':
 			{
 				//se aggiunge la notizia
-				if (news[numero_notizia].aggiungi_Dislike(id_utente))
+				if (news[numero_notizia].aggiungiDislike(id_utente))
 				{
 					modifica = true;
 					cout << endl << "Dislike aggiunto" << endl;
@@ -157,19 +157,19 @@ bool aggiungi_reazione_notizia(vector<Notizia> &news, const vector<Utente_Sempli
 	return modifica;
 }
 
-bool rimuovi_notizia(vector<Notizia> &news)
+bool rimuoviNotizia(vector<Notizia> &news)
 {
 	bool modifica = false;
 	string str_numero_notizia;
 	unsigned int numero_notizia;
 	//stampa notizie
-	cout << endl << stampa_notizie(news, true) << endl << endl;
+	cout << endl << stampaNotizie(news, true) << endl << endl;
 	cout << "Seleziona numero notizia da rimuovere : ";
 	//inserimento numero notizia
 	cin >> str_numero_notizia;
 	//conversione da stringa a numero
 	numero_notizia = stoi(str_numero_notizia);
-	//controllo che una notizia esistente
+	//controllo che sia una notizia esistente
 	if ((numero_notizia >= 0) && (numero_notizia < news.size()))
 	{
 		//rimuovo notizia corrispondente
@@ -185,20 +185,20 @@ bool rimuovi_notizia(vector<Notizia> &news)
 	return modifica;
 }
 
-bool rimuovi_reazione_notizia(vector<Notizia> &news)
+bool rimuoviReazioneNotizia(vector<Notizia> &news)
 {
 	bool modifica = false;
 	string str_numero_notizia;
 	unsigned int numero_notizia;
 	string id_utente;
 	//stampa notizie
-	cout << endl << stampa_notizie(news, true) << endl << endl;
+	cout << endl << stampaNotizie(news, true) << endl << endl;
 	cout << "Seleziona numero notizia da cui rimuovere la reazione : ";
 	//inserimento numero notizia
 	cin >> str_numero_notizia;
 	//conversione da stringa a numero
 	numero_notizia = stoi(str_numero_notizia);
-	//controllo che una notizia esistente
+	//controllo che sia una notizia esistente
 	if ((numero_notizia >= 0) && (numero_notizia < news.size()))
 	{
 		cout << endl << news[numero_notizia] << endl;
@@ -206,7 +206,7 @@ bool rimuovi_reazione_notizia(vector<Notizia> &news)
 		//inserimento id utente
 		cin >> id_utente;
 		//rimuovo id utente dalla notizia
-		if (news[numero_notizia].rimuovi_Reazione(id_utente))
+		if (news[numero_notizia].rimuoviReazione(id_utente))
 		{
 			modifica = true;
 			cout << endl << "Reazione rimossa" << endl;

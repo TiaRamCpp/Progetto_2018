@@ -1,6 +1,6 @@
-#include "Utente_Gruppo.h"
+#include "UtenteGruppo.h"
 
-Utente_Gruppo::Utente_Gruppo()
+UtenteGruppo::UtenteGruppo()
 {
 	_id.clear();
 	_nome.clear();
@@ -10,7 +10,7 @@ Utente_Gruppo::Utente_Gruppo()
 	_email.clear();
 }
 
-Utente_Gruppo::Utente_Gruppo(const string &id, const string &nome, const string &sede_legale, const string &tipologia_attività, const string &telefono, const string &email, const Data &data_creazione)
+UtenteGruppo::UtenteGruppo(const string &id, const string &nome, const string &sede_legale, const string &tipologia_attività, const string &telefono, const string &email, const Data &data_creazione)
 {
 	_id = id;
 	_nome = nome;
@@ -21,41 +21,41 @@ Utente_Gruppo::Utente_Gruppo(const string &id, const string &nome, const string 
 	_data_creazione = data_creazione;
 }
 
-Utente_Gruppo::~Utente_Gruppo()
+UtenteGruppo::~UtenteGruppo()
 {
 }
 
-void Utente_Gruppo::set_Sede_Legale(const string &sede_legale)
+void UtenteGruppo::setSedeLegale(const string &sede_legale)
 {
 	_sede_legale = sede_legale;
 }
 
-void Utente_Gruppo::set_Tipologia_Attività(const string &tipologia_attività)
+void UtenteGruppo::setTipologiaAttività(const string &tipologia_attività)
 {
 	_tipologia_attività = tipologia_attività;
 }
 
-void Utente_Gruppo::set_Data_Creazione(const Data &data_creazione)
+void UtenteGruppo::setDataCreazione(const Data &data_creazione)
 {
 	_data_creazione = data_creazione;
 }
 
-string Utente_Gruppo::get_Sede_Legale() const
+string UtenteGruppo::getSedeLegale() const
 {
 	return _sede_legale;
 }
 
-string Utente_Gruppo::get_Tipologia_Attività() const
+string UtenteGruppo::getTipologiaAttività() const
 {
 	return _tipologia_attività;
 }
 
-Data Utente_Gruppo::get_Data_Creazione() const
+Data UtenteGruppo::getDataCreazione() const
 {
 	return _data_creazione;
 }
 
-bool Utente_Gruppo::utente_Valido() const
+bool UtenteGruppo::utenteValido() const
 {
 	//controlla che tutto l'utente sia valido
 	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
@@ -68,22 +68,22 @@ bool Utente_Gruppo::utente_Valido() const
 	ok &= !_telefono.empty();
 	ok &= !_email.empty();
 	//controllo che nessuna stringa contenga caratteri speciali
-	ok &= stringa_Valida(_id);
-	ok &= stringa_Valida(_nome);
-	ok &= stringa_Valida(_sede_legale);
-	ok &= stringa_Valida(_tipologia_attività);
-	ok &= stringa_Valida(_telefono);
-	ok &= stringa_Valida(_email);
+	ok &= stringaValida(_id);
+	ok &= stringaValida(_nome);
+	ok &= stringaValida(_sede_legale);
+	ok &= stringaValida(_tipologia_attività);
+	ok &= stringaValida(_telefono);
+	ok &= stringaValida(_email);
 	//controllo telefono valido
-	ok &= telefono_Valido();
+	ok &= telefonoValido();
 	//controllo email valida
-	ok &= email_Valida();
+	ok &= emailValida();
 	//controllo che la data inserita sia valida
-	ok &= _data_creazione.is_Valid();
+	ok &= _data_creazione.isValid();
 	return ok;
 }
 
-string Utente_Gruppo::stampa_Utente() const
+string UtenteGruppo::stampaUtente() const
 {
 	string output;
 
@@ -119,7 +119,7 @@ string Utente_Gruppo::stampa_Utente() const
 
 	//stampa data di creazione
 	output += STR_DATA_DI_CREAZIONE;
-	output += DIVISORE + _data_creazione.stampa_Data() + PARENTESI_DX;
+	output += DIVISORE + _data_creazione.stampaData() + PARENTESI_DX;
 
 	return output;
 }

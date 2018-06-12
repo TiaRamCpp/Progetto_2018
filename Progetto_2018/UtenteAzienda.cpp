@@ -1,6 +1,6 @@
-#include "Utente_Azienda.h"
+#include "UtenteAzienda.h"
 
-Utente_Azienda::Utente_Azienda()
+UtenteAzienda::UtenteAzienda()
 {
 	_id.clear();
 	_nome.clear();
@@ -11,7 +11,7 @@ Utente_Azienda::Utente_Azienda()
 	_email.clear();
 }
 
-Utente_Azienda::Utente_Azienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const string &telefono, const string &email, const Data &data_creazione)
+UtenteAzienda::UtenteAzienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const string &telefono, const string &email, const Data &data_creazione)
 {
 	_id = id;
 	_nome = nome;
@@ -23,51 +23,51 @@ Utente_Azienda::Utente_Azienda(const string &id, const string &nome, const strin
 	_data_creazione = data_creazione;
 }
 
-Utente_Azienda::~Utente_Azienda()
+UtenteAzienda::~UtenteAzienda()
 {
 }
 
-void Utente_Azienda::set_Sede_Fiscale(const string &sede_fiscale)
+void UtenteAzienda::setSedeFiscale(const string &sede_fiscale)
 {
 	_sede_fiscale = sede_fiscale;
 }
 
-void Utente_Azienda::set_Sede_Operativa(const string &sede_operativa)
+void UtenteAzienda::setSedeOperativa(const string &sede_operativa)
 {
 	_sede_operativa = sede_operativa;
 }
 
-void Utente_Azienda::set_Tipo_Prodotto(const string &tipo_prodotto)
+void UtenteAzienda::setTipoProdotto(const string &tipo_prodotto)
 {
 	_tipo_prodotto = tipo_prodotto;
 }
 
-void Utente_Azienda::set_Data_Creazione(const Data &data_creazione)
+void UtenteAzienda::setDataCreazione(const Data &data_creazione)
 {
 	_data_creazione = data_creazione;
 }
 
-string Utente_Azienda::get_Sede_Fiscale() const
+string UtenteAzienda::getSedeFiscale() const
 {
 	return _sede_fiscale;
 }
 
-string Utente_Azienda::get_Sede_Operativa() const
+string UtenteAzienda::getSedeOperativa() const
 {
 	return _sede_operativa;
 }
 
-string Utente_Azienda::get_Tipo_Prodotto() const
+string UtenteAzienda::getTipoProdotto() const
 {
 	return _tipo_prodotto;
 }
 
-Data Utente_Azienda::get_Data_Creazione() const
+Data UtenteAzienda::getDataCreazione() const
 {
 	return _data_creazione;
 }
 
-bool Utente_Azienda::utente_Valido() const
+bool UtenteAzienda::utenteValido() const
 {
 	//controlla che tutto l'utente sia valido
 	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
@@ -81,23 +81,23 @@ bool Utente_Azienda::utente_Valido() const
 	ok &= !_telefono.empty();
 	ok &= !_email.empty();
 	//controllo che nessuna stringa contenga caratteri speciali
-	ok &= stringa_Valida(_id);
-	ok &= stringa_Valida(_nome);
-	ok &= stringa_Valida(_sede_fiscale);
-	ok &= stringa_Valida(_sede_operativa);
-	ok &= stringa_Valida(_tipo_prodotto);
-	ok &= stringa_Valida(_telefono);
-	ok &= stringa_Valida(_email);
+	ok &= stringaValida(_id);
+	ok &= stringaValida(_nome);
+	ok &= stringaValida(_sede_fiscale);
+	ok &= stringaValida(_sede_operativa);
+	ok &= stringaValida(_tipo_prodotto);
+	ok &= stringaValida(_telefono);
+	ok &= stringaValida(_email);
 	//controllo telefono valido
-	ok &= telefono_Valido();
+	ok &= telefonoValido();
 	//controllo email valida
-	ok &= email_Valida();
+	ok &= emailValida();
 	//controllo che la data inserita sia valida
-	ok &= _data_creazione.is_Valid();
+	ok &= _data_creazione.isValid();
 	return ok;
 }
 
-string Utente_Azienda::stampa_Utente() const
+string UtenteAzienda::stampaUtente() const
 {
 	string output;
 
@@ -137,7 +137,7 @@ string Utente_Azienda::stampa_Utente() const
 
 	//stampa data di creazione
 	output += STR_DATA_DI_CREAZIONE;
-	output += DIVISORE + _data_creazione.stampa_Data() + PARENTESI_DX;
+	output += DIVISORE + _data_creazione.stampaData() + PARENTESI_DX;
 
 	return output;
 }

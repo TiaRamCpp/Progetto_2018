@@ -21,67 +21,67 @@ Notizia::~Notizia()
 {
 }
 
-void Notizia::set_Id_Mittente(const string &id_mittente)
+void Notizia::setIdMittente(const string &id_mittente)
 {
 	_id_mittente = id_mittente;
 }
 
-void Notizia::set_Messaggio(const string &messaggio)
+void Notizia::setMessaggio(const string &messaggio)
 {
 	_messaggio = messaggio;
 }
 
-void Notizia::set_Data_Pubblicazione(const Data &data_pubblicazione)
+void Notizia::setDataPubblicazione(const Data &data_pubblicazione)
 {
 	_data_pubblicazione = data_pubblicazione;
 }
 
-void Notizia::set_Like(const vector<string> &like)
+void Notizia::setLike(const vector<string> &like)
 {
 	_like = like;
 }
 
-void Notizia::set_Dislike(const vector<string> &dislike)
+void Notizia::setDislike(const vector<string> &dislike)
 {
 	_dislike = dislike;
 }
 
-string Notizia::get_Id_Mittente() const
+string Notizia::getIdMittente() const
 {
 	return _id_mittente;
 }
 
-string Notizia::get_Messaggio() const
+string Notizia::getMessaggio() const
 {
 	return _messaggio;
 }
 
-Data Notizia::get_Data_Pubblicazione() const
+Data Notizia::getDataPubblicazione() const
 {
 	return _data_pubblicazione;
 }
 
-vector<string> Notizia::get_Like() const
+vector<string> Notizia::getLike() const
 {
 	return _like;
 }
 
-vector<string> Notizia::get_Dislike() const
+vector<string> Notizia::getDislike() const
 {
 	return _dislike;
 }
 
-bool Notizia::stringa_Valida(const string & stringa) const
+bool Notizia::stringaValida(const string & stringa) const
 {
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri non permessi e che sia stampabile
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if (!_carattere_Valido(stringa[i]))
+		if (!_carattereValido(stringa[i]))
 			ok = false;
 	return ok;
 }
 
-bool Notizia::notizia_Valida() const
+bool Notizia::notiziaValida() const
 {
 	bool valida = true;
 
@@ -94,15 +94,15 @@ bool Notizia::notizia_Valida() const
 		valida &= !_dislike[i].empty();
 
 	//controllo che nessuna stringa contenga caratteri speciali
-	valida &= stringa_Valida(_id_mittente);
-	valida &= stringa_Valida(_messaggio);
+	valida &= stringaValida(_id_mittente);
+	valida &= stringaValida(_messaggio);
 	for (unsigned int i = 0; ((i < _like.size())&(valida)); i++)
-		valida &= stringa_Valida(_like[i]);
+		valida &= stringaValida(_like[i]);
 	for (unsigned int i = 0; ((i < _dislike.size())&(valida)); i++)
-		valida &= stringa_Valida(_dislike[i]);
+		valida &= stringaValida(_dislike[i]);
 
 	//controllo che la data sia valida
-	valida &= _data_pubblicazione.is_Valid();
+	valida &= _data_pubblicazione.isValid();
 
 	//controllo che chi abbia messo like ne abbia messo solo uno e nessun dislike
 	for (unsigned int i = 0; ((i < _like.size())&(valida)); i++)
@@ -112,7 +112,7 @@ bool Notizia::notizia_Valida() const
 			if (_like[i] == _like[j])
 				valida = false;
 		//controllo che non abbia messo anche dislike
-		valida &= !_id_Trovato(_dislike, _like[i]);
+		valida &= !_idTrovato(_dislike, _like[i]);
 	}
 
 	//controllo che chi abbia messo dislike ne abbia messo solo uno e nessun like
@@ -123,43 +123,43 @@ bool Notizia::notizia_Valida() const
 			if (_dislike[i] == _dislike[j])
 				valida = false;
 		//controllo che non abbia messo anche like
-		valida &= !_id_Trovato(_like, _dislike[i]);
+		valida &= !_idTrovato(_like, _dislike[i]);
 	}
 
 	return valida;
 }
 
-bool Notizia::aggiungi_Like(const string &id)
+bool Notizia::aggiungiLike(const string &id)
 {
-	return _aggiungi_Reazione(_like, id);
+	return _aggiungiReazione(_like, id);
 }
 
-bool Notizia::aggiungi_Dislike(const string &id)
+bool Notizia::aggiungiDislike(const string &id)
 {
-	return _aggiungi_Reazione(_dislike, id);
+	return _aggiungiReazione(_dislike, id);
 }
 
-bool Notizia::rimuovi_Reazione(const string &id)
+bool Notizia::rimuoviReazione(const string &id)
 {
 	bool rimossa = false;
 	//se ha messo like lo rimuovo
-	if (_id_Trovato(_like, id))
+	if (_idTrovato(_like, id))
 	{
-		_like.erase(_like.begin() + _trova_Pos_Id(_like, id));
+		_like.erase(_like.begin() + _trovaPosId(_like, id));
 		rimossa = true;
 	}
 	//se non ha messo like
 	else
 		//controllo se abbia messo dislike
-		if (_id_Trovato(_dislike, id))
+		if (_idTrovato(_dislike, id))
 		{
-			_dislike.erase(_dislike.begin() + _trova_Pos_Id(_dislike, id));
+			_dislike.erase(_dislike.begin() + _trovaPosId(_dislike, id));
 			rimossa = true;
 		}
 	return rimossa;
 }
 
-string Notizia::stampa_Notizia() const
+string Notizia::stampaNotizia() const
 {
 	string output;
 
@@ -172,7 +172,7 @@ string Notizia::stampa_Notizia() const
 	output += _messaggio + SEPARATORE;
 
 	//stampa data
-	output += _data_pubblicazione.stampa_Data() + SEPARATORE;
+	output += _data_pubblicazione.stampaData() + SEPARATORE;
 
 	//stampa like
 	output += STR_LIKE;
@@ -206,11 +206,11 @@ string Notizia::stampa_Notizia() const
 
 ostream & operator<<(ostream &output, const Notizia &notizia_da_stampare)
 {
-	output << notizia_da_stampare.stampa_Notizia();
+	output << notizia_da_stampare.stampaNotizia();
 	return output;
 }
 
-bool Notizia::_id_Trovato(const vector<string> &dati, const string &id) const
+bool Notizia::_idTrovato(const vector<string> &dati, const string &id) const
 {
 	bool trovato = false;
 	//cerco se c'è l'id nella reazione passata
@@ -220,7 +220,7 @@ bool Notizia::_id_Trovato(const vector<string> &dati, const string &id) const
 	return trovato;
 }
 
-int Notizia::_trova_Pos_Id(const vector<string> &dati, const string &id) const
+int Notizia::_trovaPosId(const vector<string> &dati, const string &id) const
 {
 	//funzione usata sempre dopo il controllo _id_Trovato() per essere sicuro che sia presente e non restituire una posizione sbagliata
 	unsigned int posizione = 0;
@@ -229,10 +229,10 @@ int Notizia::_trova_Pos_Id(const vector<string> &dati, const string &id) const
 	return posizione;
 }
 
-bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
+bool Notizia::_aggiungiReazione(vector<string> &reazione, const string &id)
 {
-	bool like_espresso = _id_Trovato(_like, id);
-	bool dislike_espresso = _id_Trovato(_dislike, id);
+	bool like_espresso = _idTrovato(_like, id);
+	bool dislike_espresso = _idTrovato(_dislike, id);
 	bool ok = !(like_espresso || dislike_espresso);
 	//se non ha già messo una reazione
 	if (ok)
@@ -243,7 +243,7 @@ bool Notizia::_aggiungi_Reazione(vector<string> &reazione, const string &id)
 	return ok;
 }
 
-bool Notizia::_carattere_Valido(const char & carattere) const
+bool Notizia::_carattereValido(const char & carattere) const
 {
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri proibiti

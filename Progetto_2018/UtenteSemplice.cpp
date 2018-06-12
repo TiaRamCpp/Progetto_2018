@@ -1,6 +1,6 @@
-#include "Utente_Semplice.h"
+#include "UtenteSemplice.h"
 
-Utente_Semplice::Utente_Semplice()
+UtenteSemplice::UtenteSemplice()
 {
 	_id.clear();
 	_nome.clear();
@@ -10,7 +10,7 @@ Utente_Semplice::Utente_Semplice()
 	_email.clear();
 }
 
-Utente_Semplice::Utente_Semplice(const string &id, const string &nome, const string &cognome, const string &domicilio, const string &telefono, const string &email, const Data &data_nascita)
+UtenteSemplice::UtenteSemplice(const string &id, const string &nome, const string &cognome, const string &domicilio, const string &telefono, const string &email, const Data &data_nascita)
 {
 	_id = id;
 	_nome = nome;
@@ -21,46 +21,46 @@ Utente_Semplice::Utente_Semplice(const string &id, const string &nome, const str
 	_data_nascita = data_nascita;
 }
 
-Utente_Semplice::~Utente_Semplice()
+UtenteSemplice::~UtenteSemplice()
 {
 }
 
-void Utente_Semplice::set_Cognome(const string &cognome)
+void UtenteSemplice::setCognome(const string &cognome)
 {
 	_cognome = cognome;
 }
 
-void Utente_Semplice::set_Domicilio(const string &domicilio)
+void UtenteSemplice::setDomicilio(const string &domicilio)
 {
 	_domicilio = domicilio;
 }
 
-void Utente_Semplice::set_Data_Nascita(const Data &data_nascita)
+void UtenteSemplice::setDataNascita(const Data &data_nascita)
 {
 	_data_nascita = data_nascita;
 }
 
-string Utente_Semplice::get_Cognome() const
+string UtenteSemplice::getCognome() const
 {
 	return _cognome;
 }
 
-string Utente_Semplice::get_Domicilio() const
+string UtenteSemplice::getDomicilio() const
 {
 	return _domicilio;
 }
 
-Data Utente_Semplice::get_Data_Nascita() const
+Data UtenteSemplice::getDataNascita() const
 {
 	return _data_nascita;
 }
 
-int Utente_Semplice::calcola_Eta() const
+int UtenteSemplice::calcolaEta() const
 {
-	return _data_nascita.get_Anni_Da(); //con default la data di oggi
+	return _data_nascita.getAnniDa(); //con default la data di oggi
 }
 
-bool Utente_Semplice::utente_Valido() const
+bool UtenteSemplice::utenteValido() const
 {
 	//controlla che tutto l'utente sia valido
 	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
@@ -73,22 +73,22 @@ bool Utente_Semplice::utente_Valido() const
 	ok &= !_telefono.empty();
 	ok &= !_email.empty();
 	//controllo che nessuna stringa contenga caratteri speciali
-	ok &= stringa_Valida(_id);
-	ok &= stringa_Valida(_nome);
-	ok &= stringa_Valida(_cognome);
-	ok &= stringa_Valida(_domicilio);
-	ok &= stringa_Valida(_telefono);
-	ok &= stringa_Valida(_email);
+	ok &= stringaValida(_id);
+	ok &= stringaValida(_nome);
+	ok &= stringaValida(_cognome);
+	ok &= stringaValida(_domicilio);
+	ok &= stringaValida(_telefono);
+	ok &= stringaValida(_email);
 	//controllo telefono valido
-	ok &= telefono_Valido();
+	ok &= telefonoValido();
 	//controllo email valida
-	ok &= email_Valida();
+	ok &= emailValida();
 	//controllo che la data inserita sia valida
-	ok &= _data_nascita.is_Valid();
+	ok &= _data_nascita.isValid();
 	return ok;
 }
 
-string Utente_Semplice::stampa_Utente() const
+string UtenteSemplice::stampaUtente() const
 {
 	string output;
 
@@ -124,7 +124,7 @@ string Utente_Semplice::stampa_Utente() const
 
 	//stampa data di nascita
 	output += STR_DATA_DI_NASCITA;
-	output += DIVISORE + _data_nascita.stampa_Data();
+	output += DIVISORE + _data_nascita.stampaData();
 
 	output += PARENTESI_DX;
 

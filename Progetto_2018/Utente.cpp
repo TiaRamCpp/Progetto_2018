@@ -8,57 +8,57 @@ Utente::~Utente()
 {
 }
 
-void Utente::set_Id(const string &id)
+void Utente::setId(const string &id)
 {
 	_id = id;
 }
 
-void Utente::set_Nome(const string &nome)
+void Utente::setNome(const string &nome)
 {
 	_nome = nome;
 }
 
-void Utente::set_Telefono(const string &telefono)
+void Utente::setTelefono(const string &telefono)
 {
 	_telefono = telefono;
 }
 
-void Utente::set_Email(const string &email)
+void Utente::setEmail(const string &email)
 {
 	_email = email;
 }
 
-string Utente::get_Id() const
+string Utente::getId() const
 {
 	return _id;
 }
 
-string Utente::get_Nome() const
+string Utente::getNome() const
 {
 	return _nome;
 }
 
-string Utente::get_Telefono() const
+string Utente::getTelefono() const
 {
 	return _telefono;
 }
 
-string Utente::get_Email() const
+string Utente::getEmail() const
 {
 	return _email;
 }
 
-bool Utente::stringa_Valida(const string &stringa) const
+bool Utente::stringaValida(const string &stringa) const
 {
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri non permessi e che sia stampabile
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
-		if (!_carattere_Valido(stringa[i]))
+		if (!_carattereValido(stringa[i]))
 			ok = false;
 	return ok;
 }
 
-bool Utente::telefono_Valido() const
+bool Utente::telefonoValido() const
 {
 	bool ok = true;
 	//controllo che ci siano solo numeri
@@ -69,7 +69,7 @@ bool Utente::telefono_Valido() const
 	return ok;
 }
 
-bool Utente::email_Valida() const
+bool Utente::emailValida() const
 {
 	//formattazzione valida <id_utente_email>@<dominio>
 	int chiocciola = 0;
@@ -86,11 +86,11 @@ bool Utente::email_Valida() const
 
 ostream & operator<<(ostream &output, const Utente &da_stampare)
 {
-	output << da_stampare.stampa_Utente();
+	output << da_stampare.stampaUtente();
 	return output;
 }
 
-bool Utente::_carattere_Valido(const char & carattere) const
+bool Utente::_carattereValido(const char & carattere) const
 {
 	bool ok = true;
 	//controllo che non ci sia uno dei caratteri proibiti

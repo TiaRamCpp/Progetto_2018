@@ -14,16 +14,9 @@ Data::Data()
 
 Data::Data(const int &giorno, const int &mese, const int &anno)
 {
-
 	_giorno = giorno;
 	_mese = mese;
 	_anno = anno;
-	if (!is_Valid()) {
-		cerr << "Data non valida" << endl;
-		getchar();
-		getchar();
-		exit(EXIT_FAILURE);
-	}
 }
 
 Data::Data(const Data &da_copiare)
@@ -37,21 +30,21 @@ Data::~Data()
 {
 }
 
-string Data::stampa_Data() const
+string Data::stampaData() const
 {
 	string output;
 	output = to_string(_giorno) + SEPARATORE_DATA + to_string(_mese) + SEPARATORE_DATA + to_string(_anno);
 	return output;
 }
 
-int Data::get_Anni_Da(const Data &data_input) const
+int Data::getAnniDa(const Data &data_input) const
 {
-	if (_calcola_Numero_Giorno() > data_input._calcola_Numero_Giorno()) //se non ha compiuto gli anni tolgo un anno
+	if (_calcolaNumeroGiorno() > data_input._calcolaNumeroGiorno()) //se non ha compiuto gli anni tolgo un anno
 		return data_input._anno - _anno - 1;
 	return data_input._anno - _anno;
 }
 
-bool Data::is_Valid() const
+bool Data::isValid() const
 {
 	//manca bisestile
 	bool valido = true;
@@ -102,7 +95,7 @@ bool Data::is_Valid() const
 	return valido;
 }
 
-bool Data::converti_Stringa_A_Data(const string &data)
+bool Data::convertiStringaAData(const string &data)
 {
 	//legge e controlla gg/mm/aaaa o g/mm/aaaa o gg/m/aaaa
 
@@ -155,7 +148,7 @@ bool Data::converti_Stringa_A_Data(const string &data)
 				//la funzione stoi trasforma la stringa in un numero intero
 
 				//se la non data è valida
-				if (!is_Valid())
+				if (!isValid())
 				{
 					cerr << "Errore : data non valida" << endl;
 					ok = false;
@@ -184,7 +177,7 @@ bool Data::converti_Stringa_A_Data(const string &data)
 	return ok;
 }
 
-int Data::_calcola_Numero_Giorno() const
+int Data::_calcolaNumeroGiorno() const
 {
 	int giorni_nel_mese[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
 	int numero_giorno = _giorno;
@@ -195,17 +188,17 @@ int Data::_calcola_Numero_Giorno() const
 	return numero_giorno;
 }
 
-int Data::get_Anno() const
+int Data::getAnno() const
 {
 	return _anno;
 }
 
-int Data::get_Mese() const
+int Data::getMese() const
 {
 	return _mese;
 }
 
-int Data::get_Giorno() const
+int Data::getGiorno() const
 {
 	return _giorno;
 }
@@ -239,6 +232,6 @@ void Data::operator=(const Data &da_assegnare)
 
 ostream & operator<<(ostream &output, const Data &da_stampare)
 {
-	output << da_stampare.stampa_Data();
+	output << da_stampare.stampaData();
 	return output;
 }

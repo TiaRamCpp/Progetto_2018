@@ -22,15 +22,15 @@ public:
 	~Data();
 
 	//metodi di get
-	int get_Anno() const;
-	int get_Mese() const;
-	int get_Giorno() const;
+	int getAnno() const;
+	int getMese() const;
+	int getGiorno() const;
 
 	//metodi della classe
-	string stampa_Data() const;
-	int get_Anni_Da(const Data &data_input = Data()) const;
-	bool is_Valid() const;
-	bool converti_Stringa_A_Data(const string &data);
+	string stampaData() const;
+	int getAnniDa(const Data &data_input = Data()) const;
+	bool isValid() const;
+	bool convertiStringaAData(const string &data);
 
 	//operatori della classe
 	friend ostream & operator<<(ostream &output, const Data &da_stampare);	// overload of the << operator for the Data class. ---- the fried keyword is mandatory to define the overload.
@@ -40,7 +40,7 @@ public:
 private:
 
 	//metodi privati
-	int _calcola_Numero_Giorno() const;
+	int _calcolaNumeroGiorno() const;
 
 	//variabili private
 	int _anno;

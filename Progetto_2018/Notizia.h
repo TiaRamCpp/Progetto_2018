@@ -26,41 +26,41 @@ public:
 	~Notizia();
 
 	//metodi di set
-	void set_Id_Mittente(const string &id_mittente);
-	void set_Messaggio(const string &messaggio);
-	void set_Data_Pubblicazione(const Data &data_pubblicazione);
-	void set_Like(const vector<string> &like);
-	void set_Dislike(const vector<string> &dislike);
+	void setIdMittente(const string &id_mittente);
+	void setMessaggio(const string &messaggio);
+	void setDataPubblicazione(const Data &data_pubblicazione);
+	void setLike(const vector<string> &like);
+	void setDislike(const vector<string> &dislike);
 
 	//metodi di get
-	string get_Id_Mittente() const;
-	string get_Messaggio() const;
-	Data get_Data_Pubblicazione() const;
-	vector<string> get_Like() const;
-	vector<string> get_Dislike() const;
+	string getIdMittente() const;
+	string getMessaggio() const;
+	Data getDataPubblicazione() const;
+	vector<string> getLike() const;
+	vector<string> getDislike() const;
 
 	//metodi della classe
-	bool stringa_Valida(const string &stringa) const;
-	bool notizia_Valida() const;
+	bool stringaValida(const string &stringa) const;
+	bool notiziaValida() const;
 
 	//aggiunta reazione
-	bool aggiungi_Like(const string &id);
-	bool aggiungi_Dislike(const string &id);
+	bool aggiungiLike(const string &id);
+	bool aggiungiDislike(const string &id);
 
 	//rimuovi reazione
-	bool rimuovi_Reazione(const string &id);
+	bool rimuoviReazione(const string &id);
 
 	//metodi di stampa
-	string stampa_Notizia() const;
+	string stampaNotizia() const;
 	friend ostream &operator<< (ostream &output, const Notizia &notizia_da_stampare);
 
 private:
 
 	//metodi privati
-	bool _id_Trovato(const vector<string> &dati, const string &id) const;
-	int _trova_Pos_Id(const vector<string> &dati, const string &id) const;
-	bool _aggiungi_Reazione(vector<string> &reazione, const string &id);	
-	bool _carattere_Valido(const char &carattere) const;
+	bool _idTrovato(const vector<string> &dati, const string &id) const;
+	int _trovaPosId(const vector<string> &dati, const string &id) const;
+	bool _aggiungiReazione(vector<string> &reazione, const string &id);	
+	bool _carattereValido(const char &carattere) const;
 
 	//variabili private
 	string _id_mittente;
