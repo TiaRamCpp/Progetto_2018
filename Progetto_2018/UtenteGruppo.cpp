@@ -58,26 +58,20 @@ Data UtenteGruppo::getDataCreazione() const
 bool UtenteGruppo::utenteValido() const
 {
 	//controlla che tutto l'utente sia valido
-	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
 	bool ok = true;
-	//controllo che nessuna stringa sia vuota
-	ok &= !_id.empty();
-	ok &= !_nome.empty();
-	ok &= !_sede_legale.empty();
-	ok &= !_tipologia_attività.empty();
-	ok &= !_telefono.empty();
-	ok &= !_email.empty();
-	//controllo che nessuna stringa contenga caratteri speciali
+	//controllo che nessuna stringa sia vuota o che contenga caratteri speciali
 	ok &= stringaValida(_id);
 	ok &= stringaValida(_nome);
 	ok &= stringaValida(_sede_legale);
 	ok &= stringaValida(_tipologia_attività);
 	ok &= stringaValida(_telefono);
 	ok &= stringaValida(_email);
+	//controllo id valido
+	ok &= idValido(_id);
 	//controllo telefono valido
-	ok &= telefonoValido();
+	ok &= telefonoValido(_telefono);
 	//controllo email valida
-	ok &= emailValida();
+	ok &= emailValida(_email);
 	//controllo che la data inserita sia valida
 	ok &= _data_creazione.isValid();
 	return ok;

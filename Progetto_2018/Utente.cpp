@@ -51,6 +51,9 @@ string Utente::getEmail() const
 bool Utente::stringaValida(const string &stringa) const
 {
 	bool ok = true;
+	//se è vuota
+	if (stringa.empty())
+		ok = false;
 	//controllo che non ci sia uno dei caratteri non permessi e che sia stampabile
 	for (unsigned int i = 0; ((i < stringa.size()) && (ok)); i++)
 		if (!_carattereValido(stringa[i]))
@@ -58,25 +61,36 @@ bool Utente::stringaValida(const string &stringa) const
 	return ok;
 }
 
-bool Utente::telefonoValido() const
+bool Utente::idValido(const string &id) const
 {
 	bool ok = true;
-	//controllo che ci siano solo numeri
-	for (unsigned int i = 0; ((i < _telefono.size()) && (ok)); i++)
-		//se non è un numero
-		if (!isdigit(_telefono[i]))
+	//controllo che non ci siano spazi o altri caratteri di formattazione
+	for (unsigned int i = 0; ((i < id.size()) && (ok)); i++)
+		//se c'è uno spazio o altri caratteri non validi
+		if (!isgraph(id[i]))
 			ok = false;
 	return ok;
 }
 
-bool Utente::emailValida() const
+bool Utente::telefonoValido(const string &telefono) const
+{
+	bool ok = true;
+	//controllo che ci siano solo numeri
+	for (unsigned int i = 0; ((i < telefono.size()) && (ok)); i++)
+		//se non è un numero
+		if (!isdigit(telefono[i]))
+			ok = false;
+	return ok;
+}
+
+bool Utente::emailValida(const string &email) const
 {
 	//formattazzione valida <id_utente_email>@<dominio>
 	int chiocciola = 0;
 	bool ok = false;
 	//conto i caratteri '@'
-	for (unsigned int i = 0; (i < _email.size()); i++)
-		if (_email[i] == CHIOCCIOLA)
+	for (unsigned int i = 0; (i < email.size()); i++)
+		if (email[i] == CHIOCCIOLA)
 			chiocciola++;
 	//se c'è un solo '@'
 	if(chiocciola==1)

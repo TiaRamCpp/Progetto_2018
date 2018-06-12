@@ -32,7 +32,7 @@ bool utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 	Data data_inserita;
 	//inserisco data
 	cout << endl << "Inserisci la data nel formato (gg/mm/aaaa) : ";
-	cin >> str_data_inserita;
+	getline(cin, str_data_inserita);
 	//converte la stringa in una data e contemporaneamente verifica che sia valida
 	if (data_inserita.convertiStringaAData(str_data_inserita))
 	{
@@ -95,6 +95,11 @@ bool utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 		{
 			cout << endl << "Nessun utente nato o creato dopo la data inserita" << endl;
 		}
+	}
+	//se non è valida
+	else
+	{
+		cout << endl << "Errore : la data inserita '" << str_data_inserita << "' non e' valida" << endl;
 	}
 	return modifica; //falsa sempre
 }

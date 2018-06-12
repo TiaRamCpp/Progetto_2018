@@ -58,7 +58,7 @@ private:
 
 	//metodi privati
 	bool _idTrovato(const vector<string> &dati, const string &id) const;
-	int _trovaPosId(const vector<string> &dati, const string &id) const;
+	unsigned int _trovaPosId(const vector<string> &dati, const string &id) const;
 	bool _aggiungiReazione(vector<string> &reazione, const string &id);	
 	bool _carattereValido(const char &carattere) const;
 

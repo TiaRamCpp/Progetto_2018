@@ -220,7 +220,7 @@ bool Notizia::_idTrovato(const vector<string> &dati, const string &id) const
 	return trovato;
 }
 
-int Notizia::_trovaPosId(const vector<string> &dati, const string &id) const
+unsigned int Notizia::_trovaPosId(const vector<string> &dati, const string &id) const
 {
 	//funzione usata sempre dopo il controllo _id_Trovato() per essere sicuro che sia presente e non restituire una posizione sbagliata
 	unsigned int posizione = 0;

@@ -36,8 +36,9 @@ public:
 
 	//metodi della classe
 	bool stringaValida(const string &stringa) const;
-	bool telefonoValido() const;
-	bool emailValida() const;
+	bool idValido(const string &id) const;
+	bool telefonoValido(const string &telefono) const;
+	bool emailValida(const string &email) const;
 	virtual bool utenteValido() const = 0;
 
 	//metodi di stampa

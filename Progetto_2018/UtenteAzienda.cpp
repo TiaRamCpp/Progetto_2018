@@ -70,17 +70,8 @@ Data UtenteAzienda::getDataCreazione() const
 bool UtenteAzienda::utenteValido() const
 {
 	//controlla che tutto l'utente sia valido
-	//controllo che nessuna stringa contenga caratteri non validi e che la data sia valida
 	bool ok = true;
-	//controllo che nessuna stringa sia vuota
-	ok &= !_id.empty();
-	ok &= !_nome.empty();
-	ok &= !_sede_fiscale.empty();
-	ok &= !_sede_operativa.empty();
-	ok &= !_tipo_prodotto.empty();
-	ok &= !_telefono.empty();
-	ok &= !_email.empty();
-	//controllo che nessuna stringa contenga caratteri speciali
+	//controllo che nessuna stringa sia vuota o che contenga caratteri speciali
 	ok &= stringaValida(_id);
 	ok &= stringaValida(_nome);
 	ok &= stringaValida(_sede_fiscale);
@@ -88,10 +79,12 @@ bool UtenteAzienda::utenteValido() const
 	ok &= stringaValida(_tipo_prodotto);
 	ok &= stringaValida(_telefono);
 	ok &= stringaValida(_email);
+	//controllo id valido
+	ok &= idValido(_id);
 	//controllo telefono valido
-	ok &= telefonoValido();
+	ok &= telefonoValido(_telefono);
 	//controllo email valida
-	ok &= emailValida();
+	ok &= emailValida(_email);
 	//controllo che la data inserita sia valida
 	ok &= _data_creazione.isValid();
 	return ok;

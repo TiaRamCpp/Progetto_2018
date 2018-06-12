@@ -32,18 +32,16 @@ bool aggiungiNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &person
 	Notizia temp;
 	//inserisco id mittente
 	cout << endl << "Inserisci id_mittente : ";
-	cin >> id_mittente;
+	getline(cin, id_mittente);
 	//se esiste l'utente
 	if (idUtenteTrovato(persona, impresa, associazione, id_mittente))
 	{
 		//inserisco messaggio
 		cout << endl << "Inserisci messaggio : ";
-		//preparazione lettura riga eliminando '\n'
-		cin.ignore(1, '\n');
 		getline(cin, messaggio);
 		//inserisco data pubblicazione
 		cout << endl << "Inserisci data pubblicazione formato (gg/mm/aaaa) : ";
-		cin >> str_data_pubblicazione;
+		getline(cin, str_data_pubblicazione);
 		//converte la stringa in una data e contemporaneamente verifica che sia valida
 		if (data_pubblicazione.convertiStringaAData(str_data_pubblicazione))
 		{
@@ -63,6 +61,11 @@ bool aggiungiNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &person
 			{
 				cout << endl << "Errore : notizia non valida" << endl;
 			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : la data di pubblicazione '" << str_data_pubblicazione << "' non e' valida" << endl;
 		}
 	}
 	//id utente non esistente
@@ -85,14 +88,14 @@ bool aggiungiReazioneNotizia(vector<Notizia> &news, const vector<UtenteSemplice>
 	cout << endl << stampaNotizie(news, true) << endl << endl;
 	cout << "Seleziona numero notizia a cui aggiungere una reazione : ";
 	//inserimento numero notizia
-	cin >> str_numero_notizia;
+	getline(cin, str_numero_notizia);
 	//conversione da stringa a numero
 	numero_notizia = stoi(str_numero_notizia);
 	//controllo che sia una notizia esistente
 	if ((numero_notizia >= 0) && (numero_notizia < news.size()))
 	{
 		cout << endl << "Inserisci l'utente che vuole aggiungere una reazione : ";
-		cin >> id_utente;
+		getline(cin, id_utente);
 		//se esiste l'utente
 		if (idUtenteTrovato(persona, impresa, associazione, id_utente))
 		{
@@ -102,7 +105,7 @@ bool aggiungiReazioneNotizia(vector<Notizia> &news, const vector<UtenteSemplice>
 			cout << endl << endl << "Inserisci il tipo di reazione da aggiungere : ";
 			cin >> tipo_reazione;
 			//formatto
-			if (isalpha(tipo_reazione))
+			if (islower(tipo_reazione))
 				tipo_reazione = toupper(tipo_reazione);
 			switch (tipo_reazione)
 			{
@@ -166,7 +169,7 @@ bool rimuoviNotizia(vector<Notizia> &news)
 	cout << endl << stampaNotizie(news, true) << endl << endl;
 	cout << "Seleziona numero notizia da rimuovere : ";
 	//inserimento numero notizia
-	cin >> str_numero_notizia;
+	getline(cin, str_numero_notizia);
 	//conversione da stringa a numero
 	numero_notizia = stoi(str_numero_notizia);
 	//controllo che sia una notizia esistente
@@ -195,7 +198,7 @@ bool rimuoviReazioneNotizia(vector<Notizia> &news)
 	cout << endl << stampaNotizie(news, true) << endl << endl;
 	cout << "Seleziona numero notizia da cui rimuovere la reazione : ";
 	//inserimento numero notizia
-	cin >> str_numero_notizia;
+	getline(cin, str_numero_notizia);
 	//conversione da stringa a numero
 	numero_notizia = stoi(str_numero_notizia);
 	//controllo che sia una notizia esistente
@@ -204,7 +207,7 @@ bool rimuoviReazioneNotizia(vector<Notizia> &news)
 		cout << endl << news[numero_notizia] << endl;
 		cout << "Digita l'id_utente di cui rimuovere la reazione : ";
 		//inserimento id utente
-		cin >> id_utente;
+		getline(cin, id_utente);
 		//rimuovo id utente dalla notizia
 		if (news[numero_notizia].rimuoviReazione(id_utente))
 		{
