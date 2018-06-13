@@ -168,6 +168,28 @@ bool utenteGruppoSeleziona(const vector<UtenteGruppo> &associazione, unsigned in
 	return selezionato;
 }
 
+//rimozione utente
+bool utenteSempliceRimuovi(vector<UtenteSemplice> &persona, vector<Notizia> &news, const string &id_utente_da_rimuovere)
+{
+	//identifico posizione nel vettore
+	//rimuovo dal vettore
+	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
+	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
+	//rimuovo tutte le relazioni con lui
+	//ricalcolo ?? alberi salvati su file???
+	return false;
+}
+bool utenteAziendaRimuovi(vector<UtenteAzienda> &impresa, vector<Notizia> &news, const string &id_utente_da_rimuovere)
+{
+	return false;
+}
+bool utenteGruppoRimuovi(vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &id_utente_da_rimuovere)
+{
+	return false;
+}
+
+//MODIFICA ATTRIBUTI UTENTE
+
 //modifica singolo attributo utente semplice
 bool utenteSempliceModificaNome(UtenteSemplice &persona)
 {

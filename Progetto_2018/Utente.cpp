@@ -95,6 +95,11 @@ bool Utente::emailValida(const string &email) const
 	//se c'è un solo '@'
 	if(chiocciola==1)
 		ok=true;
+	//controllo che non ci siano spazi o altri caratteri di formattazione
+	for (unsigned int i = 0; ((i < email.size()) && (ok)); i++)
+		//se c'è uno spazio o altri caratteri non validi
+		if (!isgraph(email[i]))
+			ok = false;
 	return ok;
 }
 
