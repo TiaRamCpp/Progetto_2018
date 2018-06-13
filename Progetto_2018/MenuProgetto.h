@@ -769,6 +769,7 @@ bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &p
 		case 'A':
 		{
 			//numero utenti totali
+			modifica = conteggioGenerale(persona, impresa, associazione);
 			
 		}
 		break;
@@ -781,6 +782,7 @@ bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &p
 		case'C':
 		{
 			//numero utenti nati dopo una data
+			modifica = utentiDopoUnaData(persona, impresa, associazione);
 			
 		}
 		break;
@@ -805,12 +807,14 @@ bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &p
 		case'G':
 		{
 			//notizia con più apprezzamenti
+			modifica = migliorNotizia(news);
 
 		}
 		break;
 		case'H':
 		{
 			//notizia con più indignazioni
+			modifica = peggiorNotizia(news);
 
 		}
 		break;
@@ -827,7 +831,7 @@ bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &p
 		case'K':
 		{
 			//eta media utenti semplici
-
+			modifica = etaMediaUtentiSemplici(persona);
 		}
 		break;
 		case MENU_PRINCIPALE:
