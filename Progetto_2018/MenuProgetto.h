@@ -105,7 +105,6 @@ bool sceltaMenuAggiungiUtenti(char &scelta_2)
 		case '1':
 		{
 			//aggiungi utente
-			modifica = true;
 
 		}
 		break;
@@ -206,7 +205,6 @@ bool sceltaMenuGestioneUtenti(char &scelta_2)
 bool sceltaMenuPrincipale(char &scelta_1, char &scelta_2, bool &esci)
 {
 	//menu principale (1 livello)
-	cout << scelta_2;
 
 	bool modifica = false;
 	bool precedente = false;
