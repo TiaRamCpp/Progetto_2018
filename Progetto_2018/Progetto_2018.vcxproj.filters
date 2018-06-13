@@ -33,19 +33,25 @@
     <ClInclude Include="UtenteGruppo.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Progetto_2018.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu_Progetto.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="Caratteri.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Gestione_Notizie.h">
+    <ClInclude Include="Utente.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Utente.h">
+    <ClInclude Include="GestioneFile.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="GestioneNotizie.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="GestioneUtenti.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuProgetto.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="FunzionalitàStatistiche.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

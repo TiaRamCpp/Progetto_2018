@@ -2,7 +2,7 @@
 
 #include "Notizia.h"
 
-#include "Gestione_Utenti.h" //per le funzioni che verificano l'esistenza di un id_utente
+#include "GestioneUtenti.h" //per le funzioni che verificano l'esistenza di un id_utente
 
 //stampa
 string stampaNotizie(const vector<Notizia> &news, const bool &visualizza_posizione = false)

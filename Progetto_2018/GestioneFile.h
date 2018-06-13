@@ -1,13 +1,7 @@
 #pragma once
 
-#include "UtenteSemplice.h"
-#include "UtenteAzienda.h"
-#include "UtenteGruppo.h"
-
-#include "Notizia.h"
-
-#include "Gestione_Utenti.h"	//per la funzione stampa
-#include "Gestione_Notizie.h"	//per la funzione stampa
+#include "GestioneUtenti.h"	
+#include "GestioneNotizie.h"	
 
 //aggiornamento file
 void aggiornaFileUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &nome_file_utenti)
