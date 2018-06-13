@@ -46,7 +46,6 @@ int Data::getAnniDa(const Data &data_input) const
 
 bool Data::isValid() const
 {
-	//manca bisestile
 	bool valido = true;
 	if ((_mese < 1) || (_mese > 12) || (_giorno < 1))
 	{
@@ -83,7 +82,6 @@ bool Data::isValid() const
 		break;
 		case 2:
 		{
-			//manca bisestile
 			if (_giorno > 28)
 			{
 				valido = false;
