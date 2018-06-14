@@ -97,7 +97,7 @@ bool Data::convertiStringaAData(const string &data)
 {
 	//legge e controlla gg/mm/aaaa o g/mm/aaaa o gg/m/aaaa
 
-	bool ok = true;
+	bool ok = false;
 	bool stop = false;
 	unsigned int posizione = 0;
 	string giorno;
@@ -145,32 +145,13 @@ bool Data::convertiStringaAData(const string &data)
 				_anno = stoi(anno);
 				//la funzione stoi trasforma la stringa in un numero intero
 
-				//se la non data è valida
-				if (!isValid())
+				//se la data è valida
+				if (isValid())
 				{
-					cerr << "Errore : data non valida" << endl;
-					ok = false;
+					ok = true;
 				}
 			}
-			//errore formattazione data 
-			else
-			{
-				cerr << "Errore formattazione data" << endl;
-				ok = false;
-			}
 		}
-		//errore formattazione data 
-		else
-		{
-			cerr << "Errore formattazione data" << endl;
-			ok = false;
-		}
-	}
-	//errore formattazione data 
-	else
-	{
-		cerr << "Errore formattazione data" << endl;
-		ok = false;
 	}
 	return ok;
 }

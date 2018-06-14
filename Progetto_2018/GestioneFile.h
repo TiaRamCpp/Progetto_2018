@@ -176,6 +176,11 @@ bool leggiUtenteSemplice(ifstream &file_utenti, UtenteSemplice &persona)
 									cerr << "Errore : utente semplice non valido" << endl;
 								}
 							}
+							//se non è valida
+							else
+							{
+								cout << endl << "Errore : la data di nascita '" << lettura << "' non e' valida" << endl;
+							}
 						}
 					}
 				}
@@ -238,6 +243,11 @@ bool leggiUtenteAzienda(ifstream &file_utenti, UtenteAzienda &impresa)
 										cerr << "Errore : utente azienda non valido" << endl;
 									}
 								}
+								//se non è valida
+								else
+								{
+									cout << endl << "Errore : la data di creazione '" << lettura << "' non e' valida" << endl;
+								}
 							}
 						}
 					}
@@ -295,6 +305,11 @@ bool leggiUtenteGruppo(ifstream &file_utenti, UtenteGruppo &associazione)
 								{
 									cerr << "Errore : utente gruppo non valido" << endl;
 								}
+							}
+							//se non è valida
+							else
+							{
+								cout << endl << "Errore : la data di creazione '" << lettura << "' non e' valida" << endl;
 							}
 						}
 					}
@@ -569,27 +584,32 @@ bool leggiDataPubblicazione(ifstream &file_notizie, Data &data_pubblicazione)
 	//legge "<data_pubblicazione>," la converte per salvarla e controlla che sia valida
 
 	bool ok = false;
-	string data_pubblicazione_str;
+	string str_data_pubblicazione;
 	//leggo data
-	data_pubblicazione_str = leggiValoreInformazione(file_notizie);
+	str_data_pubblicazione = leggiValoreInformazione(file_notizie);
 	//controllo che alla fine ci sia ,
-	if (data_pubblicazione_str.back() == SEPARATORE)
+	if (str_data_pubblicazione.back() == SEPARATORE)
 	{
 		//elimino ultimo carattere ,
-		data_pubblicazione_str.pop_back();
+		str_data_pubblicazione.pop_back();
 		//controllo che non sia vuota
-		if (!data_pubblicazione_str.empty())
+		if (!str_data_pubblicazione.empty())
 		{
 			//converto la stringa per salvarla e contemporaneamente verifico che sia valida
-			if (data_pubblicazione.convertiStringaAData(data_pubblicazione_str))
+			if (data_pubblicazione.convertiStringaAData(str_data_pubblicazione))
 			{
 				ok = true;
+			}
+			//errore lettura data pubblicazione
+			else
+			{
+				cout << endl << "Errore : la data di pubblicazione '" << str_data_pubblicazione << "' non e' valida" << endl;
 			}
 		}
 		//data vuota
 		else
 		{
-			cerr << "Errore : la data di pubblicazione è vuota" << endl;
+			cerr << "Errore : la data di pubblicazione e' vuota" << endl;
 		}
 	}
 	//non formattato correttamente
@@ -728,7 +748,7 @@ bool leggiFileUtenti(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &imp
 				//se non ha letto l'id tipo utente
 				else
 				{
-					cerr << "Errore lettura id_tipo_utente" << endl;
+					cerr << "Errore lettura id_tipo_utente nel utente : " << id_utente << endl;
 					ok = false;
 				}
 			}
