@@ -168,24 +168,94 @@ bool utenteGruppoSeleziona(const vector<UtenteGruppo> &associazione, unsigned in
 	return selezionato;
 }
 
+//RIMOZIONE UTENTE
+
+//rimozione id_utente dalle notizie
+bool rimuoviIdMittenteNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
+{
+	//rimuovo tutte le notizie pubblicate dall id_utente da rimuovere
+
+	bool modifica = false;
+	for (unsigned int i = 0; i < news.size(); i++)
+	{
+		//se è il mittente
+		if (news[i].getIdMittente() == id_utente_da_rimuovere)
+		{
+			//rimuovo la notizia
+			news.erase(news.begin() + i--);
+			//i-- perchè avendone tolta una il totale è diminuito di 1
+			modifica = true;
+		}
+	}
+	return modifica;
+}
+bool rimuoviIdUtenteReazioniNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
+{
+	//rimuovo tutte le reazioni messe dall id_utente da rimuovere
+
+	bool modifica = false;
+	for (unsigned int i = 0; i < news.size(); i++)
+	{
+		//controlla se abbia messo una reazione e contemporaneamente la rimuove
+		modifica |= news[i].rimuoviReazione(id_utente_da_rimuovere);
+	}
+	return modifica;
+}
+
 //rimozione utente
 bool utenteSempliceRimuovi(vector<UtenteSemplice> &persona, vector<Notizia> &news, const string &id_utente_da_rimuovere)
 {
+	bool modifica = true;
+	unsigned int posizione;
+
 	//identifico posizione nel vettore
+	posizione = utenteSemplicePosizione(persona, id_utente_da_rimuovere);
 	//rimuovo dal vettore
+	persona.erase(persona.begin() + posizione);
 	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
+	rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
 	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
+	rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+
 	//rimuovo tutte le relazioni con lui
 	//ricalcolo ?? alberi salvati su file???
-	return false;
+	return modifica;
 }
 bool utenteAziendaRimuovi(vector<UtenteAzienda> &impresa, vector<Notizia> &news, const string &id_utente_da_rimuovere)
 {
-	return false;
+	bool modifica = true;
+	unsigned int posizione;
+
+	//identifico posizione nel vettore
+	posizione = utenteAziendaPosizione(impresa, id_utente_da_rimuovere);
+	//rimuovo dal vettore
+	impresa.erase(impresa.begin() + posizione);
+	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
+	rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
+	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
+	rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+
+	//rimuovo tutte le relazioni con lui
+	//ricalcolo ?? alberi salvati su file???
+	return modifica;
 }
 bool utenteGruppoRimuovi(vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &id_utente_da_rimuovere)
 {
-	return false;
+	bool modifica = true;
+	unsigned int posizione;
+
+	//identifico posizione nel vettore
+	posizione = utenteGruppoPosizione(associazione, id_utente_da_rimuovere);
+	//rimuovo dal vettore
+	associazione.erase(associazione.begin() + posizione);
+	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
+	rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
+	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
+	rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+
+	//rimuovo tutte le relazioni con lui
+	//ricalcolo ?? alberi salvati su file???
+	return modifica;
 }
 
 //MODIFICA ATTRIBUTI UTENTE
