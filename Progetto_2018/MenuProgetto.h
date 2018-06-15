@@ -442,17 +442,19 @@ bool sceltaMenuAggiungiUtenti(char &scelta_2, vector<UtenteSemplice> &persona, v
 		case '1':
 		{
 			//aggiungi utente semplice
-
+			modifica = utenteSempliceAggiungi(persona, impresa, associazione);
 		}
 		break;
 		case '2':
 		{
 			//aggiungi utente azienda
+			modifica = utenteAziendaAggiungi(persona, impresa, associazione);
 		}
 		break;
 		case '3':
 		{
 			//aggiungi utente gruppo
+			modifica = utenteGruppoAggiungi(persona, impresa, associazione);
 		}
 		break;
 		case MENU_PRECEDENTE:

@@ -168,6 +168,640 @@ bool utenteGruppoSeleziona(const vector<UtenteGruppo> &associazione, unsigned in
 	return selezionato;
 }
 
+
+//AGGIUNTA UTENTE
+
+bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	bool modifica = false;
+	bool ok;
+	UtenteSemplice temp;
+	string id_utente;
+	string nome;
+	string cognome;
+	string domicilio;
+	string telefono;
+	string email;
+	string str_data_nascita;
+	Data data_nascita;
+
+	//inserimento vari attributi utente semplice
+
+	//inserimento id utente
+	do
+	{
+		ok = false;
+		//inserisco id utente
+		cout << endl << "Inserisci nuovo id_utente_semplice : ";
+		getline(cin, id_utente);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(id_utente))
+		{
+			//controllo che non ne esista già uno
+			if (!idUtenteTrovato(persona, impresa, associazione, id_utente))
+			{
+				ok = true;
+			}
+			//se c'è già
+			else
+			{
+				cout << endl << "Errore : id_utente gia' esistente";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento nome
+	do
+	{
+		ok = false;
+		//inserisco nome
+		cout << endl << "Inserisci il nome : ";
+		getline(cin, nome);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(nome))
+		{
+				ok = true;	
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento cognome
+	do
+	{
+		ok = false;
+		//inserisco cognome
+		cout << endl << "Inserisci il cognome : ";
+		getline(cin, cognome);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(cognome))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento domicilio
+	do
+	{
+		ok = false;
+		//inserisco domicilio
+		cout << endl << "Inserisci il domicilio : ";
+		getline(cin, domicilio);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(domicilio))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento telefono
+	do
+	{
+		ok = false;
+		//inserisco telefono
+		cout << endl << "Inserisci telefono : ";
+		getline(cin, telefono);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(telefono))
+		{
+			//controllo che sia un telefono valido
+			if (temp.telefonoValido(telefono))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento email
+	do
+	{
+		ok = false;
+		//inserisco email
+		cout << endl << "Inserisci email (formato <id_utente_email>@<dominio> ) : ";
+		getline(cin, email);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(email))
+		{
+			//controllo che sia un'email valida
+			if (temp.emailValida(email))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : email non valida";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento data di nascita
+	do
+	{
+		ok = false;
+		//inserisco data di nascita
+		cout << endl << "Inserisci data di nascita (formato gg/mm/aaaa ) : ";
+		getline(cin, str_data_nascita);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(str_data_nascita))
+		{
+			//controllo che sia una data valida e contemporaneamente la converto
+			if (data_nascita.convertiStringaAData(str_data_nascita))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : data di nascita non valida";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+
+	//salvataggio dati acquisiti
+	temp.setId(id_utente);
+	temp.setNome(nome);
+	temp.setCognome(cognome);
+	temp.setDomicilio(domicilio);
+	temp.setTelefono(telefono);
+	temp.setEmail(email);
+	temp.setDataNascita(data_nascita);
+
+	//se è un utente valido completamente
+	if (temp.utenteValido())
+	{
+		//aggiungo il nuovo utente semplice
+		persona.push_back(temp);
+		modifica = true;
+		cout << endl << "Utente semplice aggiunto";
+	}
+	else
+	{
+		cout << endl << "Errore : utente non valido";
+	}
+
+	return modifica;
+}
+bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	bool modifica = false;
+	bool ok;
+	UtenteAzienda temp;
+	string id_utente;
+	string nome;
+	string sede_fiscale;
+	string sede_operativa;
+	string tipo_prodotto;
+	string telefono;
+	string email;
+	string str_data_creazione;
+	Data data_creazione;
+
+	//inserimento vari attributi utente azienda
+
+	//inserimento id utente
+	do
+	{
+		ok = false;
+		//inserisco id utente
+		cout << endl << "Inserisci nuovo id_utente_azienda : ";
+		getline(cin, id_utente);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(id_utente))
+		{
+			//controllo che non ne esista già uno
+			if (!idUtenteTrovato(persona, impresa, associazione, id_utente))
+			{
+				ok = true;
+			}
+			//se c'è già
+			else
+			{
+				cout << endl << "Errore : id_utente gia' esistente";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento nome
+	do
+	{
+		ok = false;
+		//inserisco nome
+		cout << endl << "Inserisci il nome : ";
+		getline(cin, nome);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(nome))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento sede fiscale
+	do
+	{
+		ok = false;
+		//inserisco sede fiscale
+		cout << endl << "Inserisci la sede fiscale : ";
+		getline(cin, sede_fiscale);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(sede_fiscale))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento sede operativa
+	do
+	{
+		ok = false;
+		//inserisco sede operativa
+		cout << endl << "Inserisci la sede operativa : ";
+		getline(cin, sede_operativa);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(sede_operativa))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento tipo prodotto
+	do
+	{
+		ok = false;
+		//inserisco tipo prodotto
+		cout << endl << "Inserisci il tipo di prodotto : ";
+		getline(cin, tipo_prodotto);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(tipo_prodotto))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento telefono
+	do
+	{
+		ok = false;
+		//inserisco telefono
+		cout << endl << "Inserisci telefono : ";
+		getline(cin, telefono);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(telefono))
+		{
+			//controllo che sia un telefono valido
+			if (temp.telefonoValido(telefono))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento email
+	do
+	{
+		ok = false;
+		//inserisco email
+		cout << endl << "Inserisci email (formato <id_utente_email>@<dominio> ) : ";
+		getline(cin, email);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(email))
+		{
+			//controllo che sia un'email valida
+			if (temp.emailValida(email))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : email non valida";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento data di creazione
+	do
+	{
+		ok = false;
+		//inserisco data di creazione
+		cout << endl << "Inserisci data di creazione (formato gg/mm/aaaa ) : ";
+		getline(cin, str_data_creazione);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(str_data_creazione))
+		{
+			//controllo che sia una data valida e contemporaneamente la converto
+			if (data_creazione.convertiStringaAData(str_data_creazione))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : data di creazione non valida";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+
+	//salvataggio dati acquisiti
+	temp.setId(id_utente);
+	temp.setNome(nome);
+	temp.setSedeFiscale(sede_fiscale);
+	temp.setSedeOperativa(sede_operativa);
+	temp.setTipoProdotto(tipo_prodotto);
+	temp.setTelefono(telefono);
+	temp.setEmail(email);
+	temp.setDataCreazione(data_creazione);
+
+	//se è un utente valido completamente
+	if (temp.utenteValido())
+	{
+		//aggiungo il nuovo utente azienda
+		impresa.push_back(temp);
+		modifica = true;
+		cout << endl << "Utente azienda aggiunto";
+	}
+	else
+	{
+		cout << endl << "Errore : utente non valido";
+	}
+
+	return modifica;
+}
+bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
+{
+	bool modifica = false;
+	bool ok;
+	UtenteGruppo temp;
+	string id_utente;
+	string nome;
+	string sede_legale;
+	string tipologia_attivita;
+	string telefono;
+	string email;
+	string str_data_creazione;
+	Data data_creazione;
+
+	//inserimento vari attributi utente gruppo
+
+	//inserimento id utente
+	do
+	{
+		ok = false;
+		//inserisco id utente
+		cout << endl << "Inserisci nuovo id_utente_gruppo : ";
+		getline(cin, id_utente);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(id_utente))
+		{
+			//controllo che non ne esista già uno
+			if (!idUtenteTrovato(persona, impresa, associazione, id_utente))
+			{
+				ok = true;
+			}
+			//se c'è già
+			else
+			{
+				cout << endl << "Errore : id_utente gia' esistente";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento nome
+	do
+	{
+		ok = false;
+		//inserisco nome
+		cout << endl << "Inserisci il nome : ";
+		getline(cin, nome);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(nome))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento sede legale
+	do
+	{
+		ok = false;
+		//inserisco sede legale
+		cout << endl << "Inserisci la sede legale : ";
+		getline(cin, sede_legale);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(sede_legale))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento tipologia attività
+	do
+	{
+		ok = false;
+		//inserisco tipologia attività
+		cout << endl << "Inserisci la tipologia di attivita' : ";
+		getline(cin, tipologia_attivita);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(tipologia_attivita))
+		{
+			ok = true;
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento telefono
+	do
+	{
+		ok = false;
+		//inserisco telefono
+		cout << endl << "Inserisci telefono : ";
+		getline(cin, telefono);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(telefono))
+		{
+			//controllo che sia un telefono valido
+			if (temp.telefonoValido(telefono))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento email
+	do
+	{
+		ok = false;
+		//inserisco email
+		cout << endl << "Inserisci email (formato <id_utente_email>@<dominio> ) : ";
+		getline(cin, email);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(email))
+		{
+			//controllo che sia un'email valida
+			if (temp.emailValida(email))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : email non valida";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+	//inserimento data di creazione
+	do
+	{
+		ok = false;
+		//inserisco data di creazione
+		cout << endl << "Inserisci data di creazione (formato gg/mm/aaaa ) : ";
+		getline(cin, str_data_creazione);
+		//controllo che sia una stringa valida
+		if (temp.stringaValida(str_data_creazione))
+		{
+			//controllo che sia una data valida e contemporaneamente la converto
+			if (data_creazione.convertiStringaAData(str_data_creazione))
+			{
+				ok = true;
+			}
+			//se non lo è
+			else
+			{
+				cout << endl << "Errore : data di creazione non valida";
+			}
+		}
+		//se non è valida
+		else
+		{
+			cout << endl << "Errore : stringa inserita non valida";
+		}
+	} while (!ok);
+
+	//salvataggio dati acquisiti
+	temp.setId(id_utente);
+	temp.setNome(nome);
+	temp.setSedeLegale(sede_legale);
+	temp.setTipologiaAttività(tipologia_attivita);
+	temp.setTelefono(telefono);
+	temp.setEmail(email);
+	temp.setDataCreazione(data_creazione);
+
+	//se è un utente valido completamente
+	if (temp.utenteValido())
+	{
+		//aggiungo il nuovo utente gruppo
+		associazione.push_back(temp);
+		modifica = true;
+		cout << endl << "Utente gruppo aggiunto";
+	}
+	else
+	{
+		cout << endl << "Errore : utente non valido";
+	}
+
+	return modifica;
+}
+
+
 //RIMOZIONE UTENTE
 
 //rimozione id_utente dalle notizie
@@ -219,6 +853,9 @@ bool utenteSempliceRimuovi(vector<UtenteSemplice> &persona, vector<Notizia> &new
 
 	//rimuovo tutte le relazioni con lui
 	//ricalcolo ?? alberi salvati su file???
+
+	cout << endl << "Utente rimosso";
+
 	return modifica;
 }
 bool utenteAziendaRimuovi(vector<UtenteAzienda> &impresa, vector<Notizia> &news, const string &id_utente_da_rimuovere)
@@ -237,6 +874,9 @@ bool utenteAziendaRimuovi(vector<UtenteAzienda> &impresa, vector<Notizia> &news,
 
 	//rimuovo tutte le relazioni con lui
 	//ricalcolo ?? alberi salvati su file???
+
+	cout << endl << "Utente rimosso";
+
 	return modifica;
 }
 bool utenteGruppoRimuovi(vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &id_utente_da_rimuovere)
@@ -255,8 +895,12 @@ bool utenteGruppoRimuovi(vector<UtenteGruppo> &associazione, vector<Notizia> &ne
 
 	//rimuovo tutte le relazioni con lui
 	//ricalcolo ?? alberi salvati su file???
+
+	cout << endl << "Utente rimosso";
+
 	return modifica;
 }
+
 
 //MODIFICA ATTRIBUTI UTENTE
 

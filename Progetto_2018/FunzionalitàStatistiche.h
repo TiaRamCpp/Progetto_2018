@@ -27,80 +27,92 @@ bool utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 {
 	bool modifica = false;
 	bool riscontro = false;
+	bool ok = false;
 	bool trovato;
 	string str_data_inserita;
 	Data data_inserita;
-	//inserisco data
-	cout << endl << "Inserisci la data nel formato (gg/mm/aaaa) : ";
-	getline(cin, str_data_inserita);
-	//converte la stringa in una data e contemporaneamente verifica che sia valida
-	if (data_inserita.convertiStringaAData(str_data_inserita))
+	
+	//inserimento data
+	do
 	{
-		//cerco tra gli utenti semplici
-		trovato = false;
-		for (unsigned int i = 0; i < persona.size(); i++)
+		//inserisco data
+		cout << endl << "Inserisci la data nel formato (gg/mm/aaaa) : ";
+		getline(cin, str_data_inserita);
+		//controllo che sia una data valida e contemporaneamente la converto
+		if (data_inserita.convertiStringaAData(str_data_inserita))
 		{
-			//controllo rispetto alla data di nascita
-			if (data_inserita < persona[i].getDataNascita())
-			{
-				//se è il primo che trovo
-				if (!trovato)
-				{
-					riscontro = true;
-					trovato = true;
-					//stampo il messaggio iniziale
-					cout << endl << "Utenti semplici nati dopo la data inserita :" << endl;
-				}
-				cout << persona[i].getId() << endl;
-			}
+			ok = true;
 		}
-		//cerco tra gli utenti azienda
-		trovato = false;
-		for (unsigned int i = 0; i < impresa.size(); i++)
+		//se non lo è
+		else
 		{
-			//controllo rispetto alla data di creazione
-			if (data_inserita < impresa[i].getDataCreazione())
-			{
-				//se è il primo che trovo
-				if (!trovato)
-				{
-					riscontro = true;
-					trovato = true;
-					//stampo il messaggio iniziale
-					cout << endl << "Utenti azienda creati dopo la data inserita :" << endl;
-				}
-				cout << impresa[i].getId() << endl;
-			}
+			cout << endl << "Errore : la data inserita '" << str_data_inserita << "' non e' valida" << endl;
 		}
-		//cerco tra gli utenti gruppo
-		trovato = false;
-		for (unsigned int i = 0; i < associazione.size(); i++)
+	} while (!ok);
+
+	//cerco tra gli utenti semplici
+	trovato = false;
+	for (unsigned int i = 0; i < persona.size(); i++)
+	{
+		//controllo rispetto alla data di nascita
+		if (data_inserita < persona[i].getDataNascita())
 		{
-			//controllo rispetto alla data di creazione
-			if (data_inserita < associazione[i].getDataCreazione())
+			//se è il primo che trovo
+			if (!trovato)
 			{
-				//se è il primo che trovo
-				if (!trovato)
-				{
-					riscontro = true;
-					trovato = true;
-					//stampo il messaggio iniziale
-					cout << endl << "Utenti gruppo creati dopo la data inserita :" << endl;
-				}
-				cout << associazione[i].getId() << endl;
+				riscontro = true;
+				trovato = true;
+				//stampo il messaggio iniziale
+				cout << endl << "Utenti semplici nati dopo la data inserita :" << endl;
 			}
-		}
-		//se non ho trovato nemmeno uno
-		if (!riscontro)
-		{
-			cout << endl << "Nessun utente nato o creato dopo la data inserita" << endl;
+			cout << persona[i].getId() << endl;
 		}
 	}
-	//se non è valida
-	else
+	
+	//cerco tra gli utenti azienda
+	trovato = false;
+	for (unsigned int i = 0; i < impresa.size(); i++)
 	{
-		cout << endl << "Errore : la data inserita '" << str_data_inserita << "' non e' valida" << endl;
+		//controllo rispetto alla data di creazione
+		if (data_inserita < impresa[i].getDataCreazione())
+		{
+			//se è il primo che trovo
+			if (!trovato)
+			{
+				riscontro = true;
+				trovato = true;
+				//stampo il messaggio iniziale
+				cout << endl << "Utenti azienda creati dopo la data inserita :" << endl;
+			}
+			cout << impresa[i].getId() << endl;
+		}
 	}
+	
+	//cerco tra gli utenti gruppo
+	trovato = false;
+	for (unsigned int i = 0; i < associazione.size(); i++)
+	{
+		//controllo rispetto alla data di creazione
+		if (data_inserita < associazione[i].getDataCreazione())
+		{
+			//se è il primo che trovo
+			if (!trovato)
+			{
+				riscontro = true;
+				trovato = true;
+				//stampo il messaggio iniziale
+				cout << endl << "Utenti gruppo creati dopo la data inserita :" << endl;
+			}
+			cout << associazione[i].getId() << endl;
+		}
+	}
+	
+	//se non ho trovato nemmeno uno
+	if (!riscontro)
+	{
+		cout << endl << "Nessun utente nato o creato dopo la data inserita" << endl;
+	}
+
 	return modifica; //falsa sempre
 }
 
