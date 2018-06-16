@@ -15,31 +15,6 @@
 
 using namespace std;
 
-//funzioni per cercare valori di ritorno
-bool trovaRitornoMenuPrincipale(char &scelta_2)
-{
-	//cerca condizione per tornare al menu principale
-	bool menu_principale = false;
-	if (scelta_2 == MENU_PRINCIPALE)
-	{
-		menu_principale = true;
-	}
-
-	return menu_principale;
-}
-bool trovaRitornoMenuPrecedente(char &scelta_2)
-{
-	//cerca condizione per tornare al menu precednte
-	bool menu_precedente = false;
-
-	if (scelta_2 == MENU_PRECEDENTE)
-	{
-		menu_precedente = true;
-	}
-
-	return menu_precedente;
-}
-
 //stampe voci menu
 void stampaMenuPrincipale()
 {
@@ -171,7 +146,7 @@ void stampaModificaAttributiUtenteGruppo()
 
 //gestione scelte menu
 // 3 Livello
-bool sceltaAttributiModificaUtenteSemplice(char &scelta_2, vector<UtenteSemplice> &persona)
+bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona)
 {
 	//menu attributi modific utente sempilice (3 liv)
 	string str_azione_3;
@@ -228,14 +203,14 @@ bool sceltaAttributiModificaUtenteSemplice(char &scelta_2, vector<UtenteSemplice
 		break;
 		case MENU_PRECEDENTE:
 		{
-			//torna al menu principale
-			scelta_2 = azione_3;
+			//torna al menu precedente
+			torna_al_menu_precedente = true;
 		}
 		break;
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_3;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -250,7 +225,7 @@ bool sceltaAttributiModificaUtenteSemplice(char &scelta_2, vector<UtenteSemplice
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteAzienda(char &scelta_2, vector<UtenteAzienda> &impresa)
+bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteAzienda> &impresa)
 {
 	//menu attributi modific utente sazienda (3 liv)
 	string str_azione_3;
@@ -312,14 +287,14 @@ bool sceltaAttributiModificaUtenteAzienda(char &scelta_2, vector<UtenteAzienda> 
 		break;
 		case MENU_PRECEDENTE:
 		{
-			//torna al menu principale
-			scelta_2 = azione_3;
+			//torna al menu precedente
+			torna_al_menu_precedente = true;
 		}
 		break;
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_3;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -334,7 +309,7 @@ bool sceltaAttributiModificaUtenteAzienda(char &scelta_2, vector<UtenteAzienda> 
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteGruppo(char &scelta_2, vector<UtenteGruppo> &associazione)
+bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteGruppo> &associazione)
 {
 	//menu attributi modific utente gruppo (3 liv)
 	string str_azione_3;
@@ -391,14 +366,14 @@ bool sceltaAttributiModificaUtenteGruppo(char &scelta_2, vector<UtenteGruppo> &a
 		break;
 		case MENU_PRECEDENTE:
 		{
-			//torna al menu principale
-			scelta_2 = azione_3;
+			//torna al menu precedente
+			torna_al_menu_precedente = true;
 		}
 		break;
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_3;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -413,7 +388,7 @@ bool sceltaAttributiModificaUtenteGruppo(char &scelta_2, vector<UtenteGruppo> &a
 
 	return modifica;
 }
-bool sceltaMenuAggiungiUtenti(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
+bool sceltaMenuAggiungiUtenti(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
 {
 	//menu gestione utenti (3 livello)
 	string str_azione_3;
@@ -424,7 +399,7 @@ bool sceltaMenuAggiungiUtenti(char &scelta_2, vector<UtenteSemplice> &persona, v
 	stampaMenuAggiungiUtenti();
 
 	//ripeti se scelta non valida
-	while (azione_3 == SCELTA_NON_VALIDA) {
+	do {
 
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
@@ -459,14 +434,14 @@ bool sceltaMenuAggiungiUtenti(char &scelta_2, vector<UtenteSemplice> &persona, v
 		break;
 		case MENU_PRECEDENTE:
 		{
-			//torna al menu principale
-			scelta_2 = azione_3;
+			//torna al menu precedente
+			torna_al_menu_precedente = true;
 		}
 		break;
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_3;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -477,12 +452,13 @@ bool sceltaMenuAggiungiUtenti(char &scelta_2, vector<UtenteSemplice> &persona, v
 		}
 		break;
 		}
-	}
+	} while (azione_3 == SCELTA_NON_VALIDA);
+
 	return modifica;
 }
 
 // 2 livello
-bool ricercaIdUtenteRimuovi(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_principale,vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//inserisco id e cerco se esistente, a che tipologia appartiene e lo rimuovo (2/3 liv)
 	string id;
@@ -545,7 +521,7 @@ bool ricercaIdUtenteRimuovi(char &scelta_2, vector<UtenteSemplice> &persona, vec
 	}
 	return modifica;
 }
-bool ricercaIdUtenteModifica(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
+bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
 {
 	//inserisco id e cerco se esistente e a che tipologia appartiene (2/3 liv)
 	string id;
@@ -589,39 +565,41 @@ bool ricercaIdUtenteModifica(char &scelta_2, vector<UtenteSemplice> &persona, ve
 	case UT_SEMPLICE:
 	{
 		//modifico utente semplice
-		modifica = sceltaAttributiModificaUtenteSemplice(scelta_2, persona);
+		modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona);
 
 	}
 	break;
 	case UT_AZIENDA:
 	{
 		//modifico utente azienda
-		modifica = sceltaAttributiModificaUtenteAzienda(scelta_2, impresa);
+		modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa);
 	}
 	break;
 	case UT_GRUPPO:
 	{
 		//modifico utente gruppo
-		modifica = sceltaAttributiModificaUtenteGruppo(scelta_2, associazione);
+		modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione);
 	}
 	break;
 	}
 	return modifica;
 }
-bool sceltaMenuGestioneUtenti(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//menu gestione utenti (2 livello)
 	string str_azione_2;
 	bool modifica = false;
 	char azione_2 = SCELTA_NON_VALIDA;
-
-	//stampo menu gestione utenti
-	stampaMenuGestioneUtenti();
+	bool torna_al_menu_precedente = true;
 
 
-	//ripeti se scelta non valida
-	while (azione_2 == SCELTA_NON_VALIDA) {
 
+	do {
+
+		if (torna_al_menu_precedente) {
+			stampaMenuGestioneUtenti();
+		}
+		torna_al_menu_precedente = false;
 
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_2);
@@ -633,31 +611,36 @@ bool sceltaMenuGestioneUtenti(char &scelta_2, vector<UtenteSemplice> &persona, v
 				azione_2 = toupper(azione_2);
 			}
 		}
+		else {
+			azione_2 = SCELTA_NON_VALIDA;
+		}
 
 		switch (azione_2)
 		{
 		case '1':
 		{
 			//aggiungi utente
-			modifica = sceltaMenuAggiungiUtenti(scelta_2,persona,impresa,associazione);
+			//modifica = sceltaMenuAggiungiUtenti(scelta_2, persona, impresa, associazione);
+			modifica = sceltaMenuAggiungiUtenti(torna_al_menu_precedente, torna_al_menu_principale, persona, impresa, associazione);
 		}
 		break;
 		case '2':
 		{
 			//rimuovi utente
-			modifica=ricercaIdUtenteRimuovi(scelta_2, persona, impresa, associazione, news);
+			modifica = ricercaIdUtenteRimuovi(torna_al_menu_precedente, torna_al_menu_principale,persona, impresa, associazione, news);
 		}
 		break;
 		case'3':
 		{
 			//modifica utente
-			modifica = ricercaIdUtenteModifica(scelta_2, persona, impresa, associazione);
+			modifica = ricercaIdUtenteModifica(torna_al_menu_precedente, torna_al_menu_principale,persona, impresa, associazione);
 		}
 		break;
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_2;
+			//scelta_2 = azione_2;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -668,23 +651,25 @@ bool sceltaMenuGestioneUtenti(char &scelta_2, vector<UtenteSemplice> &persona, v
 		}
 		break;
 		}
-	}
+	} while (azione_2 == SCELTA_NON_VALIDA || torna_al_menu_precedente);
+
 	return modifica;
 }
-bool sceltaMenuGestioneNotizie(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//menu gestione notizie (2 livello)
 	string str_azione_2;
 	bool modifica = false;
 	char azione_2 = SCELTA_NON_VALIDA;
-
-	//stampo menu gestione notizie
-	stampaMenuGestioneNotizie();
+	bool torna_al_menu_precedente = true;
 
 
 	//ripeti se scelta non valida
-	while (azione_2 == SCELTA_NON_VALIDA) {
-
+	do {
+		if (torna_al_menu_precedente) {
+			stampaMenuGestioneNotizie();
+		}
+		torna_al_menu_precedente = false;
 
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_2);
@@ -726,7 +711,7 @@ bool sceltaMenuGestioneNotizie(char &scelta_2, vector<UtenteSemplice> &persona, 
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_2;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -737,23 +722,26 @@ bool sceltaMenuGestioneNotizie(char &scelta_2, vector<UtenteSemplice> &persona, 
 		}
 		break;
 		}
-	}
+	} while (azione_2 == SCELTA_NON_VALIDA || torna_al_menu_precedente);
+
 	return modifica;
 }
-bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//menu gestione funzionalità statistiche (2 livello)
 	string str_azione_2;
 	bool modifica = false;
 	char azione_2 = SCELTA_NON_VALIDA;
+	bool torna_al_menu_precedente = true;
 
-	//stampo menu gestione funzionalità statistiche
-	stampaMenuFunzionalitaStatistiche();
 
 
 	//ripeti se scelta non valida
-	while (azione_2 == SCELTA_NON_VALIDA) {
-
+	do {
+		if (torna_al_menu_precedente) {
+			stampaMenuFunzionalitaStatistiche();
+		}
+		torna_al_menu_precedente = false;
 
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_2);
@@ -839,7 +827,7 @@ bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &p
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_2;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -850,23 +838,25 @@ bool sceltaMenuFunzionalitaStatistiche(char &scelta_2, vector<UtenteSemplice> &p
 		}
 		break;
 		}
-	}
+	} while (azione_2 == SCELTA_NON_VALIDA || torna_al_menu_precedente);
+
 	return modifica;
 }
-bool sceltaMenuRicerca(char &scelta_2, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news) 
+bool sceltaMenuRicerca(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//menu gestione ricerca (2 livello)
 	string str_azione_2;
 	bool modifica = false;
 	char azione_2 = SCELTA_NON_VALIDA;
-
-	//stampo menu gestione ricerca
-	stampaMenuRicerca();
+	bool torna_al_menu_precedente = true;
 
 
 	//ripeti se scelta non valida
-	while (azione_2 == SCELTA_NON_VALIDA) {
-
+	do{
+		if (torna_al_menu_precedente) {
+			stampaMenuRicerca();
+		}
+		torna_al_menu_precedente = false;
 
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_2);
@@ -899,7 +889,7 @@ bool sceltaMenuRicerca(char &scelta_2, vector<UtenteSemplice> &persona, vector<U
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			scelta_2 = azione_2;
+			torna_al_menu_principale = true;
 		}
 		break;
 		default:
@@ -910,98 +900,75 @@ bool sceltaMenuRicerca(char &scelta_2, vector<UtenteSemplice> &persona, vector<U
 		}
 		break;
 		}
-	}
+	} while (azione_2 == SCELTA_NON_VALIDA || torna_al_menu_precedente);
+
 	return modifica;
 }
 
 // 1 livello
-bool sceltaMenuPrincipale(char &scelta_1, char &scelta_2, bool &esci, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//menu principale (1 livello)
 
 	bool modifica = false;
-	bool precedente = false;
+	bool torna_al_menu_principale = true;
+	
 	string str_azione_1;
-
-	//controllo se c'è richiesta di tornare al menu precendente altrimenti pulisco scelte
-	if (trovaRitornoMenuPrecedente(scelta_2)) {
-		precedente = true;
-	}
-	else {
-		//pulisco e imposto tutti a default
-		scelta_1 = VALORE_DEFAULT;
-	}
-
-	scelta_2 = VALORE_DEFAULT;
-
+	
 	//azione 1 livello
 	char azione_1 = SCELTA_NON_VALIDA;
 
-	//stampo menu principale se non devo tornare al menu precedente
-	if ((!precedente) || (trovaRitornoMenuPrincipale(scelta_2)))
-	{
-		stampaMenuPrincipale();
-	}
-
-	//ripeti se scelta non valida
-	while (azione_1 == SCELTA_NON_VALIDA) {
-
-		//se voglio tornare a menu precedente non richiedo scelta
-		if (precedente)
-		{
-			azione_1 = scelta_1;
-			scelta_2 = '0';
+	do {
+		if (torna_al_menu_principale) {
+			stampaMenuPrincipale();
 		}
+		torna_al_menu_principale = false;
 
-		if (azione_1 == SCELTA_NON_VALIDA)
+		//leggo carattere e se non valido non lo considero
+		getline(cin, str_azione_1);
+		if (str_azione_1.size() == 1)
 		{
-			//leggo carattere e se non valido non lo considero
-			getline(cin, str_azione_1);
-			if (str_azione_1.size() == 1)
-			{
-				azione_1 = str_azione_1.front();
-				//converto in  maiuscolo se minuscolo
-				if (islower(azione_1)) {
-					azione_1 = toupper(azione_1);
-				}
+			azione_1 = str_azione_1.front();
+			//converto in  maiuscolo se minuscolo
+			if (islower(azione_1)) {
+				azione_1 = toupper(azione_1);
 			}
 		}
+		else {
+			azione_1 = SCELTA_NON_VALIDA;
+		}
 
+		//selezione voce in base a scelta
 		switch (azione_1)
 		{
 		case '1':
 		{
 			//menu gestione utenti
-			scelta_1 = azione_1;
-			modifica = sceltaMenuGestioneUtenti(scelta_2,persona,impresa,associazione,news);
+			modifica = sceltaMenuGestioneUtenti(torna_al_menu_principale, persona, impresa, associazione, news);
 		}
 		break;
 		case '2':
 		{
 			//menu gestione relazioni
 			//mancante
-			scelta_1 = azione_1;
 		}
 		break;
 		case '3':
 		{
 			//menu gestione notizie
-			modifica = sceltaMenuGestioneNotizie(scelta_2, persona, impresa, associazione, news);
-			scelta_1 = azione_1;
+			modifica = sceltaMenuGestioneNotizie(torna_al_menu_principale, persona, impresa, associazione, news);
 		}
 		break;
 		case '4':
 		{
 			//menu statistiche
-			modifica = sceltaMenuFunzionalitaStatistiche(scelta_2, persona, impresa, associazione, news);
-			scelta_1 = azione_1;
+			modifica = sceltaMenuFunzionalitaStatistiche(torna_al_menu_principale, persona, impresa, associazione, news);
 		}
 		break;
 		case '5':
 		{
 			//menu ricerche
-			modifica = sceltaMenuRicerca(scelta_2, persona, impresa, associazione, news);
-			scelta_1 = azione_1;
+			modifica = sceltaMenuRicerca(torna_al_menu_principale, persona, impresa, associazione, news);
 
 		}
 		break;
@@ -1019,6 +986,9 @@ bool sceltaMenuPrincipale(char &scelta_1, char &scelta_2, bool &esci, vector<Ute
 		}
 		break;
 		}
-	}
+
+	} while (azione_1 == SCELTA_NON_VALIDA || torna_al_menu_principale);
+
+
 	return modifica;
 }
