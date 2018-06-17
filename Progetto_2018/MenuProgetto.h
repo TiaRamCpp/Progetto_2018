@@ -463,7 +463,7 @@ bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_
 	//inserisco id e cerco se esistente, a che tipologia appartiene e lo rimuovo (2/3 liv)
 	string id;
 	bool modifica = false;
-	bool valido = false;
+	bool valido = true;
 	int tipo_utente;
 
 	cout << "Inserire id utente da rimuovere:" << endl;
@@ -473,51 +473,32 @@ bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_
 		getline(cin, id);
 
 		//cerco se esiste utente e tipologia
-		if (idUtenteTrovato(persona, impresa, associazione, id)) {
-			if (idUtenteSempliceTrovato(persona, id))
-			{
-				tipo_utente = UT_SEMPLICE;
-				valido = true;
-			}
+		if (idUtenteSempliceTrovato(persona, id))
+		{
+			//modifico utente semplice
+			modifica = utenteSempliceRimuovi(persona, news, id);
+		}
+		else
+		{
 			if (idUtenteAziendaTrovato(impresa, id))
 			{
-				tipo_utente = UT_AZIENDA;
-				valido = true;
+				//modifico utente azienda
+				modifica = utenteAziendaRimuovi(impresa, news, id);
 			}
-			if (idUtenteGruppoTrovato(associazione, id))
+			else
 			{
-				tipo_utente = UT_GRUPPO;
-				valido = true;
-			}
+				if (idUtenteGruppoTrovato(associazione, id))
+				{
+					//modifico utente gruppo
+					modifica = utenteGruppoRimuovi(associazione, news, id);
+				}
+				else
+				{
+					cout << "Id non esistente, inserirne un altro: " << endl;
+					valido = false;
+				}
+			}	
 		}
-		if (!valido)
-		{
-			cout << "Id non esistente, inserirne un altro: " << endl;
-		}
-	}
-
-	//entro in menu diversi in base al tipo di utente
-	switch (tipo_utente)
-	{
-	case UT_SEMPLICE:
-	{
-		//modifico utente semplice
-		modifica = utenteSempliceRimuovi(persona, news, id);
-
-	}
-	break;
-	case UT_AZIENDA:
-	{
-		//modifico utente azienda
-		modifica = utenteAziendaRimuovi(impresa, news, id);
-	}
-	break;
-	case UT_GRUPPO:
-	{
-		//modifico utente gruppo
-		modifica = utenteGruppoRimuovi(associazione, news, id);
-	}
-	break;
 	}
 	return modifica;
 }
