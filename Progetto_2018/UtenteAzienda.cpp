@@ -72,19 +72,29 @@ bool UtenteAzienda::utenteValido() const
 	//controlla che tutto l'utente sia valido
 	bool ok = true;
 	//controllo che nessuna stringa sia vuota o che contenga caratteri speciali
-	ok &= stringaValida(_id);
-	ok &= stringaValida(_nome);
-	ok &= stringaValida(_sede_fiscale);
-	ok &= stringaValida(_sede_operativa);
-	ok &= stringaValida(_tipo_prodotto);
-	ok &= stringaValida(_telefono);
-	ok &= stringaValida(_email);
+	
 	//controllo id valido
+	ok &= stringaValida(_id);
 	ok &= idValido(_id);
+	ok &= stringaValida(_nome);
+	if (!_sede_fiscale.empty())
+		ok &= stringaValida(_sede_fiscale);
+	if (!_sede_operativa.empty())
+		ok &= stringaValida(_sede_operativa);
+	if (!_tipo_prodotto.empty())
+		ok &= stringaValida(_tipo_prodotto);
 	//controllo telefono valido
-	ok &= telefonoValido(_telefono);
+	if (!_telefono.empty())
+	{
+		ok &= stringaValida(_telefono);
+		ok &= telefonoValido(_telefono);
+	}
 	//controllo email valida
-	ok &= emailValida(_email);
+	if (!_email.empty())
+	{
+		ok &= stringaValida(_email);
+		ok &= emailValida(_email);
+	}
 	//controllo che la data inserita sia valida
 	ok &= _data_creazione.isValid();
 	return ok;

@@ -24,7 +24,7 @@ bool Nodo::aggiungiRelazione(string id, int tipo_relazione)
 	bool esistente = false;
 	unsigned int i = 0;
 
-	//controllo che relazione cercata sia esistente
+	//controllo che relazione non sia già esistente
 	for (; (i < _id_archi.size()) && (!esistente); i++)
 	{
 		if (id == _id_archi[i])
@@ -40,7 +40,7 @@ bool Nodo::aggiungiRelazione(string id, int tipo_relazione)
 		_tipologia_relazioni.push_back(tipo_relazione);
 	}
 
-	return esistente;
+	return !esistente;
 }
 
 bool Nodo::modificaRelaizone(string id, int tipo_relazione)
@@ -57,7 +57,7 @@ bool Nodo::modificaRelaizone(string id, int tipo_relazione)
 		}
 	}
 
-	//se esistente allora lo modifico
+	//se esistente allora la modifico
 	if (esistente) 
 	{
 		_tipologia_relazioni[i] = tipo_relazione;

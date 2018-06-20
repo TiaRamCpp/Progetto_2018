@@ -192,6 +192,7 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco id utente
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci nuovo id_utente_semplice : ";
 		getline(cin, id_utente);
 		//controllo che sia una stringa valida
@@ -219,6 +220,7 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco nome
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci il nome : ";
 		getline(cin, nome);
 		//controllo che sia una stringa valida
@@ -237,6 +239,7 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco cognome
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci il cognome : ";
 		getline(cin, cognome);
 		//controllo che sia una stringa valida
@@ -255,17 +258,27 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco domicilio
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci il domicilio : ";
 		getline(cin, domicilio);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(domicilio))
+		//se ha inserito qualcosa
+		if (!domicilio.empty())
 		{
-			ok = true;
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(domicilio))
+			{
+				ok = true;
+			}
+			//se non è valida
+			else
+			{
+				cout << endl << "Errore : stringa inserita non valida";
+			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento telefono
@@ -273,26 +286,36 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco telefono
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci telefono : ";
 		getline(cin, telefono);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(telefono))
+		//se ha inserito qualcosa
+		if (!telefono.empty())
 		{
-			//controllo che sia un telefono valido
-			if (temp.telefonoValido(telefono))
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(telefono))
 			{
-				ok = true;
+				//controllo che sia un telefono valido
+				if (temp.telefonoValido(telefono))
+				{
+					ok = true;
+				}
+				//se non lo è
+				else
+				{
+					cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+				}
 			}
-			//se non lo è
+			//se non è valida
 			else
 			{
-				cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+				cout << endl << "Errore : stringa inserita non valida";
 			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento email
@@ -300,26 +323,36 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco email
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci email (formato <id_utente_email>@<dominio> ) : ";
 		getline(cin, email);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(email))
+		//se ha inserito qualcosa
+		if (!email.empty())
 		{
-			//controllo che sia un'email valida
-			if (temp.emailValida(email))
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(email))
 			{
-				ok = true;
+				//controllo che sia un'email valida
+				if (temp.emailValida(email))
+				{
+					ok = true;
+				}
+				//se non lo è
+				else
+				{
+					cout << endl << "Errore : email non valida";
+				}
 			}
-			//se non lo è
+			//se non è valida
 			else
 			{
-				cout << endl << "Errore : email non valida";
+				cout << endl << "Errore : stringa inserita non valida";
 			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento data di nascita
@@ -327,6 +360,7 @@ bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<Utente
 	{
 		ok = false;
 		//inserisco data di nascita
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci data di nascita (formato gg/mm/aaaa ) : ";
 		getline(cin, str_data_nascita);
 		//controllo che sia una stringa valida
@@ -396,6 +430,7 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco id utente
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci nuovo id_utente_azienda : ";
 		getline(cin, id_utente);
 		//controllo che sia una stringa valida
@@ -423,6 +458,7 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco nome
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci il nome : ";
 		getline(cin, nome);
 		//controllo che sia una stringa valida
@@ -441,17 +477,27 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco sede fiscale
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci la sede fiscale : ";
 		getline(cin, sede_fiscale);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(sede_fiscale))
+		//se ha inserito qualcosa
+		if (!sede_fiscale.empty())
 		{
-			ok = true;
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(sede_fiscale))
+			{
+				ok = true;
+			}
+			//se non è valida
+			else
+			{
+				cout << endl << "Errore : stringa inserita non valida";
+			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento sede operativa
@@ -459,17 +505,27 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco sede operativa
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci la sede operativa : ";
 		getline(cin, sede_operativa);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(sede_operativa))
+		//se ha inserito qualcosa
+		if (!sede_operativa.empty())
 		{
-			ok = true;
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(sede_operativa))
+			{
+				ok = true;
+			}
+			//se non è valida
+			else
+			{
+				cout << endl << "Errore : stringa inserita non valida";
+			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento tipo prodotto
@@ -477,17 +533,27 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco tipo prodotto
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci il tipo di prodotto : ";
 		getline(cin, tipo_prodotto);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(tipo_prodotto))
+		//se ha inserito qualcosa
+		if (!tipo_prodotto.empty())
 		{
-			ok = true;
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(tipo_prodotto))
+			{
+				ok = true;
+			}
+			//se non è valida
+			else
+			{
+				cout << endl << "Errore : stringa inserita non valida";
+			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento telefono
@@ -495,26 +561,36 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco telefono
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci telefono : ";
 		getline(cin, telefono);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(telefono))
+		//se ha inserito qualcosa
+		if (!telefono.empty())
 		{
-			//controllo che sia un telefono valido
-			if (temp.telefonoValido(telefono))
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(telefono))
 			{
-				ok = true;
+				//controllo che sia un telefono valido
+				if (temp.telefonoValido(telefono))
+				{
+					ok = true;
+				}
+				//se non lo è
+				else
+				{
+					cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+				}
 			}
-			//se non lo è
+			//se non è valida
 			else
 			{
-				cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+				cout << endl << "Errore : stringa inserita non valida";
 			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento email
@@ -522,26 +598,36 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco email
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci email (formato <id_utente_email>@<dominio> ) : ";
 		getline(cin, email);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(email))
+		//se ha inserito qualcosa
+		if (!email.empty())
 		{
-			//controllo che sia un'email valida
-			if (temp.emailValida(email))
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(email))
 			{
-				ok = true;
+				//controllo che sia un'email valida
+				if (temp.emailValida(email))
+				{
+					ok = true;
+				}
+				//se non lo è
+				else
+				{
+					cout << endl << "Errore : email non valida";
+				}
 			}
-			//se non lo è
+			//se non è valida
 			else
 			{
-				cout << endl << "Errore : email non valida";
+				cout << endl << "Errore : stringa inserita non valida";
 			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento data di creazione
@@ -549,6 +635,7 @@ bool utenteAziendaAggiungi(const vector<UtenteSemplice> &persona, vector<UtenteA
 	{
 		ok = false;
 		//inserisco data di creazione
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci data di creazione (formato gg/mm/aaaa ) : ";
 		getline(cin, str_data_creazione);
 		//controllo che sia una stringa valida
@@ -618,6 +705,7 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco id utente
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci nuovo id_utente_gruppo : ";
 		getline(cin, id_utente);
 		//controllo che sia una stringa valida
@@ -645,6 +733,7 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco nome
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci il nome : ";
 		getline(cin, nome);
 		//controllo che sia una stringa valida
@@ -663,17 +752,27 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco sede legale
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci la sede legale : ";
 		getline(cin, sede_legale);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(sede_legale))
+		//se ha inserito qualcosa
+		if (!sede_legale.empty())
 		{
-			ok = true;
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(sede_legale))
+			{
+				ok = true;
+			}
+			//se non è valida
+			else
+			{
+				cout << endl << "Errore : stringa inserita non valida";
+			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento tipologia attività
@@ -681,17 +780,27 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco tipologia attività
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci la tipologia di attivita' : ";
 		getline(cin, tipologia_attivita);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(tipologia_attivita))
+		//se ha inserito qualcosa
+		if (!tipologia_attivita.empty())
 		{
-			ok = true;
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(tipologia_attivita))
+			{
+				ok = true;
+			}
+			//se non è valida
+			else
+			{
+				cout << endl << "Errore : stringa inserita non valida";
+			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento telefono
@@ -699,26 +808,36 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco telefono
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci telefono : ";
 		getline(cin, telefono);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(telefono))
+		//se ha inserito qualcosa
+		if (!telefono.empty())
 		{
-			//controllo che sia un telefono valido
-			if (temp.telefonoValido(telefono))
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(telefono))
 			{
-				ok = true;
+				//controllo che sia un telefono valido
+				if (temp.telefonoValido(telefono))
+				{
+					ok = true;
+				}
+				//se non lo è
+				else
+				{
+					cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+				}
 			}
-			//se non lo è
+			//se non è valida
 			else
 			{
-				cout << endl << "Errore : telefono non valido, inserisci solo cifre";
+				cout << endl << "Errore : stringa inserita non valida";
 			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento email
@@ -726,26 +845,36 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco email
+		cout << endl << "(Campo facoltativo, premere invio per saltare)";
 		cout << endl << "Inserisci email (formato <id_utente_email>@<dominio> ) : ";
 		getline(cin, email);
-		//controllo che sia una stringa valida
-		if (temp.stringaValida(email))
+		//se ha inserito qualcosa
+		if (!email.empty())
 		{
-			//controllo che sia un'email valida
-			if (temp.emailValida(email))
+			//controllo che sia una stringa valida
+			if (temp.stringaValida(email))
 			{
-				ok = true;
+				//controllo che sia un'email valida
+				if (temp.emailValida(email))
+				{
+					ok = true;
+				}
+				//se non lo è
+				else
+				{
+					cout << endl << "Errore : email non valida";
+				}
 			}
-			//se non lo è
+			//se non è valida
 			else
 			{
-				cout << endl << "Errore : email non valida";
+				cout << endl << "Errore : stringa inserita non valida";
 			}
 		}
-		//se non è valida
+		//se non ha inserito nulla nel campo facoltativo
 		else
 		{
-			cout << endl << "Errore : stringa inserita non valida";
+			ok = true;
 		}
 	} while (!ok);
 	//inserimento data di creazione
@@ -753,6 +882,7 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 	{
 		ok = false;
 		//inserisco data di creazione
+		cout << endl << "(Campo obbligatorio)";
 		cout << endl << "Inserisci data di creazione (formato gg/mm/aaaa ) : ";
 		getline(cin, str_data_creazione);
 		//controllo che sia una stringa valida
@@ -910,6 +1040,7 @@ bool utenteSempliceModificaNome(UtenteSemplice &persona)
 	bool modifica = false;
 	string nuovo_nome;
 	//inserimento nuovo nome
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire il nuovo nome : ";
 	getline(cin, nuovo_nome);
 	//se è valido
@@ -931,6 +1062,7 @@ bool utenteSempliceModificaCognome(UtenteSemplice &persona)
 	bool modifica = false;
 	string nuovo_cognome;
 	//inserimento nuovo cognome
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire il nuovo cognome : ";
 	getline(cin, nuovo_cognome);
 	//se è valido
@@ -950,63 +1082,81 @@ bool utenteSempliceModificaCognome(UtenteSemplice &persona)
 bool utenteSempliceModificaDomicilio(UtenteSemplice &persona)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuovo_domicilio;
 	//inserimento nuovo domicilio
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire il nuovo domicilio : ";
 	getline(cin, nuovo_domicilio);
-	//se è valido
-	if (persona.stringaValida(nuovo_domicilio))
+	//se ha inserito qualcosa
+	if (!nuovo_domicilio.empty())
+	{
+		//se non è valido
+		if (!persona.stringaValida(nuovo_domicilio))
+		{
+			ok = false;
+			cout << endl << "Errore : il nuovo domicilio '" << nuovo_domicilio << "' non e' valido" << endl;
+		}
+	}
+	if (ok)
 	{
 		persona.setDomicilio(nuovo_domicilio);
 		modifica = true;
 		cout << endl << "Domicilio modificato" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : il nuovo domicilio '" << nuovo_domicilio << "' non e' valido" << endl;
 	}
 	return modifica;
 }
 bool utenteSempliceModificaTelefono(UtenteSemplice &persona)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuovo_telefono;
 	//inserimento nuovo telefono
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire il nuovo telefono : ";
 	getline(cin, nuovo_telefono);
-	//se è valido
-	if ((persona.stringaValida(nuovo_telefono)) && (persona.telefonoValido(nuovo_telefono)))
+	//se ha inserito qualcosa
+	if (!nuovo_telefono.empty())
+	{
+		//se non è valido
+		if ((!persona.stringaValida(nuovo_telefono)) || (!persona.telefonoValido(nuovo_telefono)))
+		{
+			ok = false;
+			cout << endl << "Errore : il nuovo telefono '" << nuovo_telefono << "' non e' valido" << endl;
+		}
+	}
+	if (ok)
 	{
 		persona.setTelefono(nuovo_telefono);
 		modifica = true;
 		cout << endl << "Telefono modificato" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : il nuovo telefono '" << nuovo_telefono << "' non e' valido" << endl;
 	}
 	return modifica;
 }
 bool utenteSempliceModificaEmail(UtenteSemplice &persona)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_email;
 	//inserimento nuova email
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova email formato <id_utente_email>@<dominio> : ";
 	getline(cin, nuova_email);
-	//se è valido
-	if ((persona.stringaValida(nuova_email)) && (persona.emailValida(nuova_email)))
+	//se ha inserito qualcosa
+	if (!nuova_email.empty())
+	{
+		//se non è valida
+		if ((!persona.stringaValida(nuova_email)) || (!persona.emailValida(nuova_email)))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova email '" << nuova_email << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		persona.setEmail(nuova_email);
 		modifica = true;
 		cout << endl << "Email modificata" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : la nuova email '" << nuova_email << "' non e' valida" << endl;
 	}
 	return modifica;
 }
@@ -1016,6 +1166,7 @@ bool utenteSempliceModificaDataNascita(UtenteSemplice &persona)
 	string str_nuova_data_nascita;
 	Data nuova_data_nascita;
 	//inserimento nuova data di nascita
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire la nuova data di nascita nel formato gg/mm/aaaa : ";
 	getline(cin, str_nuova_data_nascita);
 	//converto e se è valida
@@ -1039,6 +1190,7 @@ bool utenteAziendaModificaNome(UtenteAzienda &impresa)
 	bool modifica = false;
 	string nuovo_nome;
 	//inserimento nuovo nome
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire il nuovo nome : ";
 	getline(cin, nuovo_nome);
 	//se è valido
@@ -1058,105 +1210,135 @@ bool utenteAziendaModificaNome(UtenteAzienda &impresa)
 bool utenteAziendaModificaSedeFiscale(UtenteAzienda &impresa)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_sede_fiscale;
 	//inserimento nuova sede fiscale
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova sede fiscale : ";
 	getline(cin, nuova_sede_fiscale);
-	//se è valida
-	if (impresa.stringaValida(nuova_sede_fiscale))
+	//se ha inserito qualcosa
+	if (!nuova_sede_fiscale.empty())
+	{
+		//se non è valida
+		if (!impresa.stringaValida(nuova_sede_fiscale))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova sede fiscale '" << nuova_sede_fiscale << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		impresa.setSedeFiscale(nuova_sede_fiscale);
 		modifica = true;
 		cout << endl << "Sede fiscale modificata" << endl;
-	}
-	//se non è valida
-	else
-	{
-		cout << endl << "Errore : la nuova sede fiscale '" << nuova_sede_fiscale << "' non e' valida" << endl;
 	}
 	return modifica;
 }
 bool utenteAziendaModificaSedeOperativa(UtenteAzienda &impresa)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_sede_operativa;
 	//inserimento nuova sede operativa
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova sede operativa : ";
 	getline(cin, nuova_sede_operativa);
-	//se è valida
-	if (impresa.stringaValida(nuova_sede_operativa))
+	//se ha inserito qualcosa
+	if (!nuova_sede_operativa.empty())
+	{
+		//se non è valida
+		if (!impresa.stringaValida(nuova_sede_operativa))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova sede operativa '" << nuova_sede_operativa << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		impresa.setSedeOperativa(nuova_sede_operativa);
 		modifica = true;
 		cout << endl << "Sede operativa modificata" << endl;
-	}
-	//se non è valida
-	else
-	{
-		cout << endl << "Errore : la nuova sede operativa '" << nuova_sede_operativa << "' non e' valida" << endl;
 	}
 	return modifica;
 }
 bool utenteAziendaModificaTipoProdotto(UtenteAzienda &impresa)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuovo_tipo_prodotto;
 	//inserimento nuovo tipo prodotto
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire il nuovo tipo di prodotto : ";
 	getline(cin, nuovo_tipo_prodotto);
-	//se è valido
-	if (impresa.stringaValida(nuovo_tipo_prodotto))
+	//se ha inserito qualcosa
+	if (!nuovo_tipo_prodotto.empty())
+	{
+		//se non è valido
+		if (!impresa.stringaValida(nuovo_tipo_prodotto))
+		{
+			ok = false;
+			cout << endl << "Errore : il nuovo tipo prodotto '" << nuovo_tipo_prodotto << "' non e' valido" << endl;
+		}
+	}
+	if (ok)
 	{
 		impresa.setTipoProdotto(nuovo_tipo_prodotto);
 		modifica = true;
 		cout << endl << "Tipo prodotto modificato" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : il nuovo tipo prodotto '" << nuovo_tipo_prodotto << "' non e' valido" << endl;
 	}
 	return modifica;
 }
 bool utenteAziendaModificaTelefono(UtenteAzienda &impresa)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuovo_telefono;
 	//inserimento nuovo telefono
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire il nuovo telefono : ";
 	getline(cin, nuovo_telefono);
-	//se è valido
-	if ((impresa.stringaValida(nuovo_telefono)) && (impresa.telefonoValido(nuovo_telefono)))
+	//se ha inserito qualcosa
+	if (!nuovo_telefono.empty())
+	{
+		//se non è valido
+		if ((!impresa.stringaValida(nuovo_telefono)) || (!impresa.telefonoValido(nuovo_telefono)))
+		{
+			ok = false;
+			cout << endl << "Errore : il nuovo telefono '" << nuovo_telefono << "' non e' valido" << endl;
+		}
+	}
+	if (ok)
 	{
 		impresa.setTelefono(nuovo_telefono);
 		modifica = true;
 		cout << endl << "Telefono modificato" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : il nuovo telefono '" << nuovo_telefono << "' non e' valido" << endl;
 	}
 	return modifica;
 }
 bool utenteAziendaModificaEmail(UtenteAzienda &impresa)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_email;
 	//inserimento nuova email
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova email formato <id_utente_email>@<dominio> : ";
 	getline(cin, nuova_email);
-	//se è valido
-	if ((impresa.stringaValida(nuova_email)) && (impresa.emailValida(nuova_email)))
+	//se ha inserito qualcosa
+	if (!nuova_email.empty())
+	{
+		//se non è valida
+		if ((!impresa.stringaValida(nuova_email)) || (!impresa.emailValida(nuova_email)))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova email '" << nuova_email << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		impresa.setEmail(nuova_email);
 		modifica = true;
 		cout << endl << "Email modificata" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : la nuova email '" << nuova_email << "' non e' valida" << endl;
 	}
 	return modifica;
 }
@@ -1166,6 +1348,7 @@ bool utenteAziendaModificaDataCreazione(UtenteAzienda &impresa)
 	string str_nuova_data_creazione;
 	Data nuova_data_creazione;
 	//inserimento nuova data di creazione
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire la nuova data di creazione nel formato gg/mm/aaaa : ";
 	getline(cin, str_nuova_data_creazione);
 	//converto e se è valida
@@ -1189,6 +1372,7 @@ bool utenteGruppoModificaNome(UtenteGruppo &associazione)
 	bool modifica = false;
 	string nuovo_nome;
 	//inserimento nuovo nome
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire il nuovo nome : ";
 	getline(cin, nuovo_nome);
 	//se è valido
@@ -1208,84 +1392,108 @@ bool utenteGruppoModificaNome(UtenteGruppo &associazione)
 bool utenteGruppoModificaSedeLegale(UtenteGruppo &associazione)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_sede_legale;
 	//inserimento nuova sede legale
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova sede legale : ";
 	getline(cin, nuova_sede_legale);
-	//se è valida
-	if (associazione.stringaValida(nuova_sede_legale))
+	//se ha inserito qualcosa
+	if (!nuova_sede_legale.empty())
+	{
+		//se non è valida
+		if (!associazione.stringaValida(nuova_sede_legale))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova sede legale '" << nuova_sede_legale << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		associazione.setSedeLegale(nuova_sede_legale);
 		modifica = true;
 		cout << endl << "Sede legale modificata" << endl;
-	}
-	//se non è valida
-	else
-	{
-		cout << endl << "Errore : la nuova sede legale '" << nuova_sede_legale << "' non e' valida" << endl;
 	}
 	return modifica;
 }
 bool utenteGruppoModificaTipologiaAttivita(UtenteGruppo &associazione)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_tipologia_attivita;
 	//inserimento nuova tipologia attività
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova tipologia di attivita' : ";
 	getline(cin, nuova_tipologia_attivita);
-	//se è valida
-	if (associazione.stringaValida(nuova_tipologia_attivita))
+	//se ha inserito qualcosa
+	if (!nuova_tipologia_attivita.empty())
+	{
+		//se non è valida
+		if (!associazione.stringaValida(nuova_tipologia_attivita))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova tipologia di attivita' '" << nuova_tipologia_attivita << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		associazione.setTipologiaAttività(nuova_tipologia_attivita);
 		modifica = true;
 		cout << endl << "Tipologia attivita' modificata" << endl;
-	}
-	//se non è valida
-	else
-	{
-		cout << endl << "Errore : la nuova tipologia di attivita' '" << nuova_tipologia_attivita << "' non e' valida" << endl;
 	}
 	return modifica;
 }
 bool utenteGruppoModificaTelefono(UtenteGruppo &associazione)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuovo_telefono;
 	//inserimento nuovo telefono
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire il nuovo telefono : ";
 	getline(cin, nuovo_telefono);
-	//se è valido
-	if ((associazione.stringaValida(nuovo_telefono)) && (associazione.telefonoValido(nuovo_telefono)))
+	//se ha inserito qualcosa
+	if (!nuovo_telefono.empty())
+	{
+		//se non è valido
+		if ((!associazione.stringaValida(nuovo_telefono)) || (!associazione.telefonoValido(nuovo_telefono)))
+		{
+			ok = false;
+			cout << endl << "Errore : il nuovo telefono '" << nuovo_telefono << "' non e' valido" << endl;
+		}
+	}
+	if (ok)
 	{
 		associazione.setTelefono(nuovo_telefono);
 		modifica = true;
 		cout << endl << "Telefono modificato" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : il nuovo telefono '" << nuovo_telefono << "' non e' valido" << endl;
 	}
 	return modifica;
 }
 bool utenteGruppoModificaEmail(UtenteGruppo &associazione)
 {
 	bool modifica = false;
+	bool ok = true;
 	string nuova_email;
 	//inserimento nuova email
+	cout << endl << "(Campo facoltativo, premere invio per rimuovere)";
 	cout << endl << "Inserire la nuova email formato <id_utente_email>@<dominio> : ";
 	getline(cin, nuova_email);
-	//se è valido
-	if ((associazione.stringaValida(nuova_email)) && (associazione.emailValida(nuova_email)))
+	//se ha inserito qualcosa
+	if (!nuova_email.empty())
+	{
+		//se non è valida
+		if ((!associazione.stringaValida(nuova_email)) || (!associazione.emailValida(nuova_email)))
+		{
+			ok = false;
+			cout << endl << "Errore : la nuova email '" << nuova_email << "' non e' valida" << endl;
+		}
+	}
+	if (ok)
 	{
 		associazione.setEmail(nuova_email);
 		modifica = true;
 		cout << endl << "Email modificata" << endl;
-	}
-	//se non è valido
-	else
-	{
-		cout << endl << "Errore : la nuova email '" << nuova_email << "' non e' valida" << endl;
 	}
 	return modifica;
 }
@@ -1295,6 +1503,7 @@ bool utenteGruppoModificaDataCreazione(UtenteGruppo &associazione)
 	string str_nuova_data_creazione;
 	Data nuova_data_creazione;
 	//inserimento nuova data di creazione
+	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire la nuova data di creazione nel formato gg/mm/aaaa : ";
 	getline(cin, str_nuova_data_creazione);
 	//converto e se è valida

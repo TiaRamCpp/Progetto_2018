@@ -104,9 +104,9 @@ void stampaModificaAttributiUtenteSemplice()
 	cout << "1) Nome" << endl;
 	cout << "2) Cognome" << endl;
 	cout << "3) Domicilio" << endl;
-	cout << "4) Data di nascita" << endl;
-	cout << "5) Telefono" << endl;
-	cout << "6) E-mail" << endl;
+	cout << "4) Telefono" << endl;
+	cout << "5) E-mail" << endl;
+	cout << "6) Data di nascita" << endl;
 	cout << MENU_PRECEDENTE << ") Torna al Menu Precedente" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
@@ -119,10 +119,10 @@ void stampaModificaAttributiUtenteAzienda()
 	cout << "1) Nome" << endl;
 	cout << "2) Sede fiscale" << endl;
 	cout << "3) Sede operativa" << endl;
-	cout << "4) Data di creazione" << endl;
-	cout << "5) Tipologia prodotto" << endl;
-	cout << "6) Telefono" << endl;
-	cout << "7) E-mail" << endl;
+	cout << "4) Tipologia prodotto" << endl;
+	cout << "5) Telefono" << endl;
+	cout << "6) E-mail" << endl;
+	cout << "7) Data di creazione" << endl;
 	cout << MENU_PRECEDENTE << ") Torna al Menu Precedente" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
@@ -133,11 +133,11 @@ void stampaModificaAttributiUtenteGruppo()
 	//stampa menu modifica attributi utente gruppo (3 liv)
 	cout << endl;
 	cout << "1) Nome" << endl;
-	cout << "2) Sede operativa" << endl;
-	cout << "3) Data di creazione" << endl;
-	cout << "4) Tipologia attivita'" << endl;
-	cout << "5) Telefono" << endl;
-	cout << "6) E-mail" << endl;
+	cout << "2) Sede legale" << endl;
+	cout << "3) Tipologia attivita'" << endl;
+	cout << "4) Telefono" << endl;
+	cout << "5) E-mail" << endl;
+	cout << "6) Data di creazione" << endl;
 	cout << MENU_PRECEDENTE << ") Torna al Menu Precedente" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
@@ -146,7 +146,7 @@ void stampaModificaAttributiUtenteGruppo()
 
 //gestione scelte menu
 // 3 Livello
-bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona)
+bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteSemplice &persona)
 {
 	//menu attributi modific utente sempilice (3 liv)
 	string str_azione_3;
@@ -155,15 +155,16 @@ bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool 
 
 	stampaModificaAttributiUtenteSemplice();
 
-	while (azione_3 == SCELTA_NON_VALIDA) {
-
+	do
+	{
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
 		{
 			azione_3 = str_azione_3.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_3)) {
+			if (islower(azione_3)) 
+			{
 				azione_3 = toupper(azione_3);
 			}
 		}
@@ -173,32 +174,37 @@ bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool 
 		case '1':
 		{
 			//modifica nome
-
+			modifica = utenteSempliceModificaNome(persona);
 		}
 		break;
 		case '2':
 		{
 			//modifica cognome
+			modifica = utenteSempliceModificaCognome(persona);
 		}
 		break;
 		case '3':
 		{
 			//modifica domicilio
+			modifica = utenteSempliceModificaDomicilio(persona);
 		}
 		break;
 		case '4':
 		{
-			//modifica data di nascita
+			//modifica telefono
+			modifica = utenteSempliceModificaTelefono(persona);
 		}
 		break;
 		case '5':
 		{
-			//modifica telefono
+			//modifica email
+			modifica = utenteSempliceModificaEmail(persona);
 		}
 		break;
 		case '6':
 		{
-			//modifica email
+			//modifica data di nascita
+			modifica = utenteSempliceModificaDataNascita(persona);
 		}
 		break;
 		case MENU_PRECEDENTE:
@@ -221,11 +227,11 @@ bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool 
 		}
 		break;
 		}
-	}
+	} while (azione_3 == SCELTA_NON_VALIDA);
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteAzienda> &impresa)
+bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteAzienda &impresa)
 {
 	//menu attributi modific utente sazienda (3 liv)
 	string str_azione_3;
@@ -234,15 +240,16 @@ bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &
 
 	stampaModificaAttributiUtenteAzienda();
 
-	while (azione_3 == SCELTA_NON_VALIDA) {
-
+	do
+	{
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
 		{
 			azione_3 = str_azione_3.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_3)) {
+			if (islower(azione_3)) 
+			{
 				azione_3 = toupper(azione_3);
 			}
 		}
@@ -252,37 +259,43 @@ bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &
 		case '1':
 		{
 			//modifica nome
-
+			modifica = utenteAziendaModificaNome(impresa);
 		}
 		break;
 		case '2':
 		{
 			//modifica sede fiscale
+			modifica = utenteAziendaModificaSedeFiscale(impresa);
 		}
 		break;
 		case '3':
 		{
 			//modifica sede operativa
+			modifica = utenteAziendaModificaSedeOperativa(impresa);
 		}
 		break;
 		case '4':
 		{
-			//modifica data di creazione
+			//modifica tipologia prodotto
+			modifica = utenteAziendaModificaTipoProdotto(impresa);
 		}
 		break;
 		case '5':
 		{
-			//modifica tipologia prodotto
+			//modifica telefono
+			modifica = utenteAziendaModificaTelefono(impresa);
 		}
 		break;
 		case '6':
 		{
-			//modifica telefono
+			//modifica email
+			modifica = utenteAziendaModificaEmail(impresa);
 		}
 		break;
 		case '7':
 		{
-			//modifica email
+			//modifica data di creazione
+			modifica = utenteAziendaModificaDataCreazione(impresa);
 		}
 		break;
 		case MENU_PRECEDENTE:
@@ -305,21 +318,21 @@ bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &
 		}
 		break;
 		}
-	}
+	} while (azione_3 == SCELTA_NON_VALIDA);
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteGruppo> &associazione)
+bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteGruppo &associazione)
 {
 	//menu attributi modific utente gruppo (3 liv)
 	string str_azione_3;
 	bool modifica = false;
 	char azione_3 = SCELTA_NON_VALIDA;
 
-	stampaModificaAttributiUtenteAzienda();
+	stampaModificaAttributiUtenteGruppo();
 
-	while (azione_3 == SCELTA_NON_VALIDA) {
-
+	do
+	{
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
@@ -336,32 +349,37 @@ bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &t
 		case '1':
 		{
 			//modifica nome
-
+			modifica = utenteGruppoModificaNome(associazione);
 		}
 		break;
 		case '2':
 		{
-			//modifica sede operativa
+			//modifica sede legale
+			modifica = utenteGruppoModificaSedeLegale(associazione);
 		}
 		break;
 		case '3':
 		{
-			//modifica data di creazione
+			//modifica tipologia attività
+			modifica = utenteGruppoModificaDataCreazione(associazione);
 		}
 		break;
 		case '4':
 		{
-			//modifica tipologia attività
+			//modifica telefono
+			modifica = utenteGruppoModificaTelefono(associazione);
 		}
 		break;
 		case '5':
 		{
-			//modifica telefono
+			//modifica email
+			modifica = utenteGruppoModificaEmail(associazione);
 		}
 		break;
 		case '6':
 		{
-			//modifica email
+			//modifica data di creazione
+			modifica = utenteGruppoModificaDataCreazione(associazione);
 		}
 		break;
 		case MENU_PRECEDENTE:
@@ -384,7 +402,7 @@ bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &t
 		}
 		break;
 		}
-	}
+	} while (azione_3 == SCELTA_NON_VALIDA);
 
 	return modifica;
 }
@@ -399,15 +417,16 @@ bool sceltaMenuAggiungiUtenti(bool &torna_al_menu_precedente, bool &torna_al_men
 	stampaMenuAggiungiUtenti();
 
 	//ripeti se scelta non valida
-	do {
-
+	do 
+	{
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
 		{
 			azione_3 = str_azione_3.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_3)) {
+			if (islower(azione_3)) 
+			{
 				azione_3 = toupper(azione_3);
 			}
 		}
@@ -464,32 +483,32 @@ bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_
 	string id;
 	bool modifica = false;
 	bool valido = true;
-	int tipo_utente;
 
 	cout << "Inserire id utente da rimuovere:" << endl;
 	//eseguo richiesta fino a che non trovo un id esistente
-	while (!valido)
+	do	
 	{
+		valido = true;
 		getline(cin, id);
 
 		//cerco se esiste utente e tipologia
 		if (idUtenteSempliceTrovato(persona, id))
 		{
-			//modifico utente semplice
+			//rimuovo utente semplice
 			modifica = utenteSempliceRimuovi(persona, news, id);
 		}
 		else
 		{
 			if (idUtenteAziendaTrovato(impresa, id))
 			{
-				//modifico utente azienda
+				//rimuovo utente azienda
 				modifica = utenteAziendaRimuovi(impresa, news, id);
 			}
 			else
 			{
 				if (idUtenteGruppoTrovato(associazione, id))
 				{
-					//modifico utente gruppo
+					//rimuovi utente gruppo
 					modifica = utenteGruppoRimuovi(associazione, news, id);
 				}
 				else
@@ -499,7 +518,7 @@ bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_
 				}
 			}	
 		}
-	}
+	} while (!valido);
 	return modifica;
 }
 bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
@@ -507,62 +526,50 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 	//inserisco id e cerco se esistente e a che tipologia appartiene (2/3 liv)
 	string id;
 	bool modifica = false;
-	bool valido = false;
-	int tipo_utente;
+	bool valido = true;
+	unsigned int posizione = 0;
 
 	cout << "Inserire id utente da modificare:" << endl;
 	//eseguo richiesta fino a che non trovo un id esistente
-	while (!valido)
+	do
 	{
+		valido = true;
 		getline(cin, id);
 
 		//cerco se esiste utente e tipologia
-		if (idUtenteTrovato(persona, impresa, associazione, id)) {
-			if (idUtenteSempliceTrovato(persona, id))
-			{
-				tipo_utente = UT_SEMPLICE;
-				valido = true;
-			}
+		if (idUtenteSempliceTrovato(persona, id))
+		{
+			//trovo posizione
+			posizione = utenteSemplicePosizione(persona, id);
+			//modifico utente semplice
+			modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona[posizione]);
+		}
+		else
+		{
 			if (idUtenteAziendaTrovato(impresa, id))
 			{
-				tipo_utente = UT_AZIENDA;
-				valido = true;
+				//trovo posizione
+				posizione = utenteAziendaPosizione(impresa, id);
+				//modifico utente azienda
+				modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa[posizione]);
 			}
-			if (idUtenteGruppoTrovato(associazione, id))
+			else
 			{
-				tipo_utente = UT_GRUPPO;
-				valido = true;
+				if (idUtenteGruppoTrovato(associazione, id))
+				{
+					//trovo posizione
+					posizione = utenteGruppoPosizione(associazione, id);
+					//modifico utente gruppo
+					modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione[posizione]);
+				}
+				else
+				{
+					cout << "Id non esistente, inserirne un altro: " << endl;
+					valido = false;
+				}
 			}
 		}
-		if (!valido)
-		{
-			cout << "Id non esistente, inserirne un altro: " << endl;
-		}
-	}
-
-	//entro in menu diversi in base al tipo di utente
-	switch (tipo_utente)
-	{
-	case UT_SEMPLICE:
-	{
-		//modifico utente semplice
-		modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona);
-
-	}
-	break;
-	case UT_AZIENDA:
-	{
-		//modifico utente azienda
-		modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa);
-	}
-	break;
-	case UT_GRUPPO:
-	{
-		//modifico utente gruppo
-		modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione);
-	}
-	break;
-	}
+	} while (!valido);
 	return modifica;
 }
 bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
@@ -573,11 +580,10 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 	char azione_2 = SCELTA_NON_VALIDA;
 	bool torna_al_menu_precedente = true;
 
-
-
-	do {
-
-		if (torna_al_menu_precedente) {
+	do 
+	{
+		if (torna_al_menu_precedente)
+		{
 			stampaMenuGestioneUtenti();
 		}
 		torna_al_menu_precedente = false;
@@ -588,11 +594,13 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 		{
 			azione_2 = str_azione_2.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_2)) {
+			if (islower(azione_2))
+			{
 				azione_2 = toupper(azione_2);
 			}
 		}
-		else {
+		else 
+		{
 			azione_2 = SCELTA_NON_VALIDA;
 		}
 
@@ -601,7 +609,6 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 		case '1':
 		{
 			//aggiungi utente
-			//modifica = sceltaMenuAggiungiUtenti(scelta_2, persona, impresa, associazione);
 			modifica = sceltaMenuAggiungiUtenti(torna_al_menu_precedente, torna_al_menu_principale, persona, impresa, associazione);
 		}
 		break;
@@ -620,7 +627,6 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 		case MENU_PRINCIPALE:
 		{
 			//torna al menu principale
-			//scelta_2 = azione_2;
 			torna_al_menu_principale = true;
 		}
 		break;
@@ -646,8 +652,10 @@ bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, vector<UtenteSemp
 
 
 	//ripeti se scelta non valida
-	do {
-		if (torna_al_menu_precedente) {
+	do 
+	{
+		if (torna_al_menu_precedente)
+		{
 			stampaMenuGestioneNotizie();
 		}
 		torna_al_menu_precedente = false;
@@ -658,7 +666,8 @@ bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, vector<UtenteSemp
 		{
 			azione_2 = str_azione_2.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_2)) {
+			if (islower(azione_2)) 
+			{
 				azione_2 = toupper(azione_2);
 			}
 		}
@@ -718,8 +727,10 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 
 
 	//ripeti se scelta non valida
-	do {
-		if (torna_al_menu_precedente) {
+	do
+	{
+		if (torna_al_menu_precedente)
+		{
 			stampaMenuFunzionalitaStatistiche();
 		}
 		torna_al_menu_precedente = false;
@@ -730,7 +741,8 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 		{
 			azione_2 = str_azione_2.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_2)) {
+			if (islower(azione_2))
+			{
 				azione_2 = toupper(azione_2);
 			}
 		}
@@ -833,8 +845,10 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, vector<UtenteSemplice> &p
 
 
 	//ripeti se scelta non valida
-	do{
-		if (torna_al_menu_precedente) {
+	do
+	{
+		if (torna_al_menu_precedente)
+		{
 			stampaMenuRicerca();
 		}
 		torna_al_menu_precedente = false;
@@ -845,7 +859,8 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, vector<UtenteSemplice> &p
 		{
 			azione_2 = str_azione_2.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_2)) {
+			if (islower(azione_2))
+			{
 				azione_2 = toupper(azione_2);
 			}
 		}
@@ -899,8 +914,10 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 	//azione 1 livello
 	char azione_1 = SCELTA_NON_VALIDA;
 
-	do {
-		if (torna_al_menu_principale) {
+	do 
+	{
+		if (torna_al_menu_principale) 
+		{
 			stampaMenuPrincipale();
 		}
 		torna_al_menu_principale = false;
@@ -911,11 +928,13 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 		{
 			azione_1 = str_azione_1.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_1)) {
+			if (islower(azione_1))
+			{
 				azione_1 = toupper(azione_1);
 			}
 		}
-		else {
+		else 
+		{
 			azione_1 = SCELTA_NON_VALIDA;
 		}
 
