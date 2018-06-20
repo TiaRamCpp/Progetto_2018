@@ -43,7 +43,7 @@ bool Nodo::aggiungiRelazione(string id, int tipo_relazione)
 	return !esistente;
 }
 
-bool Nodo::modificaRelaizone(string id, int tipo_relazione)
+bool Nodo::modificaRelazione(string id, int tipo_relazione)
 {
 	bool esistente = false;
 	unsigned int i = 0;

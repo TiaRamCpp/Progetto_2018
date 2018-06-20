@@ -389,7 +389,7 @@ bool leggiIdUtente(ifstream &file_utenti, string &id_utente, const vector<Utente
 	//leggo id
 	id_utente = leggiValoreInformazione(file_utenti);
 	//se non è il primo utente implica che deve essere a capo come nuovo utente rispetto a quello prima
-	if ((persona.size() != 0) || (impresa.size() > 0) || (associazione.size() > 0))
+	if ((persona.size() != 0) || (impresa.size() != 0) || (associazione.size() != 0))
 	{
 		//quindi all inizio avra un a capo da eliminare rispetto a quello prima
 		if (id_utente.front() == '\n')

@@ -28,7 +28,7 @@ public:
 	
 	//rimuovo, modifico o aggiungo relazione del nodo con altri
 	bool aggiungiRelazione(string id,int tipo_relazione);
-	bool modificaRelaizone(string id,int tipo_relazione);
+	bool modificaRelazione(string id,int tipo_relazione);
 	bool rimuoviRelazione(string id);
 
 	//grado in e out
