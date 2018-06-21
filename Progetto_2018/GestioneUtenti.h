@@ -63,6 +63,31 @@ unsigned int utenteGruppoPosizione(const vector<UtenteGruppo> &associazione, con
 	return posizione;
 }
 
+string trovaTipoUtente(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &id_utente)
+{
+	string tipo_utente;
+
+	//se è un utente semplice
+	if (idUtenteSempliceTrovato(persona, id_utente))
+	{
+		tipo_utente = ID_TIPO_SEMPLICE;
+	}
+	else
+		//se è un utente azienda
+		if (idUtenteAziendaTrovato(impresa, id_utente))
+		{
+			tipo_utente = ID_TIPO_AZIENDA;
+		}
+		else
+			//se è un utente gruppo
+			if (idUtenteGruppoTrovato(associazione, id_utente))
+			{
+				tipo_utente = ID_TIPO_GRUPPO;
+			}
+
+	return tipo_utente;
+}
+
 //stampa
 string stampaUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {

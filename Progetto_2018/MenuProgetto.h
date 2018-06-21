@@ -1,8 +1,10 @@
 #pragma once
 
 #include "GestioneUtenti.h"
+#include "GestioneRelazioni.h"
 #include "GestioneNotizie.h"
 #include "Funzionalit‡Statistiche.h"
+#include "Funzionalit‡Ricerca.h"
 
 #define ESCI 'Z'
 #define SCELTA_NON_VALIDA 'N'

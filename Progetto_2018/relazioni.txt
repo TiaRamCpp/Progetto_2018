@@ -1,0 +1,4 @@
+pippo.baudo,luca.giurato,amico
+pippo.baudo,apple.iphone,dipendente
+luca.giurato,pippo.baudo,amico
+apple.iphone,pippo.baudo,dipendente

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "GestioneUtenti.h"	
-#include "GestioneNotizie.h"	
+#include "GestioneNotizie.h"
+#include "GestioneRelazioni.h"
 
 //aggiornamento file
 void aggiornaFileUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &nome_file_utenti)
@@ -18,25 +19,26 @@ void aggiornaFileNotizie(const vector<Notizia> &news, const string &nome_file_no
 	file_output << stampaNotizie(news);
 	file_output.close();
 }
-//void aggiorna_file_relazioni(...);
-void aggiornaFile(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news, const string &nome_file_utenti, const string &nome_file_notizie)
+void aggiornaFileRelazioni(const vector<Nodo> &vertice, const string &nome_file_relazioni)
+{
+	ofstream file_output;
+	file_output.open(nome_file_relazioni);
+	file_output << stampaRelazioni(vertice);
+	file_output.close();
+}
+void aggiornaFile(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news, const vector<Nodo> &vertice, const string &nome_file_utenti, const string &nome_file_notizie, const string &nome_file_relazioni)
 {
 	aggiornaFileUtenti(persona, impresa, associazione, nome_file_utenti);
 	aggiornaFileNotizie(news, nome_file_notizie);
-	//aggiungi aggiorna file relazioni e aggiungi variabili da passare;
+	aggiornaFileRelazioni(vertice, nome_file_relazioni);
 }
 
 //stampa
-//string stampa_relazioni(...);
-string stampaDati(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news)
+string stampaDati(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news, const vector<Nodo> vertice)
 {
 	string output = stampaUtenti(persona, impresa, associazione);
-	//se prima ho stampato qualcosa e dopo devo stampare qualcosa
-	if ((!output.empty()) && (news.size() != 0))
-		output += '\n';
-	output += stampaNotizie(news);
-
-	//aggiungi stampa relazioni e aggiungi variabili da passare;
+	output += '\n' + stampaNotizie(news);
+	output += '\n' + stampaRelazioni(vertice);
 	return output;
 }
 
@@ -436,6 +438,11 @@ bool leggiIdUtente(ifstream &file_utenti, string &id_utente, const vector<Utente
 				cerr << "Errore : l'id_utente e' vuoto" << endl;
 			}
 		}
+		//non formattato correttamente
+		else
+		{
+			cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+		}
 	}
 	return ok;
 }
@@ -717,6 +724,88 @@ bool leggiReazione(ifstream &file_notizie, const string &tipo_reazione, vector<s
 	return ok;
 }
 
+//lettura informazioni e valore informazioni per il file relazioni
+bool leggiIdVertice(ifstream &file_relazioni, string &id_vertice, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Nodo> &vertice, const bool &partenza = false)
+{
+	bool ok = true;
+	//leggo vertice
+	id_vertice = leggiValoreInformazione(file_relazioni);
+	//se è il vertice di partenza
+	if (partenza)
+	{
+		//se non è il primo nodo letto implica che deve essere a capo come nuovo nodo rispetto a quello prima
+		if (vertice.size() != 0)
+		{
+			//quindi all inizio avra un a capo da eliminare rispetto a quello prima
+			if (id_vertice.front() == '\n')
+			{
+				//allora lo elimino
+				id_vertice.erase(id_vertice.begin()); //elimina il primo '\n'
+			}
+			//errore formattazione o fine file
+			else
+			{
+				//se non era a fine file
+				if (!file_relazioni.eof())
+				{
+					cerr << "Errore formattazione testo id_utente, previsto : /n" << endl;
+					cout << endl << id_vertice << endl;;
+				}
+				ok = false;
+			}
+		}
+	}
+	if (ok)
+	{
+		ok = false;
+		//controllo che alla fine ci sia , e contemporaneamente che abbia letto qualcosa
+		if (id_vertice.back() == SEPARATORE)
+		{
+			//elimino ultimo carattere ,
+			id_vertice.pop_back();
+			//controllo che non sia vuoto prima di controllare che sia un id utente esistente
+			if (!id_vertice.empty())
+			{
+				//se l'id utente esiste
+				if (idUtenteTrovato(persona, impresa, associazione, id_vertice))
+				{
+					ok = true;
+				}
+				//se l'id non esiste
+				else
+				{
+					cerr << "Errore : l'id_utente = '" << id_vertice << "' non esiste" << endl;
+				}
+			}
+			//id_mittente vuoto
+			else
+			{
+				cerr << "Errore : l'id_utente e' vuoto" << endl;
+			}
+		}
+		//non formattato correttamente
+		else
+		{
+			cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+		}
+	}
+	return ok;
+}
+bool leggiTipoRelazione(ifstream &file_relazioni, string &tipo_relazione)
+{
+	Nodo temp;
+	bool ok = true;
+	//leggo vertice
+	file_relazioni >> tipo_relazione;
+	//se non esite
+	if (!temp.tipoRelazioneEsistente(tipo_relazione))
+	{
+		cerr << endl << "Errore tipo relazione non esistente" << endl;
+		ok = false;
+	}
+	return ok;
+}
+
 //lettura file
 bool leggiFileUtenti(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, const string &nome_file_utenti)
 {
@@ -899,23 +988,114 @@ bool leggiFileNotizie(const vector<UtenteSemplice> &persona, const vector<Utente
 	file_notizie.close();
 	return ok;
 }
-//bool leggi_file_relazioni(...)
-bool leggiFile(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &nome_file_utenti, const string &nome_file_notizie)
+bool leggiFileRelazioni(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, vector<Nodo> &vertice, const string &nome_file_relazioni)
 {
-	//aggiungi &&leggi file relazioni e nome file relazioni
-
-
-	/*//leggo il file utenti
-	if (leggi_file_utenti(persona, impresa, associazione, nome_file_utenti))
-		//se non da errori leggo file notizie
-		if (leggi_file_notizie(persona, impresa, associazione, news, nome_file_notizie))
-			//se non da errori leggo file relazioni
-			if (true)
-				return true;
-	//se la lettura di qualche file non è riuscita
-	return false;
-	*/
-
-	//oppure + leggi file relazioni tanto se uno non va da errore e si ferma subito
-	return ((leggiFileUtenti(persona, impresa, associazione, nome_file_utenti)) && (leggiFileNotizie(persona, impresa, associazione, news, nome_file_notizie)));
+	ifstream file_relazioni;
+	bool ok = true;
+	//pulisco vector
+	vertice.clear();
+	//apro il file
+	file_relazioni.open(nome_file_relazioni);
+	//se si è aperto il file
+	if (file_relazioni.is_open())
+	{
+		//comincio a leggere il file
+		while ((!file_relazioni.eof()) && (ok))
+		{
+			string tipo_utente;
+			string id_partenza;
+			string id_arrivo;
+			string tipo_relazione;
+			unsigned int posizione;
+			Nodo temp;
+			//leggo id di partenza 
+			if (leggiIdVertice(file_relazioni, id_partenza, persona, impresa, associazione, vertice, true)) //true perchè è il vertice di partenza e serve il '\n'
+			{
+				//leggo id di arrivo
+				if (leggiIdVertice(file_relazioni, id_arrivo, persona, impresa, associazione, vertice))
+				{
+					//se l'id di arrivo esiste
+					if (idUtenteTrovato(persona, impresa, associazione, id_arrivo))
+					{
+						//leggo tipo relazione e controllo che esista
+						if (leggiTipoRelazione(file_relazioni, tipo_relazione))
+						{
+							//se esiste già il nodo
+							if (trovaPosizioneNodo(vertice, id_partenza, posizione))
+							{
+								//aggiungo la relazione controllando che sia valida
+								if (!vertice[posizione].aggiungiRelazione(id_arrivo, tipo_relazione))
+								{
+									//se non è valida
+									cerr << endl << "Errore : relazione <" << id_partenza << SEPARATORE << id_arrivo << SEPARATORE << tipo_relazione << "> non valida" << endl;
+									ok = false;
+								}
+							}
+							//se non esiste un vertice con l'id di partenza lo creo
+							else
+							{
+								//se il tipo di utente di partenza esiste
+								if (idUtenteTrovato(persona, impresa, associazione, id_partenza))
+								{
+									//individuo il tipo di utente
+									tipo_utente = trovaTipoUtente(persona, impresa, associazione, id_partenza);
+									vertice.push_back(Nodo(id_partenza, tipo_utente));
+									//aggiungo la relazione controllando che sia valida
+									if (!vertice.back().aggiungiRelazione(id_arrivo, tipo_relazione))
+									{
+										//se non è valida
+										cerr << endl << "Errore : relazione <" << id_partenza << SEPARATORE << id_arrivo << SEPARATORE << tipo_relazione << "> non valida" << endl;
+										ok = false;
+									}
+								}
+								//se non esiste l id di partenza
+								else
+								{
+									cerr << endl << "Errore : utente : " << id_partenza << " non esiste" << endl;
+									ok = false;
+								}
+							}
+						}
+						//errore lettura tipo relazione
+						else
+						{
+							cerr << endl << "Errore lettura tipo relazione" << endl;
+							ok = false;
+						}
+					}
+					//se non esiste l id di arrivo
+					else
+					{
+						cerr << endl << "Errore : utente : " << id_arrivo << " non esiste" << endl;
+						ok = false;
+					}
+				}
+				//errore lettura id arrivo
+				else
+				{
+					cerr << endl << "Errore lettura id vertice arrivo" << endl;
+					ok = false;
+				}
+			}
+			//errore lettura id partenza
+			else
+			{
+				cerr << endl << "Errore lettura id vertice partenza" << endl;
+				ok = false;
+			}
+		}
+	}
+	//se non si è aperto
+	else
+	{
+		cerr << "Errore apertura file : " << nome_file_relazioni << endl;
+		ok = false;
+	}
+	file_relazioni.close();
+	return ok;
+}
+bool leggiFile(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, vector<Nodo> &vertice, const string &nome_file_utenti, const string &nome_file_notizie, const string &nome_file_relazioni)
+{
+	//legge i tre file e se uno è errato si ferma
+	return ((leggiFileUtenti(persona, impresa, associazione, nome_file_utenti)) && (leggiFileNotizie(persona, impresa, associazione, news, nome_file_notizie)) && (leggiFileRelazioni(persona, impresa, associazione, vertice, nome_file_relazioni)));
 }

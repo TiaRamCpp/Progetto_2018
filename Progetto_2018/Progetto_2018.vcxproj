@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Caratteri.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="FunzionalitàRicerca.h" />
     <ClInclude Include="FunzionalitàStatistiche.h" />
     <ClInclude Include="GestioneFile.h" />
     <ClInclude Include="GestioneNotizie.h" />
@@ -157,7 +158,6 @@
     <ClInclude Include="MenuProgetto.h" />
     <ClInclude Include="Nodo.h" />
     <ClInclude Include="Notizia.h" />
-    <ClInclude Include="Ricerca.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utente.h" />
     <ClInclude Include="UtenteAzienda.h" />

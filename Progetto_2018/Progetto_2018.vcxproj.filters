@@ -57,7 +57,7 @@
     <ClInclude Include="GestioneRelazioni.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Ricerca.h">
+    <ClInclude Include="FunzionalitàRicerca.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Nodo.h">
