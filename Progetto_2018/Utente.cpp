@@ -131,11 +131,24 @@ unsigned int Utente::numeroRelazioni() const
 	return _id_arco.size();
 }
 
+unsigned int Utente::contaTipoRelazione(const string &tipo_relazione) const
+{
+	unsigned int numero_tipo_relazione = 0;
+	for (unsigned int i = 0; i < _tipo_relazione.size(); i++)
+	{
+		if (_tipo_relazione[i] == tipo_relazione)
+		{
+			numero_tipo_relazione++;
+		}
+	}
+	return numero_tipo_relazione;
+}
+
 bool Utente::tipoRelazioneEsistente(const string &tipo_relazione) const
 {
 	bool esistente = false;
 	//se è una delle relazioni possibili
-	if ((tipo_relazione == STR_AMICO) || (tipo_relazione == STR_CONOSCENTE) || (tipo_relazione == STR_CONIUGE) || (tipo_relazione == STR_FIGLIO) || (tipo_relazione == STR_GENITORE) || (tipo_relazione == STR_DIPENDENTE) || (tipo_relazione == STR_CONSOCIATA) || (tipo_relazione == STR_COLLABORAZIONE))
+	if ((tipo_relazione == STR_AMICO) || (tipo_relazione == STR_CONOSCENTE) || (tipo_relazione == STR_CONIUGE) || (tipo_relazione == STR_FIGLIO) || (tipo_relazione == STR_GENITORE) || (tipo_relazione == STR_DIPENDENTE) || (tipo_relazione == STR_CONSOCIATA) || (tipo_relazione == STR_MEMBRO))
 		esistente = true;
 	return esistente;
 }

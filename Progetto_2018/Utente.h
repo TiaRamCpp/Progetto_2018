@@ -17,7 +17,7 @@
 #define STR_GENITORE "genitore"
 #define STR_DIPENDENTE "dipendente"
 #define STR_CONSOCIATA "consociata"
-#define STR_COLLABORAZIONE "collaborazione"
+#define STR_MEMBRO "membro"
 
 #define SEPARATORE ','
 #define DIVISORE ':'
@@ -55,6 +55,7 @@ public:
 
 	//metodi per le relazioni
 	unsigned int numeroRelazioni() const;
+	unsigned int contaTipoRelazione(const string &tipo_relazione) const;
 	bool tipoRelazioneEsistente(const string &tipo_relazione) const;
 	bool trovaPosizioneRelazione(const string &id, const string &tipo_relazione, unsigned int &posizione) const;
 	//rimuovo, modifico o aggiungo relazione del nodo con altri

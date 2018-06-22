@@ -1001,7 +1001,6 @@ bool leggiFileRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &
 			string id_partenza;
 			string id_arrivo;
 			string tipo_relazione;
-			unsigned int posizione;
 			//leggo id di partenza 
 			if (leggiIdVertice(file_relazioni, id_partenza, prima_relazione, true)) //true perchè è il vertice di partenza e serve il '\n'
 			{

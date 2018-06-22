@@ -65,12 +65,13 @@ void stampaMenuFunzionalitaStatistiche()
 	cout << "C) Numero utenti nati dopo una data" << endl;
 	cout << "D) Numero dipendenti e consociate per ogni azienda" << endl;
 	cout << "E) Numero di utenti per ogni gruppo" << endl;
-	cout << "F) Azienda con il maggior numero di dipendenti" << endl;
-	cout << "G) Notizia con piu' apprezzamenti" << endl;
-	cout << "H) Notizia con piu' indignazioni" << endl;
-	cout << "I) Utente con piu' amici" << endl;
-	cout << "J) Utente con piu' conoscenze" << endl;
-	cout << "K) Eta' media utenti semplici" << endl;
+	cout << "F) Azienda con il maggior numero di dipendenti diretti" << endl;
+	cout << "G) Azienda con il maggior numero di dipendenti cumulativo con le consociate" << endl;
+	cout << "H) Notizia con piu' apprezzamenti" << endl;
+	cout << "I) Notizia con piu' indignazioni" << endl;
+	cout << "J) Utente con piu' amici" << endl;
+	cout << "K) Utente con piu' conoscenze" << endl;
+	cout << "L) Eta' media utenti semplici" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -652,7 +653,6 @@ bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, vector<UtenteSemp
 	char azione_2 = SCELTA_NON_VALIDA;
 	bool torna_al_menu_precedente = true;
 
-
 	//ripeti se scelta non valida
 	do 
 	{
@@ -726,8 +726,6 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 	char azione_2 = SCELTA_NON_VALIDA;
 	bool torna_al_menu_precedente = true;
 
-
-
 	//ripeti se scelta non valida
 	do
 	{
@@ -755,7 +753,6 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 		{
 			//numero utenti totali
 			modifica = conteggioGenerale(persona, impresa, associazione);
-			
 		}
 		break;
 		case 'B':
@@ -768,52 +765,57 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 		{
 			//numero utenti nati dopo una data
 			modifica = utentiDopoUnaData(persona, impresa, associazione);
-			
 		}
 		break;
 		case'D':
 		{
 			//numero dipendenti e consociate azienda
-			
+			modifica = numeroDipendentiEConsociatePerAzienda(impresa);
 		}
 		break;
 		case'E':
 		{
 			//numero utenti per gruppo
-
+			modifica = numeroUtentiPerGruppo(associazione);
 		}
 		break;
 		case'F':
 		{
-			//azienda con più dipendenti
-
+			//azienda con più dipendenti diretti
+			modifica = aziendaMaggiorDipendenti(impresa, false); //false per non contare i dipendenti delle consociate
 		}
 		break;
 		case'G':
 		{
-			//notizia con più apprezzamenti
-			modifica = migliorNotizia(news);
-
+			//azienda con più dipendenti cumulativi con le consociate
+			modifica = aziendaMaggiorDipendenti(impresa, true); //true per contare i dipendenti delle consociate
 		}
 		break;
 		case'H':
 		{
-			//notizia con più indignazioni
-			modifica = peggiorNotizia(news);
-
+			//notizia con più apprezzamenti
+			modifica = migliorNotizia(news);
 		}
 		break;
 		case'I':
 		{
-			//utente con piu amici
-
+			//notizia con più indignazioni
+			modifica = peggiorNotizia(news);
 		}
+		break;
 		case'J':
 		{
-			//utente con piu conoscenze
-
+			//utente con piu amici
+			modifica = utenteSempliceMaggiorAmici(persona);
 		}
+		break;
 		case'K':
+		{
+			//utente con piu conoscenze
+			modifica = utenteSempliceMaggiorConoscenze(persona);
+		}
+		break;
+		case'L':
 		{
 			//eta media utenti semplici
 			modifica = etaMediaUtentiSemplici(persona);
@@ -844,7 +846,6 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, vector<UtenteSemplice> &p
 	bool modifica = false;
 	char azione_2 = SCELTA_NON_VALIDA;
 	bool torna_al_menu_precedente = true;
-
 
 	//ripeti se scelta non valida
 	do
@@ -910,7 +911,6 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 
 	bool modifica = false;
 	bool torna_al_menu_principale = true;
-	
 	string str_azione_1;
 	
 	//azione 1 livello
