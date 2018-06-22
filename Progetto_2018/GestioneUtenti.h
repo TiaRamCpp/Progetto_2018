@@ -63,29 +63,48 @@ unsigned int utenteGruppoPosizione(const vector<UtenteGruppo> &associazione, con
 	return posizione;
 }
 
-string trovaTipoUtente(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &id_utente)
+//verifica se è il tipo giusto e trova contemporaneamente la posizione
+bool trovaPosizioneUtenteSemplice(const vector<UtenteSemplice> &persona, const string &id_utente, unsigned int &posizione)
 {
-	string tipo_utente;
-
-	//se è un utente semplice
-	if (idUtenteSempliceTrovato(persona, id_utente))
+	bool trovato = false;
+	posizione = 0;
+	for (unsigned int i = 0; ((i < persona.size()) && (!trovato)); i++)
 	{
-		tipo_utente = ID_TIPO_SEMPLICE;
-	}
-	else
-		//se è un utente azienda
-		if (idUtenteAziendaTrovato(impresa, id_utente))
+		if (persona[i].getId() == id_utente)
 		{
-			tipo_utente = ID_TIPO_AZIENDA;
+			trovato = true;
+			posizione = i;
 		}
-		else
-			//se è un utente gruppo
-			if (idUtenteGruppoTrovato(associazione, id_utente))
-			{
-				tipo_utente = ID_TIPO_GRUPPO;
-			}
-
-	return tipo_utente;
+	}
+	return trovato;
+}
+bool trovaPosizioneUtenteAzienda(const vector<UtenteAzienda> &impresa, const string &id_utente, unsigned int &posizione)
+{
+	bool trovato = false;
+	posizione = 0;
+	for (unsigned int i = 0; ((i < impresa.size()) && (!trovato)); i++)
+	{
+		if (impresa[i].getId() == id_utente)
+		{
+			trovato = true;
+			posizione = i;
+		}
+	}
+	return trovato;
+}
+bool trovaPosizioneUtenteGruppo(const vector<UtenteGruppo> &associazione, const string &id_utente, unsigned int &posizione)
+{
+	bool trovato = false;
+	posizione = 0;
+	for (unsigned int i = 0; ((i < associazione.size()) && (!trovato)); i++)
+	{
+		if (associazione[i].getId() == id_utente)
+		{
+			trovato = true;
+			posizione = i;
+		}
+	}
+	return trovato;
 }
 
 //stampa

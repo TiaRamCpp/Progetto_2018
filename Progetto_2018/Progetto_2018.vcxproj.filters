@@ -60,9 +60,6 @@
     <ClInclude Include="FunzionalitàRicerca.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Nodo.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Progetto_2018.cpp">
@@ -84,9 +81,6 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="Utente.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="Nodo.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,6 +9,8 @@ UtenteAzienda::UtenteAzienda()
 	_tipo_prodotto.clear();
 	_telefono.clear();
 	_email.clear();
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 UtenteAzienda::UtenteAzienda(const string &id, const string &nome, const string &sede_fiscale, const string &sede_operativa, const string &tipo_prodotto, const string &telefono, const string &email, const Data &data_creazione)
@@ -21,6 +23,8 @@ UtenteAzienda::UtenteAzienda(const string &id, const string &nome, const string 
 	_telefono = telefono;
 	_email = email;
 	_data_creazione = data_creazione;
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 UtenteAzienda::~UtenteAzienda()

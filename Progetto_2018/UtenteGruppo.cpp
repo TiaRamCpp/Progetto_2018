@@ -8,6 +8,8 @@ UtenteGruppo::UtenteGruppo()
 	_tipologia_attività.clear();
 	_telefono.clear();
 	_email.clear();
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 UtenteGruppo::UtenteGruppo(const string &id, const string &nome, const string &sede_legale, const string &tipologia_attività, const string &telefono, const string &email, const Data &data_creazione)
@@ -19,6 +21,8 @@ UtenteGruppo::UtenteGruppo(const string &id, const string &nome, const string &s
 	_telefono = telefono;
 	_email = email;
 	_data_creazione = data_creazione;
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 UtenteGruppo::~UtenteGruppo()

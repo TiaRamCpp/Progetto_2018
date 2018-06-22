@@ -8,6 +8,8 @@ UtenteSemplice::UtenteSemplice()
 	_domicilio.clear();
 	_telefono.clear();
 	_email.clear();
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 UtenteSemplice::UtenteSemplice(const string &id, const string &nome, const string &cognome, const string &domicilio, const string &telefono, const string &email, const Data &data_nascita)
@@ -19,6 +21,8 @@ UtenteSemplice::UtenteSemplice(const string &id, const string &nome, const strin
 	_telefono = telefono;
 	_email = email;
 	_data_nascita = data_nascita;
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 UtenteSemplice::~UtenteSemplice()

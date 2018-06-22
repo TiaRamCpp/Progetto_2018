@@ -2,12 +2,22 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Data.h"
 
 #define STR_NOME "nome"
 #define STR_TELEFONO "telefono"
 #define STR_EMAIL "email"
+
+#define STR_AMICO "amico"
+#define STR_CONOSCENTE "conoscente"
+#define STR_CONIUGE "coniuge"
+#define STR_FIGLIO "figlio"
+#define STR_GENITORE "genitore"
+#define STR_DIPENDENTE "dipendente"
+#define STR_CONSOCIATA "consociata"
+#define STR_COLLABORAZIONE "collaborazione"
 
 #define SEPARATORE ','
 #define DIVISORE ':'
@@ -33,6 +43,8 @@ public:
 	string getNome() const;
 	string getTelefono() const;
 	string getEmail() const;
+	vector<string> getIdArco() const;
+	vector<string> getTipoRelazione() const;
 
 	//metodi della classe
 	bool stringaValida(const string &stringa) const;
@@ -41,7 +53,17 @@ public:
 	bool emailValida(const string &email) const;
 	virtual bool utenteValido() const = 0;
 
+	//metodi per le relazioni
+	unsigned int numeroRelazioni() const;
+	bool tipoRelazioneEsistente(const string &tipo_relazione) const;
+	bool trovaPosizioneRelazione(const string &id, const string &tipo_relazione, unsigned int &posizione) const;
+	//rimuovo, modifico o aggiungo relazione del nodo con altri
+	bool aggiungiRelazione(const string &id, const string &tipo_relazione);
+	bool modificaRelazione(const string &id, const string &nuovo_tipo_relazione, const string &vecchio_tipo_relazione);
+	bool rimuoviRelazione(const string &id, const string &tipo_relazione);
+
 	//metodi di stampa
+	string stampaNodo() const;
 	virtual string stampaUtente() const = 0;
 	friend ostream & operator<<(ostream &output, const Utente &da_stampare);
 
@@ -50,10 +72,13 @@ protected:
 	bool _carattereValido(const char &carattere) const;
 
 	//variabili protette
-
 	string _id;
 	string _nome;
 	string _telefono;
 	string _email;
+
+	//variabili per le relazioni
+	vector<string> _id_arco;
+	vector<string> _tipo_relazione;
 };
 

@@ -2,6 +2,12 @@
 
 Utente::Utente()
 {
+	_id.clear();
+	_nome.clear();
+	_telefono.clear();
+	_email.clear();
+	_id_arco.clear();
+	_tipo_relazione.clear();
 }
 
 Utente::~Utente()
@@ -46,6 +52,16 @@ string Utente::getTelefono() const
 string Utente::getEmail() const
 {
 	return _email;
+}
+
+vector<string> Utente::getIdArco() const
+{
+	return _id_arco;
+}
+
+vector<string> Utente::getTipoRelazione() const
+{
+	return _tipo_relazione;
 }
 
 bool Utente::stringaValida(const string &stringa) const
@@ -108,6 +124,109 @@ bool Utente::emailValida(const string &email) const
 		if (!isgraph(email[i]))
 			ok = false;
 	return ok;
+}
+
+unsigned int Utente::numeroRelazioni() const
+{
+	return _id_arco.size();
+}
+
+bool Utente::tipoRelazioneEsistente(const string &tipo_relazione) const
+{
+	bool esistente = false;
+	//se è una delle relazioni possibili
+	if ((tipo_relazione == STR_AMICO) || (tipo_relazione == STR_CONOSCENTE) || (tipo_relazione == STR_CONIUGE) || (tipo_relazione == STR_FIGLIO) || (tipo_relazione == STR_GENITORE) || (tipo_relazione == STR_DIPENDENTE) || (tipo_relazione == STR_CONSOCIATA) || (tipo_relazione == STR_COLLABORAZIONE))
+		esistente = true;
+	return esistente;
+}
+
+bool Utente::trovaPosizioneRelazione(const string &id, const string &tipo_relazione, unsigned int &posizione) const
+{
+	bool trovata = false;
+	posizione = 0;
+	//cerco se esiste
+	for (unsigned int i = 0; ((i < _id_arco.size()) && (!trovata)); i++)
+	{
+		//se la trova
+		if ((_id_arco[i] == id) && (_tipo_relazione[i] == tipo_relazione))
+		{
+			//salvo la posizione
+			posizione = i;
+			trovata = true;
+		}
+	}
+	return trovata;
+}
+
+bool Utente::aggiungiRelazione(const string &id, const string &tipo_relazione)
+{
+	bool aggiunta = false;
+	unsigned int posizione;
+
+	//se non trovo la relazione
+	if (!trovaPosizioneRelazione(id, tipo_relazione, posizione))
+	{
+		//allora verifico che sia un tipo di relazione esistente
+		if (tipoRelazioneEsistente(tipo_relazione))
+		{
+			//la aggiungo
+			_id_arco.push_back(id);
+			_tipo_relazione.push_back(tipo_relazione);
+			aggiunta = true;
+		}
+	}
+
+	return aggiunta;
+}
+
+bool Utente::modificaRelazione(const string &id, const string &nuovo_tipo_relazione, const string &vecchio_tipo_relazione)
+{
+	bool modificata = false;
+	unsigned int posizione;
+
+	//se trovo la relazione
+	if (trovaPosizioneRelazione(id, vecchio_tipo_relazione, posizione))
+	{
+		//allora verifico che sia un tipo di relazione esistente
+		if (tipoRelazioneEsistente(nuovo_tipo_relazione))
+		{
+			//la modifico
+			_tipo_relazione[posizione] = nuovo_tipo_relazione;
+			modificata = true;
+		}
+	}
+
+	return modificata;
+}
+
+bool Utente::rimuoviRelazione(const string &id, const string &tipo_relazione)
+{
+	bool eliminata = false;
+	unsigned int posizione;
+
+	//se trovo la relazione
+	if (trovaPosizioneRelazione(id, tipo_relazione, posizione))
+	{
+		//la elimino
+		_id_arco.erase(_id_arco.begin() + posizione);
+		_tipo_relazione.erase(_tipo_relazione.begin() + posizione);
+		eliminata = true;
+	}
+
+	return eliminata;
+}
+
+string Utente::stampaNodo() const
+{
+	string stampa;
+	for (unsigned int i = 0; i < _id_arco.size(); i++)
+	{
+		//se non è il primo
+		if (i != 0)
+			stampa += '\n';
+		stampa += _id + SEPARATORE + _id_arco[i] + SEPARATORE + _tipo_relazione[i];
+	}
+	return stampa;
 }
 
 ostream & operator<<(ostream &output, const Utente &da_stampare)
