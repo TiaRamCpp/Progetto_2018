@@ -133,6 +133,7 @@ unsigned int Utente::numeroRelazioni() const
 
 unsigned int Utente::contaTipoRelazione(const string &tipo_relazione) const
 {
+	//conta direttamente un unico tipo di relazione
 	unsigned int numero_tipo_relazione = 0;
 	for (unsigned int i = 0; i < _tipo_relazione.size(); i++)
 	{
@@ -142,6 +143,32 @@ unsigned int Utente::contaTipoRelazione(const string &tipo_relazione) const
 		}
 	}
 	return numero_tipo_relazione;
+}
+
+void Utente::contaTipiRelazione(const vector<string> &tipo_relazione_cercata, vector<unsigned int> &numero_tipo_relazione) const
+{
+	//utile per scandendire una sola volta il vettore di _tipo_relazione e contare più tipi di relazioni contemporaneamente
+
+	//inizializzo contatori
+	numero_tipo_relazione.resize(tipo_relazione_cercata.size());
+	for (unsigned int i = 0; i < numero_tipo_relazione.size(); i++)
+	{
+		numero_tipo_relazione[i] = 0;
+	}
+
+	//cerco i tipi di reazione per ogni relazione
+	for (unsigned int i = 0; i < _tipo_relazione.size(); i++)
+	{
+		//cerco se è una delle relazioni cercate
+		for (unsigned int j = 0; j < tipo_relazione_cercata.size(); j++)
+		{
+			//se è uno delle relazioni cercate
+			if (tipo_relazione_cercata[j] == _tipo_relazione[i])
+			{
+				numero_tipo_relazione[j]++;
+			}
+		}
+	}
 }
 
 bool Utente::tipoRelazioneEsistente(const string &tipo_relazione) const

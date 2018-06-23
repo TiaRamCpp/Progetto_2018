@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GestioneUtenti.h"
+#include "GestioneRelazioni.h"
 
 #include "Notizia.h"
 
@@ -19,7 +20,37 @@ bool conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<Utent
 	return modifica;
 }
 
-//numero amici e parenti per ogni utente semplice
+bool numeroAmiciEParentiDirettiPerUtenteSemplice(const vector<UtenteSemplice> &persona)
+{
+	bool modifica = false;
+	vector<string> tipo_relazione(4);
+	vector<unsigned int> numero_tipo_relazione(4);
+
+	tipo_relazione[0] = STR_CONIUGE;
+	tipo_relazione[1] = STR_FIGLIO;
+	tipo_relazione[2] = STR_GENITORE;
+	tipo_relazione[3] = STR_AMICO;
+
+	if (persona.size() != 0)
+	{
+		cout << endl << "Numero amici e parenti diretti per ogni utente semplice :";
+	}
+	for (unsigned int i = 0, numero_parenti_diretti; i < persona.size(); i++)
+	{
+		//conto contemporaneamente i 4 tipi di relazioni
+		persona[i].contaTipiRelazione(tipo_relazione, numero_tipo_relazione);
+		//sommo tutti i risultati dei diversi tipi di parentela diretta
+		numero_parenti_diretti = numero_tipo_relazione[0]; //risultato numero coniugi
+		numero_parenti_diretti += numero_tipo_relazione[1]; //risultato numero figli
+		numero_parenti_diretti += numero_tipo_relazione[2]; //risultato numero genitori
+
+		cout << endl << "Utente Semplice : <" << persona[i].getId() << ">";
+		cout << ", numero di amici : " << numero_tipo_relazione[3]; //risultato numero di amici
+		cout << ", numero di parenti diretti : " << numero_parenti_diretti; //risultato numero parenti diretti
+	}
+
+	return modifica;
+}
 
 bool utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
@@ -117,15 +148,23 @@ bool utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 bool numeroDipendentiEConsociatePerAzienda(const vector<UtenteAzienda> &impresa)
 {
 	bool modifica = false;
+	vector<string> tipo_relazione(2);
+	vector<unsigned int> numero_tipo_relazione(2);
+	tipo_relazione[0] = STR_DIPENDENTE;
+	tipo_relazione[1] = STR_CONSOCIATA;
+
 	if (impresa.size() != 0)
 	{
 		cout << endl << "Numero dipendenti e aziende consociate per ogni azienda :";
 	}
 	for (unsigned int i = 0; i < impresa.size(); i++)
 	{
+		//conta contemporaneamente i diversi tipi di reazione
+		impresa[i].contaTipiRelazione(tipo_relazione, numero_tipo_relazione);
+
 		cout << endl << "Impresa : <" << impresa[i].getId() << ">";
-		cout << ", numero di dipendenti : " << impresa[i].contaTipoRelazione(STR_DIPENDENTE);
-		cout << ", numero di aziende consociate : " << impresa[i].contaTipoRelazione(STR_CONSOCIATA);
+		cout << ", numero di dipendenti : " << numero_tipo_relazione[0]; //risultato numero dipendenti
+		cout << ", numero di aziende consociate : " << numero_tipo_relazione[1]; //risultato numero aziende consociate
 	}
 	return modifica;
 }
@@ -142,37 +181,6 @@ bool numeroUtentiPerGruppo(const vector<UtenteGruppo> &associazione)
 		cout << endl << "Gruppo : <" << associazione[i].getId() << ">, numero utenti nel gruppo : " << associazione[i].contaTipoRelazione(STR_MEMBRO);
 	}
 	return modifica;
-}
-
-unsigned int contaDipendentiAzienda(const vector<UtenteAzienda> &impresa, const unsigned int &posizione_azienda, const bool &cumulativi)
-{
-	unsigned int numero_dipendenti = 0;
-	vector<string> id_arco = impresa[posizione_azienda].getIdArco();
-	vector<string> tipo_relazione = impresa[posizione_azienda].getTipoRelazione();
-	for (unsigned int i = 0; i < tipo_relazione.size(); i++)
-	{
-		//se è un dipendente
-		if (tipo_relazione[i] == STR_DIPENDENTE)
-		{
-			numero_dipendenti++;
-		}
-		else
-			//se sono richiesti anche i dipendenti cumulativi
-			if (cumulativi)
-			{
-				//se è un'azienda consociata
-				if (tipo_relazione[i] == STR_CONSOCIATA)
-				{
-					//se non è la stessa azienda di partenza
-					if (id_arco[i] != impresa[posizione_azienda].getId())
-					{
-						//conto i dipendenti per quell'azienda
-						numero_dipendenti += contaDipendentiAzienda(impresa, utenteAziendaPosizione(impresa, id_arco[i]), false); //con il false per non contare i dipendenti di una consociata di una consociata
-					}
-				}
-			}
-	}
-	return numero_dipendenti;
 }
 
 bool aziendaMaggiorDipendenti(const vector<UtenteAzienda> &impresa, const bool &cumulativi)

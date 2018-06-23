@@ -10,10 +10,6 @@
 #define SCELTA_NON_VALIDA 'N'
 #define MENU_PRECEDENTE 'P'
 #define MENU_PRINCIPALE 'M'
-#define VALORE_DEFAULT '0'
-#define UT_SEMPLICE 1
-#define UT_AZIENDA 2
-#define UT_GRUPPO 3
 
 using namespace std;
 
@@ -60,18 +56,18 @@ void stampaMenuFunzionalitaStatistiche()
 {
 	//stampa menu funzionalità statistiche (2 livello)
 	cout << endl;
-	cout << "A) Numero utenti" << endl;
-	cout << "B) Numero amici e parenti di ogni utente semplice" << endl;
-	cout << "C) Numero utenti nati dopo una data" << endl;
+	cout << "A) Numero di utenti totali, numero di utenti semplici, azienda e gruppo" << endl;
+	cout << "B) Numero di amici e parenti diretti di ogni utente semplice" << endl;
+	cout << "C) Numero utenti nati/creati dopo una specifica data" << endl;
 	cout << "D) Numero dipendenti e consociate per ogni azienda" << endl;
 	cout << "E) Numero di utenti per ogni gruppo" << endl;
 	cout << "F) Azienda con il maggior numero di dipendenti diretti" << endl;
 	cout << "G) Azienda con il maggior numero di dipendenti cumulativo con le consociate" << endl;
-	cout << "H) Notizia con piu' apprezzamenti" << endl;
-	cout << "I) Notizia con piu' indignazioni" << endl;
-	cout << "J) Utente con piu' amici" << endl;
-	cout << "K) Utente con piu' conoscenze" << endl;
-	cout << "L) Eta' media utenti semplici" << endl;
+	cout << "H) Notizia con il maggior numero di apprezzamenti" << endl;
+	cout << "I) Notizia con il maggior numero di indignazioni" << endl;
+	cout << "J) Utente col maggior numero di amici" << endl;
+	cout << "K) Utente con il maggior numero di conoscenze" << endl;
+	cout << "L) Eta' media degli utenti semplici" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -757,8 +753,8 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 		break;
 		case 'B':
 		{
-			//numero amici e parenti utente semplice
-			
+			//numero amici e parenti diretti per ogni utente semplice
+			modifica = numeroAmiciEParentiDirettiPerUtenteSemplice(persona);
 		}
 		break;
 		case'C':

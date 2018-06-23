@@ -56,6 +56,7 @@ public:
 	//metodi per le relazioni
 	unsigned int numeroRelazioni() const;
 	unsigned int contaTipoRelazione(const string &tipo_relazione) const;
+	void contaTipiRelazione(const vector<string> &tipo_relazione, vector<unsigned int> &numero_tipo_relazione) const;
 	bool tipoRelazioneEsistente(const string &tipo_relazione) const;
 	bool trovaPosizioneRelazione(const string &id, const string &tipo_relazione, unsigned int &posizione) const;
 	//rimuovo, modifico o aggiungo relazione del nodo con altri

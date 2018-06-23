@@ -2,6 +2,38 @@
 
 #include "GestioneUtenti.h"
 
+unsigned int contaDipendentiAzienda(const vector<UtenteAzienda> &impresa, const unsigned int &posizione_azienda, const bool &cumulativi)
+{
+	unsigned int numero_dipendenti = 0;
+	vector<string> id_arco = impresa[posizione_azienda].getIdArco();
+	vector<string> tipo_relazione = impresa[posizione_azienda].getTipoRelazione();
+	for (unsigned int i = 0; i < tipo_relazione.size(); i++)
+	{
+		//se è un dipendente
+		if (tipo_relazione[i] == STR_DIPENDENTE)
+		{
+			numero_dipendenti++;
+		}
+		else
+			//se sono richiesti anche i dipendenti cumulativi
+			if (cumulativi)
+			{
+				//se è un'azienda consociata
+				if (tipo_relazione[i] == STR_CONSOCIATA)
+				{
+					//se non è la stessa azienda di partenza
+					if (id_arco[i] != impresa[posizione_azienda].getId())
+					{
+						//conto i dipendenti per quell'azienda
+						numero_dipendenti += contaDipendentiAzienda(impresa, utenteAziendaPosizione(impresa, id_arco[i]), false); 
+						//con il false per non contare i dipendenti di una consociata di una consociata
+					}
+				}
+			}
+	}
+	return numero_dipendenti;
+}
+
 string stampaRelazioni(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	string output;
