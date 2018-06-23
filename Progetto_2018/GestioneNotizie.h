@@ -114,90 +114,98 @@ bool aggiungiReazioneNotizia(vector<Notizia> &news, const vector<UtenteSemplice>
 	unsigned int numero_notizia;
 	char tipo_reazione;
 
-	//stampa notizie
-	cout << endl << stampaNotizie(news, true) << endl << endl;
-	cout << "Seleziona numero notizia a cui aggiungere una reazione : ";
-	//inserimento numero notizia
-	getline(cin, str_numero_notizia);
-	//conversione da stringa a numero e contemporaneamente verifico che non dia errori
-	if (convertiANumero(str_numero_notizia, numero_notizia))
+	//se c'è almeno una notizia
+	if (news.size() != 0)
 	{
-		//controllo che sia una notizia esistente
-		if ((numero_notizia >= 0) && (numero_notizia < news.size()))
+		//stampa notizie
+		cout << endl << stampaNotizie(news, true) << endl << endl;
+		cout << "Seleziona numero notizia a cui aggiungere una reazione : ";
+		//inserimento numero notizia
+		getline(cin, str_numero_notizia);
+		//conversione da stringa a numero e contemporaneamente verifico che non dia errori
+		if (convertiANumero(str_numero_notizia, numero_notizia))
 		{
-			cout << endl << "Inserisci l'utente che vuole aggiungere una reazione : ";
-			getline(cin, id_utente);
-			//se esiste l'utente
-			if (idUtenteTrovato(persona, impresa, associazione, id_utente))
+			//controllo che sia una notizia esistente
+			if ((numero_notizia >= 0) && (numero_notizia < news.size()))
 			{
-				//scelta tipo reazione
-				cout << endl << "L) " << STR_LIKE;
-				cout << endl << "D) " << STR_DISLIKE;
-				cout << endl << endl << "Inserisci il tipo di reazione da aggiungere : ";
-				getline(cin, str_tipo_reazione);
-				//se ha inserito solo una lettera
-				if (str_tipo_reazione.size() == 1)
+				cout << endl << "Inserisci l'utente che vuole aggiungere una reazione : ";
+				getline(cin, id_utente);
+				//se esiste l'utente
+				if (idUtenteTrovato(persona, impresa, associazione, id_utente))
 				{
-					tipo_reazione = str_tipo_reazione.front();
-					//formatto
-					if (islower(tipo_reazione))
-						tipo_reazione = toupper(tipo_reazione);
-					switch (tipo_reazione)
+					//scelta tipo reazione
+					cout << endl << "L) " << STR_LIKE;
+					cout << endl << "D) " << STR_DISLIKE;
+					cout << endl << endl << "Inserisci il tipo di reazione da aggiungere : ";
+					getline(cin, str_tipo_reazione);
+					//se ha inserito solo una lettera
+					if (str_tipo_reazione.size() == 1)
 					{
-					case 'L':
-					{
-						//se aggiunge la notizia
-						if (news[numero_notizia].aggiungiLike(id_utente))
+						tipo_reazione = str_tipo_reazione.front();
+						//formatto
+						if (islower(tipo_reazione))
+							tipo_reazione = toupper(tipo_reazione);
+						switch (tipo_reazione)
 						{
-							modifica = true;
-							cout << endl << "Like aggiunto" << endl;
+						case 'L':
+						{
+							//se aggiunge la notizia
+							if (news[numero_notizia].aggiungiLike(id_utente))
+							{
+								modifica = true;
+								cout << endl << "Like aggiunto" << endl;
+							}
+							//se non l'aggiunge
+							else
+							{
+								cout << endl << "L'utente = '" << id_utente << "' ha gia' messo una reazione a questa notizia" << endl;
+							}
 						}
-						//se non l'aggiunge
-						else
+						break;
+						case 'D':
 						{
-							cout << endl << "L'utente = '" << id_utente << "' ha gia' messo una reazione a questa notizia" << endl;
+							//se aggiunge la notizia
+							if (news[numero_notizia].aggiungiDislike(id_utente))
+							{
+								modifica = true;
+								cout << endl << "Dislike aggiunto" << endl;
+							}
+							//se non l'aggiunge
+							else
+							{
+								cout << endl << "L'utente = '" << id_utente << "' ha gia' messo una reazione a questa notizia" << endl;
+							}
+						}
+						break;
+						default:
+						{
+							cout << endl << "Errore : tipo reazione non valida" << endl;
+						}
+						break;
 						}
 					}
-					break;
-					case 'D':
+					//se ha inserito troppe lettere
+					else
 					{
-						//se aggiunge la notizia
-						if (news[numero_notizia].aggiungiDislike(id_utente))
-						{
-							modifica = true;
-							cout << endl << "Dislike aggiunto" << endl;
-						}
-						//se non l'aggiunge
-						else
-						{
-							cout << endl << "L'utente = '" << id_utente << "' ha gia' messo una reazione a questa notizia" << endl;
-						}
-					}
-					break;
-					default:
-					{
-						cout << endl << "Errore : tipo reazione non valida" << endl;
-					}
-					break;
+						cout << endl << "Errore : troppe lettere inserite" << endl;
 					}
 				}
-				//se ha inserito troppe lettere
+				//id utente non esistente
 				else
 				{
-					cout << endl << "Errore : troppe lettere inserite" << endl;
+					cout << endl << "Errore : id_utente '" << id_utente << "' non esistente" << endl;
 				}
 			}
-			//id utente non esistente
+			//numero errato
 			else
 			{
-				cout << endl << "Errore : id_utente '" << id_utente << "' non esistente" << endl;
+				cout << endl << "Errore : numero notizia non esistente" << endl;
 			}
 		}
-		//numero errato
-		else
-		{
-			cout << endl << "Errore : numero notizia non esistente" << endl;
-		}
+	}
+	else
+	{
+		cout << endl << "Nessuna notizia inserita nel database" << endl;
 	}
 	return modifica;
 }
@@ -207,27 +215,36 @@ bool rimuoviNotizia(vector<Notizia> &news)
 	bool modifica = false;
 	string str_numero_notizia;
 	unsigned int numero_notizia;
-	//stampa notizie
-	cout << endl << stampaNotizie(news, true) << endl << endl;
-	cout << "Seleziona numero notizia da rimuovere : ";
-	//inserimento numero notizia
-	getline(cin, str_numero_notizia);
-	//conversione da stringa a numero e contemporaneamente verifico che non dia errori
-	if (convertiANumero(str_numero_notizia, numero_notizia))
+
+	//se c'è almeno una notizia
+	if (news.size() != 0)
 	{
-		//controllo che sia una notizia esistente
-		if ((numero_notizia >= 0) && (numero_notizia < news.size()))
+		//stampa notizie
+		cout << endl << stampaNotizie(news, true) << endl << endl;
+		cout << "Seleziona numero notizia da rimuovere : ";
+		//inserimento numero notizia
+		getline(cin, str_numero_notizia);
+		//conversione da stringa a numero e contemporaneamente verifico che non dia errori
+		if (convertiANumero(str_numero_notizia, numero_notizia))
 		{
-			//rimuovo notizia corrispondente
-			news.erase(news.begin() + numero_notizia);
-			modifica = true;
-			cout << endl << "Notizia rimossa" << endl;
+			//controllo che sia una notizia esistente
+			if ((numero_notizia >= 0) && (numero_notizia < news.size()))
+			{
+				//rimuovo notizia corrispondente
+				news.erase(news.begin() + numero_notizia);
+				modifica = true;
+				cout << endl << "Notizia rimossa" << endl;
+			}
+			//numero errato
+			else
+			{
+				cout << endl << "Errore : numero notizia non esistente" << endl;
+			}
 		}
-		//numero errato
-		else
-		{
-			cout << endl << "Errore : numero notizia non esistente" << endl;
-		}
+	}
+	else
+	{
+		cout << endl << "Nessuna notizia inserita nel database" << endl;
 	}
 	return modifica;
 }
@@ -238,38 +255,47 @@ bool rimuoviReazioneNotizia(vector<Notizia> &news)
 	string str_numero_notizia;
 	unsigned int numero_notizia;
 	string id_utente;
-	//stampa notizie
-	cout << endl << stampaNotizie(news, true) << endl << endl;
-	cout << "Seleziona numero notizia da cui rimuovere la reazione : ";
-	//inserimento numero notizia
-	getline(cin, str_numero_notizia);
-	//conversione da stringa a numero e contemporaneamente verifico che non dia errori
-	if (convertiANumero(str_numero_notizia, numero_notizia))
+
+	//se c'è almeno una notizia
+	if (news.size() != 0)
 	{
-		//controllo che sia una notizia esistente
-		if ((numero_notizia >= 0) && (numero_notizia < news.size()))
+		//stampa notizie
+		cout << endl << stampaNotizie(news, true) << endl << endl;
+		cout << "Seleziona numero notizia da cui rimuovere la reazione : ";
+		//inserimento numero notizia
+		getline(cin, str_numero_notizia);
+		//conversione da stringa a numero e contemporaneamente verifico che non dia errori
+		if (convertiANumero(str_numero_notizia, numero_notizia))
 		{
-			cout << endl << news[numero_notizia] << endl;
-			cout << "Digita l'id_utente di cui rimuovere la reazione : ";
-			//inserimento id utente
-			getline(cin, id_utente);
-			//rimuovo id utente dalla notizia
-			if (news[numero_notizia].rimuoviReazione(id_utente))
+			//controllo che sia una notizia esistente
+			if ((numero_notizia >= 0) && (numero_notizia < news.size()))
 			{
-				modifica = true;
-				cout << endl << "Reazione rimossa" << endl;
+				cout << endl << news[numero_notizia] << endl;
+				cout << "Digita l'id_utente di cui rimuovere la reazione : ";
+				//inserimento id utente
+				getline(cin, id_utente);
+				//rimuovo id utente dalla notizia
+				if (news[numero_notizia].rimuoviReazione(id_utente))
+				{
+					modifica = true;
+					cout << endl << "Reazione rimossa" << endl;
+				}
+				//se non viene rimossa
+				else
+				{
+					cout << "L'utente = '" << id_utente << "' non ha messo nessuna reazione a questa notizia" << endl;
+				}
 			}
-			//se non viene rimossa
+			//numero errato
 			else
 			{
-				cout << "L'utente = '" << id_utente << "' non ha messo nessuna reazione a questa notizia" << endl;
+				cout << endl << "Errore : numero notizia non esistente" << endl;
 			}
 		}
-		//numero errato
-		else
-		{
-			cout << endl << "Errore : numero notizia non esistente" << endl;
-		}
+	}
+	else
+	{
+		cout << endl << "Nessuna notizia inserita nel database" << endl;
 	}
 	return modifica;
 }

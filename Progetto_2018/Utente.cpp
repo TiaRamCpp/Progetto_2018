@@ -239,7 +239,7 @@ bool Utente::modificaRelazione(const string &id, const string &nuovo_tipo_relazi
 	return modificata;
 }
 
-bool Utente::rimuoviRelazione(const string &id, const string &tipo_relazione)
+bool Utente::rimuoviRelazioneSpecifica(const string &id, const string &tipo_relazione)
 {
 	bool eliminata = false;
 	unsigned int posizione;
@@ -252,6 +252,28 @@ bool Utente::rimuoviRelazione(const string &id, const string &tipo_relazione)
 		_tipo_relazione.erase(_tipo_relazione.begin() + posizione);
 		eliminata = true;
 	}
+
+	return eliminata;
+}
+
+bool Utente::rimuoviRelazioniConUtente(const string & id_utente_da_rimuovere)
+{
+	//rimuove tutte le eventuali relazioni con un utente
+	//utile per quando viene rimosso un utente e per eliminare tutte le relazioni con lui
+	bool eliminata = false;
+
+	//cerco tra tutte le relazioni
+	for (unsigned int i = 0; i < _id_arco.size(); i++)
+	{
+		//se trovo la relazione
+		if (_id_arco[i] == id_utente_da_rimuovere)
+		{
+			_id_arco.erase(_id_arco.begin() + i);
+			_tipo_relazione.erase(_tipo_relazione.begin() + i--);
+			//i-- perchè avendone tolta una il totale è diminuito di 1
+			eliminata = true;
+		}
+	}	
 
 	return eliminata;
 }

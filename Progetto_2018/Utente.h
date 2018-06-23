@@ -62,7 +62,8 @@ public:
 	//rimuovo, modifico o aggiungo relazione del nodo con altri
 	bool aggiungiRelazione(const string &id, const string &tipo_relazione);
 	bool modificaRelazione(const string &id, const string &nuovo_tipo_relazione, const string &vecchio_tipo_relazione);
-	bool rimuoviRelazione(const string &id, const string &tipo_relazione);
+	bool rimuoviRelazioneSpecifica(const string &id, const string &tipo_relazione);
+	bool rimuoviRelazioniConUtente(const string &id_utente_da_rimuovere);
 
 	//metodi di stampa
 	string stampaNodo() const;

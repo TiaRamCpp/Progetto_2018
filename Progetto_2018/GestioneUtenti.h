@@ -36,6 +36,11 @@ bool idUtenteTrovato(const vector<UtenteSemplice> &persona, const vector<UtenteA
 	//se una condizione è verificata non esegue inutilmente le successive
 	return (idUtenteSempliceTrovato(persona, id_utente)) || (idUtenteAziendaTrovato(impresa, id_utente)) || (idUtenteGruppoTrovato(associazione, id_utente));
 }
+bool almenoUnUtenteEsistente(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	//se c'è almeno un utente ritorna vero
+	return ((persona.size() != 0) || (impresa.size() != 0) || (associazione.size() != 0));
+}
 
 //trova posizione id
 unsigned int utenteSemplicePosizione(const vector<UtenteSemplice> &persona, const string &id_utente)
@@ -145,71 +150,6 @@ string stampaUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAz
 			output += '\n';
 	}
 	return output;
-}
-
-//selezione utente
-bool utenteSempliceSeleziona(const vector<UtenteSemplice> &persona, unsigned int &posizione)
-{
-	bool selezionato = false;
-	string id_utente_semplice;
-	posizione = 0;
-	//scelta utente semplice da modificare
-	cout << endl << "Inserire l'id_utente_semplice da selezionare : ";
-	getline(cin, id_utente_semplice);
-	//se esiste
-	if (idUtenteSempliceTrovato(persona, id_utente_semplice))
-	{
-		posizione = utenteSemplicePosizione(persona, id_utente_semplice);
-		selezionato = true;
-	}
-	//id utente semplice non esistente
-	else
-	{
-		cout << endl << "Errore : id_utente_semplice '" << id_utente_semplice << "' non trovato" << endl;
-	}
-	return selezionato;
-}
-bool utenteAziendaSeleziona(const vector<UtenteAzienda> &impresa, unsigned int &posizione)
-{
-	bool selezionato = false;
-	string id_utente_azienda;
-	posizione = 0;
-	//scelta utente azienda da modificare
-	cout << endl << "Inserire l'id_utente_azienda da selezionare : ";
-	getline(cin, id_utente_azienda);
-	//se esiste
-	if (idUtenteAziendaTrovato(impresa, id_utente_azienda))
-	{
-		posizione = utenteAziendaPosizione(impresa, id_utente_azienda);
-		selezionato = true;
-	}
-	//id utente azienda non esistente
-	else
-	{
-		cout << endl << "Errore : id_utente_azienda '" << id_utente_azienda << "' non trovato" << endl;
-	}
-	return selezionato;
-}
-bool utenteGruppoSeleziona(const vector<UtenteGruppo> &associazione, unsigned int &posizione)
-{
-	bool selezionato = false;
-	string id_utente_gruppo;
-	posizione = 0;
-	//scelta utente gruppo da modificare
-	cout << endl << "Inserire l'id_utente_gruppo da selezionare : ";
-	getline(cin, id_utente_gruppo);
-	//se esiste
-	if (idUtenteGruppoTrovato(associazione, id_utente_gruppo))
-	{
-		posizione = utenteGruppoPosizione(associazione, id_utente_gruppo);
-		selezionato = true;
-	}
-	//id utente gruppo non esistente
-	else
-	{
-		cout << endl << "Errore : id_utente_gruppo '" << id_utente_gruppo << "' non trovato" << endl;
-	}
-	return selezionato;
 }
 
 
@@ -1010,68 +950,84 @@ bool rimuoviIdUtenteReazioniNotizie(vector<Notizia> &news, const string &id_uten
 	return modifica;
 }
 
-//rimozione utente
-bool utenteSempliceRimuovi(vector<UtenteSemplice> &persona, vector<Notizia> &news, const string &id_utente_da_rimuovere)
+//rimozione id_utente dalle relazioni
+bool rimuoviIdUtenteRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, const string &id_utente_da_rimuovere)
 {
-	bool modifica = true;
-	unsigned int posizione;
+	//rimuovo tutte le relazioni con l' id_utente da rimuovere
+	bool modifica = false;
+	
+	//rimuovo dagli utenti semplici
+	for (unsigned int i = 0; i < persona.size(); i++)
+	{
+		//controlla se hanno delle relazioni in comune e le rimuove
+		modifica |= persona[i].rimuoviRelazioniConUtente(id_utente_da_rimuovere);
+	}
 
-	//identifico posizione nel vettore
-	posizione = utenteSemplicePosizione(persona, id_utente_da_rimuovere);
-	//rimuovo dal vettore
-	persona.erase(persona.begin() + posizione);
-	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
-	rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
-	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
-	rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+	//rimuovo dagli utenti azienda
+	for (unsigned int i = 0; i < impresa.size(); i++)
+	{
+		//controlla se hanno delle relazioni in comune e le rimuove
+		modifica |= impresa[i].rimuoviRelazioniConUtente(id_utente_da_rimuovere);
+	}
 
-	//rimuovo tutte le relazioni con lui
-	//ricalcolo ?? alberi salvati su file???
+	//rimuovo dagli utenti gruppo
+	for (unsigned int i = 0; i < associazione.size(); i++)
+	{
+		//controlla se hanno delle relazioni in comune e le rimuove
+		modifica |= associazione[i].rimuoviRelazioniConUtente(id_utente_da_rimuovere);
+	}
 
-	cout << endl << "Utente rimosso";
-
+	
 	return modifica;
 }
-bool utenteAziendaRimuovi(vector<UtenteAzienda> &impresa, vector<Notizia> &news, const string &id_utente_da_rimuovere)
+
+bool rimuoviUtente(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &id_utente_da_rimuovere)
 {
-	bool modifica = true;
-	unsigned int posizione;
+	bool modifica = false;
+	unsigned int posizione = 0;
 
-	//identifico posizione nel vettore
-	posizione = utenteAziendaPosizione(impresa, id_utente_da_rimuovere);
-	//rimuovo dal vettore
-	impresa.erase(impresa.begin() + posizione);
-	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
-	rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
-	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
-	rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
-
-	//rimuovo tutte le relazioni con lui
-	//ricalcolo ?? alberi salvati su file???
-
-	cout << endl << "Utente rimosso";
-
-	return modifica;
-}
-bool utenteGruppoRimuovi(vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &id_utente_da_rimuovere)
-{
-	bool modifica = true;
-	unsigned int posizione;
-
-	//identifico posizione nel vettore
-	posizione = utenteGruppoPosizione(associazione, id_utente_da_rimuovere);
-	//rimuovo dal vettore
-	associazione.erase(associazione.begin() + posizione);
-	//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
-	rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
-	//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
-	rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
-
-	//rimuovo tutte le relazioni con lui
-	//ricalcolo ?? alberi salvati su file???
-
-	cout << endl << "Utente rimosso";
-
+	//se è un utente semplice
+	if (trovaPosizioneUtenteSemplice(persona, id_utente_da_rimuovere, posizione))
+	{
+		//rimuovi utente semplice
+		persona.erase(persona.begin() + posizione);
+		modifica = true;
+	}
+	else
+	{
+		//se è un utente azienda
+		if (trovaPosizioneUtenteAzienda(impresa, id_utente_da_rimuovere, posizione))
+		{
+			//rimuovo utente azienda
+			impresa.erase(impresa.begin() + posizione);
+			modifica = true;
+		}
+		else
+		{
+			//se è un utente gruppo
+			if (trovaPosizioneUtenteGruppo(associazione, id_utente_da_rimuovere, posizione))
+			{
+				//rimuovi utente gruppo
+				associazione.erase(associazione.begin() + posizione);
+				modifica = true;
+			}
+			else
+			{
+				cout << "Id utente <" << id_utente_da_rimuovere << "> non esistente" << endl;
+			}
+		}
+	}
+	//se l'id utente esisteva e quindi rimuovendolo c'è stata una modifica
+	if (modifica)
+	{
+		//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
+		rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
+		//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
+		rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+		//rimuovo tutte le relazioni con lui
+		rimuoviIdUtenteRelazioni(persona, impresa, associazione, id_utente_da_rimuovere);
+		cout << endl << "Utente rimosso";
+	}
 	return modifica;
 }
 

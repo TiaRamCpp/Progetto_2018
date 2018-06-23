@@ -478,46 +478,25 @@ bool sceltaMenuAggiungiUtenti(bool &torna_al_menu_precedente, bool &torna_al_men
 // 2 livello
 bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_principale,vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
-	//inserisco id e cerco se esistente, a che tipologia appartiene e lo rimuovo (2/3 liv)
-	string id;
+	//inserisco id e cerco se esistente e lo rimuovo
+	string id_utente_da_rimuovere;
 	bool modifica = false;
-	bool valido = true;
 
-	cout << "Inserire id utente da rimuovere:" << endl;
-	//eseguo richiesta fino a che non trovo un id esistente
-	do	
+	//se c'è almeno un utente
+	if (almenoUnUtenteEsistente(persona, impresa, associazione))
 	{
-		valido = true;
-		getline(cin, id);
-
-		//cerco se esiste utente e tipologia
-		if (idUtenteSempliceTrovato(persona, id))
-		{
-			//rimuovo utente semplice
-			modifica = utenteSempliceRimuovi(persona, news, id);
-		}
-		else
-		{
-			if (idUtenteAziendaTrovato(impresa, id))
-			{
-				//rimuovo utente azienda
-				modifica = utenteAziendaRimuovi(impresa, news, id);
-			}
-			else
-			{
-				if (idUtenteGruppoTrovato(associazione, id))
-				{
-					//rimuovi utente gruppo
-					modifica = utenteGruppoRimuovi(associazione, news, id);
-				}
-				else
-				{
-					cout << "Id non esistente, inserirne un altro: " << endl;
-					valido = false;
-				}
-			}	
-		}
-	} while (!valido);
+		cout << "Inserire id utente da rimuovere:" << endl;
+		getline(cin, id_utente_da_rimuovere);
+		modifica = rimuoviUtente(persona, impresa, associazione, news, id_utente_da_rimuovere);
+		//rimuove l'utente dalle l'elenco
+		//rimuove tutte le notizie pubblicate da lui
+		//rimuove tutte le reazioni messe da lui
+		//rimuove tutte le relazioni con lui
+	}
+	else
+	{
+		cout << endl << "Nessun utente inserito nel database" << endl;
+	}
 	return modifica;
 }
 bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
@@ -528,47 +507,55 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 	bool valido = true;
 	unsigned int posizione = 0;
 
-	cout << "Inserire id utente da modificare:" << endl;
-	//eseguo richiesta fino a che non trovo un id esistente
-	do
+	//se c'è almeno un utente
+	if (almenoUnUtenteEsistente(persona, impresa, associazione))
 	{
-		valido = true;
-		getline(cin, id);
+		cout << "Inserire id utente da modificare:" << endl;
+		//eseguo richiesta fino a che non trovo un id esistente
+		do
+		{
+			valido = true;
+			getline(cin, id);
 
-		//cerco se esiste utente e tipologia
-		if (idUtenteSempliceTrovato(persona, id))
-		{
-			//trovo posizione
-			posizione = utenteSemplicePosizione(persona, id);
-			//modifico utente semplice
-			modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona[posizione]);
-		}
-		else
-		{
-			if (idUtenteAziendaTrovato(impresa, id))
+			//cerco se esiste utente e tipologia
+			if (idUtenteSempliceTrovato(persona, id))
 			{
 				//trovo posizione
-				posizione = utenteAziendaPosizione(impresa, id);
-				//modifico utente azienda
-				modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa[posizione]);
+				posizione = utenteSemplicePosizione(persona, id);
+				//modifico utente semplice
+				modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona[posizione]);
 			}
 			else
 			{
-				if (idUtenteGruppoTrovato(associazione, id))
+				if (idUtenteAziendaTrovato(impresa, id))
 				{
 					//trovo posizione
-					posizione = utenteGruppoPosizione(associazione, id);
-					//modifico utente gruppo
-					modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione[posizione]);
+					posizione = utenteAziendaPosizione(impresa, id);
+					//modifico utente azienda
+					modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa[posizione]);
 				}
 				else
 				{
-					cout << "Id non esistente, inserirne un altro: " << endl;
-					valido = false;
+					if (idUtenteGruppoTrovato(associazione, id))
+					{
+						//trovo posizione
+						posizione = utenteGruppoPosizione(associazione, id);
+						//modifico utente gruppo
+						modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione[posizione]);
+					}
+					else
+					{
+						cout << "Id non esistente, inserirne un altro: " << endl;
+						valido = false;
+					}
 				}
 			}
-		}
-	} while (!valido);
+		} while (!valido);
+	}
+	else
+	{
+		cout << endl << "Nessun utente inserito nel database" << endl;
+	}
 	return modifica;
 }
 bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
