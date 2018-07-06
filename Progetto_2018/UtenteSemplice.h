@@ -2,8 +2,6 @@
 
 #include "Utente.h"
 
-#define ID_TIPO_SEMPLICE "utente_semplice"
-
 #define STR_COGNOME "cognome"
 #define STR_DOMICILIO "domicilio"
 #define STR_DATA_DI_NASCITA "data di nascita"
@@ -34,8 +32,12 @@ public:
 	int calcolaEta() const;
 	bool utenteValido() const;
 
+	//metodi per le relazioni
+	bool tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const;
+
 	//metodo di stampa
 	string stampaUtente() const;
+	string stampaUtenteEstesa() const;
 
 private:
 

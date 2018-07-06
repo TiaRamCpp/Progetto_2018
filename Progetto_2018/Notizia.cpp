@@ -204,6 +204,26 @@ string Notizia::stampaNotizia() const
 	return output;
 }
 
+string Notizia::stampaNotiziaEstesa() const
+{
+	string output;
+
+	//stampa id mittente
+	output = "Mittente Notizia : " + _id_mittente;
+
+	//stampa messaggio
+	output += "\nMessaggio : <<" + _messaggio + ">>";
+
+	//stampa data
+	output += "\nData di Pubblicazione : " + _data_pubblicazione.stampaData();
+
+	//stampa like dislike
+	output += "\nNumero di Like : " + to_string(_like.size());
+	output += "\nNumero di Dislike : " + to_string(_dislike.size());
+
+	return output;
+}
+
 ostream & operator<<(ostream &output, const Notizia &notizia_da_stampare)
 {
 	output << notizia_da_stampare.stampaNotizia();

@@ -52,6 +52,7 @@ public:
 
 	//metodi di stampa
 	string stampaNotizia() const;
+	string stampaNotiziaEstesa() const;
 	friend ostream &operator<< (ostream &output, const Notizia &notizia_da_stampare);
 
 private:

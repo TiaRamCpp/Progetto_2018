@@ -4,8 +4,7 @@
 
 #include "GestioneUtenti.h" //per le funzioni che verificano l'esistenza di un id_utente
 
-//stampa
-string stampaNotizie(const vector<Notizia> &news, const bool &visualizza_posizione = false)
+string stampaNotizieFile(const vector<Notizia> &news, const bool &visualizza_posizione = false)
 {
 	string output;
 	output.clear();
@@ -20,6 +19,23 @@ string stampaNotizie(const vector<Notizia> &news, const bool &visualizza_posizio
 			output += '\n';
 	}
 	return output;
+}
+
+void stampaNotizie(const vector<Notizia> &news)
+{
+	if (news.size() != 0)
+	{
+		cout << "Notizie :";
+		for (unsigned int i = 0; i < news.size(); i++)
+		{
+			cout << endl << endl << news[i].stampaNotiziaEstesa();
+		}
+	}
+	else
+	{
+		cout << "Nessuna Notizia nel Database" << endl;
+	}
+	
 }
 
 bool convertiANumero(const string &str_numero_notizia, unsigned int &numero_notizia)
@@ -118,7 +134,7 @@ bool aggiungiReazioneNotizia(vector<Notizia> &news, const vector<UtenteSemplice>
 	if (news.size() != 0)
 	{
 		//stampa notizie
-		cout << endl << stampaNotizie(news, true) << endl << endl;
+		cout << endl << stampaNotizieFile(news, true) << endl << endl;
 		cout << "Seleziona numero notizia a cui aggiungere una reazione : ";
 		//inserimento numero notizia
 		getline(cin, str_numero_notizia);
@@ -220,7 +236,7 @@ bool rimuoviNotizia(vector<Notizia> &news)
 	if (news.size() != 0)
 	{
 		//stampa notizie
-		cout << endl << stampaNotizie(news, true) << endl << endl;
+		cout << endl << stampaNotizieFile(news, true) << endl << endl;
 		cout << "Seleziona numero notizia da rimuovere : ";
 		//inserimento numero notizia
 		getline(cin, str_numero_notizia);
@@ -260,7 +276,7 @@ bool rimuoviReazioneNotizia(vector<Notizia> &news)
 	if (news.size() != 0)
 	{
 		//stampa notizie
-		cout << endl << stampaNotizie(news, true) << endl << endl;
+		cout << endl << stampaNotizieFile(news, true) << endl << endl;
 		cout << "Seleziona numero notizia da cui rimuovere la reazione : ";
 		//inserimento numero notizia
 		getline(cin, str_numero_notizia);
@@ -299,3 +315,99 @@ bool rimuoviReazioneNotizia(vector<Notizia> &news)
 	}
 	return modifica;
 }
+
+void cercaNotiziaMittente(const vector<Notizia> &news)
+{
+	string id_mittente;
+	vector<unsigned int> posizione;
+	if (news.size() != 0)
+	{
+		//inserisco id utente
+		cout << endl << "Inserisci id_utente di cui cercare le notizie pubblicate : ";
+		getline(cin, id_mittente);
+		for (unsigned int i = 0; i < news.size(); i++)
+			if (news[i].getIdMittente() == id_mittente)
+				posizione.push_back(i);
+		//se ne ha trovato qualche notizia
+		if (posizione.size() != 0)
+		{
+			cout << endl << "Notizia/e Pubblicata/e da : " << id_mittente;
+			for (unsigned int i = 0; i < posizione.size(); i++)
+			{
+				cout << endl << endl << news[posizione[i]].stampaNotiziaEstesa();
+			}
+		}
+		//se non ne ha trovata nemmeno una
+		else
+		{
+			cout << endl << "Nessuna Notizia Pubblicata da : " << id_mittente;
+		}
+	}
+	else
+	{
+		cout << "Nessuna Notizia Inserita nel Database" << endl;
+	}
+}
+
+void cercaNotiziaReazione(const vector<Notizia> &news)
+{
+	string id_utente;
+	vector<unsigned int> posizione;
+	vector<string> like;
+	vector<string> dislike;
+	vector<string> tipo_reazione;
+	bool trovata_reazione;
+
+	if (news.size() != 0)
+	{
+		//inserisco id utente
+		cout << endl << "Inserisci id_utente di cui cercare le reazioni : ";
+		getline(cin, id_utente);
+		for (unsigned int i = 0; i < news.size(); i++)
+		{
+			trovata_reazione = false;
+			like = news[i].getLike();
+			dislike = news[i].getDislike();
+			//cerco se ha messo like
+			for (unsigned int j = 0; ((j < like.size()) && (!trovata_reazione)); j++)
+			{
+				if (like[j] == id_utente)
+				{
+					trovata_reazione = true;
+					posizione.push_back(i);
+					tipo_reazione.push_back(STR_LIKE);
+				}
+			}
+			//cerco se ha messo dislike
+			for (unsigned int j = 0; ((j < dislike.size()) && (!trovata_reazione)); j++)
+			{
+				if (dislike[j] == id_utente)
+				{
+					trovata_reazione = true;
+					posizione.push_back(i);
+					tipo_reazione.push_back(STR_DISLIKE);
+				}
+			}
+		}
+		//se ne ha trovato qualche notizia a cui messo una reazione
+		if (posizione.size() != 0)
+		{
+			cout << endl << "Notizia/e Pubblicata/e con delle Reazioni dell'Utente : " << id_utente;
+			for (unsigned int i = 0; i < posizione.size(); i++)
+			{
+				cout << endl << endl << news[posizione[i]].stampaNotiziaEstesa();
+				cout << endl << "Tipo Reazione Inserita dall'Utente : " << tipo_reazione[i];
+			}
+		}
+		//se non ne ha trovata nemmeno una
+		else
+		{
+			cout << endl << "L'Utente " << id_utente << " Non ha messo Nessuna Reazione";
+		}
+	}
+	else
+	{
+		cout << "Nessuna Notizia Inserita nel Database" << endl;
+	}
+}
+

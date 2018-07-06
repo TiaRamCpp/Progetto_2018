@@ -94,6 +94,45 @@ bool UtenteSemplice::utenteValido() const
 	return ok;
 }
 
+bool UtenteSemplice::tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const
+{
+	bool ok = false;
+	//se è un utente semplice
+	if (tipo_id == ID_TIPO_SEMPLICE)
+	{
+		//se è una delle possibili relazioni tra un utente semplice e un utente semplice
+		if ((tipo_relazione == STR_AMICO) || (tipo_relazione == STR_CONIUGE) || (tipo_relazione == STR_CONOSCENTE) || (tipo_relazione == STR_FIGLIO) || (tipo_relazione == STR_GENITORE))
+		{
+			ok = true;
+		}
+	}
+	else
+	{
+		//se è un utente azienda
+		if (tipo_id == ID_TIPO_AZIENDA)
+		{
+			//se è una delle possibili relazioni tra un utente semplice e un utente azienda
+			if (tipo_relazione == STR_DIPENDENTE)
+			{
+				ok = true;
+			}
+		}
+		else
+		{
+			//se è un utente gruppo
+			if (tipo_id == ID_TIPO_GRUPPO)
+			{
+				//se è una delle possibili relazioni tra un utente semplice e un utente gruppo
+				if (tipo_relazione == STR_MEMBRO)
+				{
+					ok = true;
+				}
+			}
+		}
+	}
+	return ok;
+}
+
 string UtenteSemplice::stampaUtente() const
 {
 	string output;
@@ -133,6 +172,45 @@ string UtenteSemplice::stampaUtente() const
 	output += DIVISORE + _data_nascita.stampaData();
 
 	output += PARENTESI_DX;
+
+	return output;
+}
+
+string UtenteSemplice::stampaUtenteEstesa() const
+{
+	string output;
+
+	//stampa id
+	output = "Utente : " + _id;
+
+	//stampa id_tipo_utente
+	output += "\nTipo Utente : ";
+	output += ID_TIPO_SEMPLICE;
+
+	//stampa nome
+	output += "\nNome : " + _nome;
+
+	//stampa cognome
+	output += "\nCognome : " + _cognome;
+
+	//stampa domicilio
+	output += "\nDomicilio : " + _domicilio;
+
+	//stampa telefono
+	output += "\nTelefono : " + _telefono;
+
+	//stampa email
+	output += "\nEmail : " + _email;
+
+	//stampa data di nascita
+	output += "\nData di Nascita : " + _data_nascita.stampaData();
+
+	//stampa relazioni
+	output += "\nRelazioni :";
+	if (_id_arco.size() != 0)
+		output += "\n" + stampaNodo();
+	else
+		output += " Nessuna Relazione";
 
 	return output;
 }

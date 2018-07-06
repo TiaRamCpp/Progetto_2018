@@ -2,8 +2,6 @@
 
 #include "Utente.h"
 
-#define ID_TIPO_AZIENDA "utente_azienda"
-
 #define STR_SEDE_FISCALE "sede fiscale"
 #define STR_SEDE_OPERATIVA "sede operativa"
 #define STR_TIPO_PRODOTTO "tipo prodotto"
@@ -36,8 +34,12 @@ public:
 	//metodi della classe
 	bool utenteValido() const;
 
+	//metodi per le relazioni
+	bool tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const;
+
 	//metodo di stampa
 	string stampaUtente() const;
+	string stampaUtenteEstesa() const;
 
 private:
 

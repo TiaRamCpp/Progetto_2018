@@ -104,6 +104,33 @@ bool UtenteAzienda::utenteValido() const
 	return ok;
 }
 
+bool UtenteAzienda::tipoRelazionePossibile(const string & tipo_relazione, const string & tipo_id) const
+{
+	bool ok = false;
+	//se è un utente semplice
+	if (tipo_id == ID_TIPO_SEMPLICE)
+	{
+		//se è una delle possibili relazioni tra un utente azienda e un utente semplice
+		if (tipo_relazione == STR_DIPENDENTE)
+		{
+			ok = true;
+		}
+	}
+	else
+	{
+		//se è un utente azienda
+		if (tipo_id == ID_TIPO_AZIENDA)
+		{
+			//se è una delle possibili relazioni tra un utente azienda e un utente azienda
+			if (tipo_relazione == STR_CONSOCIATA)
+			{
+				ok = true;
+			}
+		}
+	}
+	return ok;
+}
+
 string UtenteAzienda::stampaUtente() const
 {
 	string output;
@@ -145,6 +172,48 @@ string UtenteAzienda::stampaUtente() const
 	//stampa data di creazione
 	output += STR_DATA_DI_CREAZIONE;
 	output += DIVISORE + _data_creazione.stampaData() + PARENTESI_DX;
+
+	return output;
+}
+
+string UtenteAzienda::stampaUtenteEstesa() const
+{
+	string output;
+
+	//stampa id
+	output = "Utente : " + _id;
+
+	//stampa id_tipo_utente
+	output += "\nTipo Utente : ";
+	output += ID_TIPO_AZIENDA;
+
+	//stampa nome
+	output += "\nNome : " + _nome;
+
+	//stampa sede fiscale
+	output += "\nSede Fiscale : " + _sede_fiscale;
+
+	//stampa sede operativa
+	output += "\nSede Operativa : " + _sede_operativa;
+
+	//stampa tipo prodotto
+	output += "\nTipo Prodotto : " + _tipo_prodotto;
+
+	//stampa telefono
+	output += "\nTelefono : " + _telefono;
+
+	//stampa email
+	output += "\nEmail : " + _email;
+
+	//stampa data di creazione
+	output += "\nData di Creazione : " + _data_creazione.stampaData();
+
+	//stampa relazioni
+	output += "\nRelazioni :";
+	if (_id_arco.size() != 0)
+		output += "\n" + stampaNodo();
+	else
+		output += " Nessuna Relazione";
 
 	return output;
 }

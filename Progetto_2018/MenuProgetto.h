@@ -11,9 +11,8 @@
 #define MENU_PRECEDENTE 'P'
 #define MENU_PRINCIPALE 'M'
 
-using namespace std;
-
 //stampe voci menu
+
 void stampaMenuPrincipale()
 {
 	//stampa menu pricipale (1 livello)
@@ -23,6 +22,7 @@ void stampaMenuPrincipale()
 	cout << "3) Gestione Notizie" << endl;
 	cout << "4) Statistiche" << endl;
 	cout << "5) Ricerche" << endl;
+	cout << "6) Informazioni Database" << endl;
 	cout << ESCI << ") Esci" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -35,6 +35,17 @@ void stampaMenuGestioneUtenti()
 	cout << "1) Aggiungi Utente" << endl;
 	cout << "2) Rimuovi Utente" << endl;
 	cout << "3) Modifica Utente" << endl;
+	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
+	cout << endl;
+	cout << "Selezionare una voce del menu: ";
+}
+void stampaMenuGestioneRelazioni()
+{
+	//stampa menu gestione relazioni(2 livello)
+	cout << endl;
+	cout << "1) Aggiungi Relazione" << endl;
+	cout << "2) Rimuovi Relazione" << endl;
+	cout << "3) Modifica Relazione" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -79,6 +90,26 @@ void stampaMenuRicerca()
 	cout << "1) Albero genealogico" << endl;
 	cout << "2) Lupi solitari" << endl;
 	cout << "3) Simpatia" << endl;
+	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
+	cout << endl;
+	cout << "Selezionare una voce del menu: ";
+}
+void stampaMenuInformazioniDatabase()
+{
+	//stampo menu informazioni database (2 livello)
+	cout << endl;
+	cout << "A) Stampa Tutti i Dati" << endl;
+	cout << "B) Stampa Tutti gli ID degli Utenti" << endl;
+	cout << "C) Stampa Tutti gli Utenti" << endl;
+	cout << "D) Stampa Tutti gli Utenti Semplici" << endl;
+	cout << "E) Stampa Tutti gli Utenti Azienda" << endl;
+	cout << "F) Stampa Tutti gli Utenti Gruppo" << endl;
+	cout << "G) Stampa Tutte le Notizie" << endl;
+	cout << "H) Stampa Tutte le Relazioni" << endl;
+	cout << "I) Cerca un Utente" << endl;
+	cout << "J) Cerca Notizie di un Utente" << endl;
+	cout << "K) Cerca Notizie a cui un Utente ha messo una Reazione" << endl;
+	cout << "L) Cerca Relazioni con un Utente" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -144,6 +175,7 @@ void stampaModificaAttributiUtenteGruppo()
 }
 
 //gestione scelte menu
+
 // 3 Livello
 bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteSemplice &persona)
 {
@@ -476,7 +508,7 @@ bool sceltaMenuAggiungiUtenti(bool &torna_al_menu_precedente, bool &torna_al_men
 }
 
 // 2 livello
-bool ricercaIdUtenteRimuovi( bool &torna_al_menu_precedente,bool &torna_al_menu_principale,vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool ricercaIdUtenteRimuovi(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//inserisco id e cerco se esistente e lo rimuovo
 	string id_utente_da_rimuovere;
@@ -628,7 +660,74 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 
 	return modifica;
 }
-bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuGestioneRelazioni(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
+{
+	//menu gestione relazioni (2 livello)
+	string str_azione_2;
+	bool modifica = false;
+	char azione_2 = SCELTA_NON_VALIDA;
+	bool torna_al_menu_precedente = true;
+
+	//ripeti se scelta non valida
+	do
+	{
+		if (torna_al_menu_precedente)
+		{
+			stampaMenuGestioneRelazioni();
+		}
+		torna_al_menu_precedente = false;
+
+		//leggo carattere e se non valido non lo considero
+		getline(cin, str_azione_2);
+		if (str_azione_2.size() == 1)
+		{
+			azione_2 = str_azione_2.front();
+			//converto in  maiuscolo se minuscolo
+			if (islower(azione_2))
+			{
+				azione_2 = toupper(azione_2);
+			}
+		}
+
+		switch (azione_2)
+		{
+		case '1':
+		{
+			//aggiungi relazione
+			modifica = aggiungiRelazione(persona, impresa, associazione);
+		}
+		break;
+		case '2':
+		{
+			//rimuovi relazione
+			modifica = rimuoviRelazione(persona, impresa, associazione);
+		}
+		break;
+		case'3':
+		{
+			//modifica relazione
+			modifica = modificaRelazione(persona, impresa, associazione);
+		}
+		break;
+		case MENU_PRINCIPALE:
+		{
+			//torna al menu principale
+			torna_al_menu_principale = true;
+		}
+		break;
+		default:
+		{
+			//scelta non valida
+			cout << "Opzione non valida" << endl;
+			azione_2 = SCELTA_NON_VALIDA;
+		}
+		break;
+		}
+	} while (azione_2 == SCELTA_NON_VALIDA || torna_al_menu_precedente);
+
+	return modifica;
+}
+bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//menu gestione notizie (2 livello)
 	string str_azione_2;
@@ -701,7 +800,7 @@ bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, vector<UtenteSemp
 
 	return modifica;
 }
-bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news)
 {
 	//menu gestione funzionalità statistiche (2 livello)
 	string str_azione_2;
@@ -822,7 +921,7 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, vector<Ut
 
 	return modifica;
 }
-bool sceltaMenuRicerca(bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
+bool sceltaMenuRicerca(bool &torna_al_menu_principale, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news)
 {
 	//menu gestione ricerca (2 livello)
 	string str_azione_2;
@@ -866,6 +965,130 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, vector<UtenteSemplice> &p
 		case'3':
 		{
 			//simpatia
+		}
+		break;
+		case MENU_PRINCIPALE:
+		{
+			//torna al menu principale
+			torna_al_menu_principale = true;
+		}
+		break;
+		default:
+		{
+			//scelta non valida
+			cout << "Opzione non valida" << endl;
+			azione_2 = SCELTA_NON_VALIDA;
+		}
+		break;
+		}
+	} while (azione_2 == SCELTA_NON_VALIDA || torna_al_menu_precedente);
+
+	return modifica;
+}
+bool sceltaMenuInformazioniDatabase(bool &torna_al_menu_principale, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news)
+{
+	//menu gestione informazioni database (2 livello)
+	string str_azione_2;
+	bool modifica = false;
+	char azione_2 = SCELTA_NON_VALIDA;
+	bool torna_al_menu_precedente = true;
+
+	//ripeti se scelta non valida
+	do
+	{
+		if (torna_al_menu_precedente)
+		{
+			stampaMenuInformazioniDatabase();
+		}
+		torna_al_menu_precedente = false;
+
+		//leggo carattere e se non valido non lo considero
+		getline(cin, str_azione_2);
+		if (str_azione_2.size() == 1)
+		{
+			azione_2 = str_azione_2.front();
+			//converto in  maiuscolo se minuscolo
+			if (islower(azione_2))
+			{
+				azione_2 = toupper(azione_2);
+			}
+		}
+
+		switch (azione_2)
+		{
+		case 'A':
+		{
+			//Stampa Tutti i Dati
+			stampaUtenti(persona, impresa, associazione);
+			cout << endl << endl;
+			stampaNotizie(news);
+			cout << endl << endl << "Relazioni :" << endl << endl << stampaRelazioniFile(persona, impresa, associazione);
+		}
+		break;
+		case 'B':
+		{
+			//stampa solo id degli utenti
+			stampaIdUtenti(persona, impresa, associazione);
+		}
+		break;
+		case 'C':
+		{
+			//Stampa Tutti gli Utenti
+			stampaUtenti(persona, impresa, associazione);
+		}
+		break;
+		case 'D':
+		{
+			//Stampa Tutti gli Utenti Semplici
+			stampaUtentiSemplici(persona);
+		}
+		break;
+		case 'E':
+		{
+			//Stampa Tutti gli Utenti Azienda
+			stampaUtentiAzienda(impresa);
+		}
+		break;
+		case 'F':
+		{
+			//Stampa Tutti gli Utenti Gruppo
+			stampaUtentiGruppo(associazione);
+		}
+		break;
+		case 'G':
+		{
+			//Stampa Tutte le Notizie
+			stampaNotizie(news);
+		}
+		break;
+		case 'H':
+		{
+			//Stampa Tutte le Relazioni
+			cout << "Relazioni :" << endl << endl << stampaRelazioniFile(persona, impresa, associazione);
+		}
+		break;
+		case 'I':
+		{
+			//Cerca un Utente
+			cercaUtente(persona, impresa, associazione);
+		}
+		break;
+		case 'J':
+		{
+			//Cerca Notizie di un Utente
+			cercaNotiziaMittente(news);
+		}
+		break;
+		case 'K':
+		{
+			//Cerca Notizie a cui un Utente ha messo una Reazione
+			cercaNotiziaReazione(news);
+		}
+		break;
+		case 'L':
+		{
+			//Cerca Relazioni con un Utente
+			cercaRelazioneUtente(persona, impresa, associazione);
 		}
 		break;
 		case MENU_PRINCIPALE:
@@ -935,7 +1158,7 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 		case '2':
 		{
 			//menu gestione relazioni
-			//mancante
+			modifica = sceltaMenuGestioneRelazioni(torna_al_menu_principale, persona, impresa, associazione);
 		}
 		break;
 		case '3':
@@ -954,7 +1177,12 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 		{
 			//menu ricerche
 			modifica = sceltaMenuRicerca(torna_al_menu_principale, persona, impresa, associazione, news);
-
+		}
+		break;
+		case '6':
+		{
+			//menu informazioni database
+			modifica = sceltaMenuInformazioniDatabase(torna_al_menu_principale, persona, impresa, associazione, news);
 		}
 		break;
 		case ESCI:

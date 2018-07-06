@@ -90,6 +90,21 @@ bool UtenteGruppo::utenteValido() const
 	return ok;
 }
 
+bool UtenteGruppo::tipoRelazionePossibile(const string & tipo_relazione, const string & tipo_id) const
+{
+	bool ok = false;
+	//se è un utente semplice
+	if (tipo_id == ID_TIPO_SEMPLICE)
+	{
+		//se è una delle possibili relazioni tra un utente gruppo e un utente semplice
+		if (tipo_relazione == STR_MEMBRO)
+		{
+			ok = true;
+		}
+	}
+	return ok;
+}
+
 string UtenteGruppo::stampaUtente() const
 {
 	string output;
@@ -127,6 +142,45 @@ string UtenteGruppo::stampaUtente() const
 	//stampa data di creazione
 	output += STR_DATA_DI_CREAZIONE;
 	output += DIVISORE + _data_creazione.stampaData() + PARENTESI_DX;
+
+	return output;
+}
+
+string UtenteGruppo::stampaUtenteEstesa() const
+{
+	string output;
+
+	//stampa id
+	output = "Utente : " + _id;
+
+	//stampa id_tipo_utente
+	output += "\nTipo Utente : ";
+	output += ID_TIPO_GRUPPO;
+
+	//stampa nome
+	output += "\nNome : " + _nome;
+
+	//stampa sede legale
+	output += "\nSede Legale : " + _sede_legale;
+
+	//stampa tipologia attività
+	output += "\nTipologia attivita' : " + _tipologia_attività;
+
+	//stampa telefono
+	output += "\nTelefono : " + _telefono;
+
+	//stampa email
+	output += "\nEmail : " + _email;
+
+	//stampa data di creazione
+	output += "\nData di Creazione : " + _data_creazione.stampaData();
+
+	//stampa relazioni
+	output += "\nRelazioni :";
+	if (_id_arco.size() != 0)
+		output += "\n" + stampaNodo();
+	else
+		output += " Nessuna Relazione";
 
 	return output;
 }

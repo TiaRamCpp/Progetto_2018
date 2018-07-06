@@ -203,11 +203,11 @@ bool Utente::aggiungiRelazione(const string &id, const string &tipo_relazione)
 	bool aggiunta = false;
 	unsigned int posizione;
 
-	//se non trovo la relazione
-	if (!trovaPosizioneRelazione(id, tipo_relazione, posizione))
+	//se non è una relazione con se stesso
+	if (id != _id)
 	{
-		//allora verifico che sia un tipo di relazione esistente
-		if (tipoRelazioneEsistente(tipo_relazione))
+		//se non trovo la relazione
+		if (!trovaPosizioneRelazione(id, tipo_relazione, posizione))
 		{
 			//la aggiungo
 			_id_arco.push_back(id);
@@ -224,11 +224,11 @@ bool Utente::modificaRelazione(const string &id, const string &nuovo_tipo_relazi
 	bool modificata = false;
 	unsigned int posizione;
 
-	//se trovo la relazione
-	if (trovaPosizioneRelazione(id, vecchio_tipo_relazione, posizione))
+	//se non è una relazione con se stesso
+	if (id != _id)
 	{
-		//allora verifico che sia un tipo di relazione esistente
-		if (tipoRelazioneEsistente(nuovo_tipo_relazione))
+		//se trovo la relazione
+		if (trovaPosizioneRelazione(id, vecchio_tipo_relazione, posizione))
 		{
 			//la modifico
 			_tipo_relazione[posizione] = nuovo_tipo_relazione;
@@ -256,7 +256,7 @@ bool Utente::rimuoviRelazioneSpecifica(const string &id, const string &tipo_rela
 	return eliminata;
 }
 
-bool Utente::rimuoviRelazioniConUtente(const string & id_utente_da_rimuovere)
+bool Utente::rimuoviRelazioniConUtente(const string &id_utente_da_rimuovere)
 {
 	//rimuove tutte le eventuali relazioni con un utente
 	//utile per quando viene rimosso un utente e per eliminare tutte le relazioni con lui

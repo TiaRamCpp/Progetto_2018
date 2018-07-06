@@ -6,6 +6,10 @@
 
 #include "Data.h"
 
+#define ID_TIPO_SEMPLICE "utente_semplice"
+#define ID_TIPO_AZIENDA "utente_azienda"
+#define ID_TIPO_GRUPPO "utente_gruppo"
+
 #define STR_NOME "nome"
 #define STR_TELEFONO "telefono"
 #define STR_EMAIL "email"
@@ -58,6 +62,7 @@ public:
 	unsigned int contaTipoRelazione(const string &tipo_relazione) const;
 	void contaTipiRelazione(const vector<string> &tipo_relazione, vector<unsigned int> &numero_tipo_relazione) const;
 	bool tipoRelazioneEsistente(const string &tipo_relazione) const;
+	virtual bool tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const = 0;
 	bool trovaPosizioneRelazione(const string &id, const string &tipo_relazione, unsigned int &posizione) const;
 	//rimuovo, modifico o aggiungo relazione del nodo con altri
 	bool aggiungiRelazione(const string &id, const string &tipo_relazione);
@@ -68,6 +73,7 @@ public:
 	//metodi di stampa
 	string stampaNodo() const;
 	virtual string stampaUtente() const = 0;
+	virtual string stampaUtenteEstesa() const = 0;
 	friend ostream & operator<<(ostream &output, const Utente &da_stampare);
 
 protected: 

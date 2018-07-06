@@ -2,8 +2,6 @@
 
 #include "Utente.h"
 
-#define ID_TIPO_GRUPPO "utente_gruppo"
-
 #define STR_SEDE_LEGALE "sede legale"
 #define STR_TIPOLOGIA_ATTIVITA "tipologia attivita'"
 #define STR_DATA_DI_CREAZIONE "data di creazione"
@@ -33,8 +31,12 @@ public:
 	//metodi della classe
 	bool utenteValido() const;
 
+	//metodi per le relazioni
+	bool tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const;
+
 	//metodo di stampa
 	string stampaUtente() const;
+	string stampaUtenteEstesa() const;
 
 private:
 

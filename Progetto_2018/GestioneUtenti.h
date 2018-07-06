@@ -6,6 +6,131 @@
 
 #include "Notizia.h"
 
+//STAMPA
+
+string stampaUtentiFile(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	string output;
+	output.clear();
+	//stampa utenti semplici
+	for (unsigned int i = 0; i < persona.size(); i++)
+	{
+		output += persona[i].stampaUtente();
+		//se non è l'ultima riga
+		if (i < persona.size() - 1)
+			output += '\n';
+		else
+			//se dopo devo stampare altri dati
+			if ((impresa.size() != 0) || (associazione.size() != 0))
+				output += '\n';
+	}
+	//stampa utenti aziende
+	for (unsigned int i = 0; i < impresa.size(); i++)
+	{
+		output += impresa[i].stampaUtente();
+		//se non è l'ultima riga
+		if (i < impresa.size() - 1)
+			output += '\n';
+		else
+			//se dopo devo stampare altri dati
+			if (associazione.size() != 0)
+				output += '\n';
+	}
+	//stampa utenti gruppi
+	for (unsigned int i = 0; i < associazione.size(); i++)
+	{
+		output += associazione[i].stampaUtente();
+		//se non è l'ultima riga
+		if (i < associazione.size() - 1)
+			output += '\n';
+	}
+	return output;
+}
+void stampaUtentiSemplici(const vector<UtenteSemplice> &persona)
+{
+	if (persona.size() != 0)
+	{
+		cout << "Utenti Semplici :";
+		for (unsigned int i = 0; i < persona.size(); i++)
+			cout << endl << endl << persona[i].stampaUtenteEstesa();
+	}
+	else
+	{
+		cout << "Nessun Utente Semplice Inserito Nel Database";
+	}
+}
+void stampaUtentiAzienda(const vector<UtenteAzienda> &impresa)
+{
+	if (impresa.size() != 0)
+	{
+		cout << "Utenti Azienda :";
+		for (unsigned int i = 0; i < impresa.size(); i++)
+			cout << endl << endl << impresa[i].stampaUtenteEstesa();
+	}
+	else
+	{
+		cout << "Nessun Utente Azienda Inserito Nel Database";
+	}
+}
+void stampaUtentiGruppo(const vector<UtenteGruppo> &associazione)
+{
+	if (associazione.size() != 0)
+	{
+		cout << "Utenti Gruppo :";
+		for (unsigned int i = 0; i < associazione.size(); i++)
+			cout << endl << endl << associazione[i].stampaUtenteEstesa();
+	}
+	else
+	{
+		cout << "Nessun Utente Gruppo Inserito Nel Database";
+	}
+}
+void stampaUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	cout << "Utenti Nel Database :";
+	cout << endl << endl;
+	stampaUtentiSemplici(persona);
+	cout << endl << endl;
+	stampaUtentiAzienda(impresa);
+	cout << endl << endl;
+	stampaUtentiGruppo(associazione);
+}
+void stampaIdUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	if (persona.size() != 0)
+	{
+		cout << "Id Utenti Semplici :";
+		for (unsigned int i = 0; i < persona.size(); i++)
+			cout << endl << persona[i].getId();
+	}
+	else
+	{
+		cout << "Nessun Utente Semplice Inserito Nel Database";
+	}
+	if (impresa.size() != 0)
+	{
+		cout << endl << endl << "Id Utenti Azienda :";
+		for (unsigned int i = 0; i < impresa.size(); i++)
+			cout << endl << impresa[i].getId();
+	}
+	else
+	{
+		cout << endl << endl << "Nessun Utente Azienda Inserito Nel Database";
+	}
+	if (associazione.size() != 0)
+	{
+		cout << endl << endl << "Id Utenti Gruppo :";
+		for (unsigned int i = 0; i < associazione.size(); i++)
+			cout << endl << associazione[i].getId();
+	}
+	else
+	{
+		cout << endl << endl << "Nessun Utente Gruppo Inserito Nel Database";
+	}
+}
+
+//TROVA UTENTE E CALCOLA INFORMAZIONI
+
 //id esistente
 bool idUtenteSempliceTrovato(const vector<UtenteSemplice> &persona, const string &id_utente)
 {
@@ -112,44 +237,111 @@ bool trovaPosizioneUtenteGruppo(const vector<UtenteGruppo> &associazione, const 
 	return trovato;
 }
 
-//stampa
-string stampaUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+//verifica se esiste e trova contemporaneamente la posizione e il tipo di utente
+bool trovaTipoEPosizioneUtente(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &id_utente, string &tipo_utente, unsigned int &posizione)
 {
-	string output;
-	output.clear();
-	//stampa utenti semplici
-	for (unsigned int i = 0; i < persona.size(); i++)
+	bool ok = true;
+
+	//se è un utente semplice
+	if (trovaPosizioneUtenteSemplice(persona, id_utente, posizione))
 	{
-		output += persona[i].stampaUtente();
-		//se non è l'ultima riga
-		if (i < persona.size() - 1)
-			output += '\n';
+		tipo_utente = ID_TIPO_SEMPLICE;
+	}
+	else
+		//se è un utente azienda
+		if (trovaPosizioneUtenteAzienda(impresa, id_utente, posizione))
+		{
+			tipo_utente = ID_TIPO_AZIENDA;
+		}
 		else
-			//se dopo devo stampare altri dati
-			if ((impresa.size() != 0) || (associazione.size() != 0))
-				output += '\n';
-	}
-	//stampa utenti aziende
-	for (unsigned int i = 0; i < impresa.size(); i++)
+			//se è un utente gruppo
+			if (trovaPosizioneUtenteGruppo(associazione, id_utente, posizione))
+			{
+				tipo_utente = ID_TIPO_GRUPPO;
+			}
+			//id utente di arrivo non esistente
+			else
+			{
+				cout << endl << "Errore : id utente <" << id_utente << "> non esistente" << endl;
+				ok = false;
+			}
+
+	return ok;
+}
+
+//verifica se esiste e trova contemporaneamente il tipo di utente
+bool trovaTipoUtente(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &id_utente, string &tipo_utente)
+{
+	bool ok = true;
+
+	//se è un utente semplice
+	if (idUtenteSempliceTrovato(persona, id_utente))
 	{
-		output += impresa[i].stampaUtente();
-		//se non è l'ultima riga
-		if (i < impresa.size() - 1)
-			output += '\n';
+		tipo_utente = ID_TIPO_SEMPLICE;
+	}
+	else
+		//se è un utente azienda
+		if (idUtenteAziendaTrovato(impresa, id_utente))
+		{
+			tipo_utente = ID_TIPO_AZIENDA;
+		}
 		else
-			//se dopo devo stampare altri dati
-			if (associazione.size() != 0)
-				output += '\n';
-	}
-	//stampa utenti gruppi
-	for (unsigned int i = 0; i < associazione.size(); i++)
+			//se è un utente gruppo
+			if (idUtenteGruppoTrovato(associazione, id_utente))
+			{
+				tipo_utente = ID_TIPO_GRUPPO;
+			}
+			//id utente di arrivo non esistente
+			else
+			{
+				cout << endl << "Errore : id utente <" << id_utente << "> non esistente" << endl;
+				ok = false;
+			}
+
+	return ok;
+}
+
+//cerca utente
+void cercaUtente(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
+{
+	string id_utente;
+	string tipo_utente;
+	unsigned int posizione;
+	if (almenoUnUtenteEsistente(persona, impresa, associazione))
 	{
-		output += associazione[i].stampaUtente();
-		//se non è l'ultima riga
-		if (i < associazione.size() - 1)
-			output += '\n';
+		//inserisco id utente
+		cout << endl << "Inserisci id_utente da cercare : ";
+		getline(cin, id_utente);
+		//se lo trova
+		if (trovaTipoEPosizioneUtente(persona, impresa, associazione, id_utente, tipo_utente, posizione))
+		{
+			cout << "Utente Trovato :" << endl;
+			if (tipo_utente == ID_TIPO_SEMPLICE)
+			{
+				cout << persona[posizione].stampaUtenteEstesa();
+			}
+			else
+				if (tipo_utente == ID_TIPO_AZIENDA)
+				{
+					cout << impresa[posizione].stampaUtenteEstesa();
+				}
+				else
+					if (tipo_utente == ID_TIPO_GRUPPO)
+					{
+						cout << associazione[posizione].stampaUtenteEstesa();
+					}
+
+		}
+		//se non esiste
+		else
+		{
+			cout << "Id Utente <" << id_utente << "> Non Trovato" << endl;
+		}
 	}
-	return output;
+	else
+	{
+		cout << "Nessun Utente Inserito nel Database" << endl;
+	}
 }
 
 
@@ -977,7 +1169,6 @@ bool rimuoviIdUtenteRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzie
 		modifica |= associazione[i].rimuoviRelazioniConUtente(id_utente_da_rimuovere);
 	}
 
-	
 	return modifica;
 }
 

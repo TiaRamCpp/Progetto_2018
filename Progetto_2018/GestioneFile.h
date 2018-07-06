@@ -9,21 +9,21 @@ void aggiornaFileUtenti(const vector<UtenteSemplice> &persona, const vector<Uten
 {
 	ofstream file_output;
 	file_output.open(nome_file_utenti);
-	file_output << stampaUtenti(persona, impresa, associazione);
+	file_output << stampaUtentiFile(persona, impresa, associazione);
 	file_output.close();
 }
 void aggiornaFileNotizie(const vector<Notizia> &news, const string &nome_file_notizie)
 {
 	ofstream file_output;
 	file_output.open(nome_file_notizie);
-	file_output << stampaNotizie(news);
+	file_output << stampaNotizieFile(news);
 	file_output.close();
 }
 void aggiornaFileRelazioni(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const string &nome_file_relazioni)
 {
 	ofstream file_output;
 	file_output.open(nome_file_relazioni);
-	file_output << stampaRelazioni(persona, impresa, associazione);
+	file_output << stampaRelazioniFile(persona, impresa, associazione);
 	file_output.close();
 }
 void aggiornaFile(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news, const string &nome_file_utenti, const string &nome_file_notizie, const string &nome_file_relazioni)
@@ -31,15 +31,6 @@ void aggiornaFile(const vector<UtenteSemplice> &persona, const vector<UtenteAzie
 	aggiornaFileUtenti(persona, impresa, associazione, nome_file_utenti);
 	aggiornaFileNotizie(news, nome_file_notizie);
 	aggiornaFileRelazioni(persona, impresa, associazione, nome_file_relazioni);
-}
-
-//stampa
-string stampaDati(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione, const vector<Notizia> &news)
-{
-	string output = stampaUtenti(persona, impresa, associazione);
-	output += '\n' + stampaNotizie(news);
-	output += '\n' + stampaRelazioni(persona, impresa, associazione);
-	return output;
 }
 
 //lettura valore informazioni
@@ -1007,11 +998,11 @@ bool leggiFileRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &
 				//leggo id di arrivo
 				if (leggiIdVertice(file_relazioni, id_arrivo, prima_relazione))
 				{
-					//leggo tipo relazione e controllo che esista
+					//leggo tipo relazione
 					if (leggiTipoRelazione(file_relazioni, tipo_relazione))
 					{
-						//salva la relazione
-						if (!salvaRelazioneDaId(persona, impresa, associazione, id_partenza, id_arrivo, tipo_relazione))
+						//aggiunge la relazione
+						if (!aggiungiRelazioneDaId(persona, impresa, associazione, id_partenza, id_arrivo, tipo_relazione))
 						{
 							//se non è valida
 							cerr << endl << "Errore : relazione <" << id_partenza << SEPARATORE << id_arrivo << SEPARATORE << tipo_relazione << "> non valida" << endl;
