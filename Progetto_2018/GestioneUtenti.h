@@ -168,6 +168,25 @@ bool almenoUnUtenteEsistente(const vector<UtenteSemplice> &persona, const vector
 }
 
 //trova posizione id
+vector<unsigned int> utenteSemplicePosizioni(const vector<UtenteSemplice> &persona, const vector<string> &id_utente)
+{
+	//calcola le posizioni di più utenti contemporaneamente
+	vector<unsigned int> posizione(id_utente.size());
+	//cerco posizione di ogni id nell'elenco
+	for (unsigned int i = 0; i < persona.size(); i++)
+	{
+		//controllo se è uno degli utenti cercati
+		for (unsigned int j = 0; j < id_utente.size(); j++)
+		{
+			if (persona[i].getId() == id_utente[j])
+			{
+				//salvo nella posizione corrispondente all'utente cercato
+				posizione[j] = i;
+			}
+		}
+	}
+	return posizione;
+}
 unsigned int utenteSemplicePosizione(const vector<UtenteSemplice> &persona, const string &id_utente)
 {
 	//funzione usata sempre dopo il controllo che esista per essere sicuro che sia presente e non restituire una posizione sbagliata

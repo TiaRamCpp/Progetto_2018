@@ -333,6 +333,8 @@ bool rimuoviRelazione(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &im
 	return rimossa;
 }
 
+//modifica relazione
+
 bool modificaRelazione(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
 {
 	bool modifica = true;

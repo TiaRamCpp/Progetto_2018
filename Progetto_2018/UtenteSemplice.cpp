@@ -133,6 +133,50 @@ bool UtenteSemplice::tipoRelazionePossibile(const string &tipo_relazione, const 
 	return ok;
 }
 
+bool UtenteSemplice::trovaFigliEConiugi(vector<string> &figlo, vector<string> &coniuge) const
+{
+	bool trovato_qualcosa = false;
+	for (unsigned int i = 0; i < _tipo_relazione.size(); i++)
+	{
+		//se è un figlio
+		if (_tipo_relazione[i] == STR_FIGLIO)
+		{
+			figlo.push_back(_id_arco[i]);
+			trovato_qualcosa = true;
+		}
+		else
+			//se è un coniuge
+			if (_tipo_relazione[i] == STR_CONIUGE)
+			{
+				coniuge.push_back(_id_arco[i]);
+				trovato_qualcosa = true;
+			}
+	}
+	return trovato_qualcosa;
+}
+
+bool UtenteSemplice::trovaGenitoriEConiugi(vector<string>& genitore, vector<string>& coniuge) const
+{
+	bool trovato_qualcosa = false;
+	for (unsigned int i = 0; i < _tipo_relazione.size(); i++)
+	{
+		//se è un genitore
+		if (_tipo_relazione[i] == STR_GENITORE)
+		{
+			genitore.push_back(_id_arco[i]);
+			trovato_qualcosa = true;
+		}
+		else
+			//se è un coniuge
+			if (_tipo_relazione[i] == STR_CONIUGE)
+			{
+				coniuge.push_back(_id_arco[i]);
+				trovato_qualcosa = true;
+			}
+	}
+	return trovato_qualcosa;
+}
+
 string UtenteSemplice::stampaUtente() const
 {
 	string output;

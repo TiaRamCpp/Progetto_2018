@@ -34,6 +34,8 @@ public:
 
 	//metodi per le relazioni
 	bool tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const;
+	bool trovaFigliEConiugi(vector<string> &figlo, vector<string> &coniuge) const;
+	bool trovaGenitoriEConiugi(vector<string> &genitore, vector<string> &coniuge) const;
 
 	//metodo di stampa
 	string stampaUtente() const;
