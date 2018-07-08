@@ -962,16 +962,19 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, const vector<UtenteSempli
 		case '2':
 		{
 			//Albero genealogico di Tutti gli Utenti
+			alberiGenealogiciTotali(persona);
 		}
 		break;
 		case '3':
 		{
 			//lupi solitari
+			ricercaLupiSolitari(persona, news);
 		}
 		break; 
 		case '4':
 		{
 			//simpatia
+			ordinaAziendaPerSimpatia(impresa, news);
 		}
 		break;
 		case MENU_PRINCIPALE:
