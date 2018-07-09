@@ -155,6 +155,7 @@
     <ClInclude Include="GestioneNotizie.h" />
     <ClInclude Include="GestioneRelazioni.h" />
     <ClInclude Include="GestioneUtenti.h" />
+    <ClInclude Include="GestioneStringhe.h" />
     <ClInclude Include="MenuProgetto.h" />
     <ClInclude Include="Notizia.h" />
     <ClInclude Include="targetver.h" />

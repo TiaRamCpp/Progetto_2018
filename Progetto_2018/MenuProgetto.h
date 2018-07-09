@@ -536,7 +536,6 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 	//inserisco id e cerco se esistente e a che tipologia appartiene (2/3 liv)
 	string id;
 	bool modifica = false;
-	bool valido = true;
 	unsigned int posizione = 0;
 
 	//se c'è almeno un utente
@@ -544,45 +543,41 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 	{
 		cout << "Inserire id utente da modificare:" << endl;
 		//eseguo richiesta fino a che non trovo un id esistente
-		do
-		{
-			valido = true;
-			getline(cin, id);
 
-			//cerco se esiste utente e tipologia
-			if (idUtenteSempliceTrovato(persona, id))
+		getline(cin, id);
+
+		//cerco se esiste utente e tipologia
+		if (idUtenteSempliceTrovato(persona, id))
+		{
+			//trovo posizione
+			posizione = utenteSemplicePosizione(persona, id);
+			//modifico utente semplice
+			modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona[posizione]);
+		}
+		else
+		{
+			if (idUtenteAziendaTrovato(impresa, id))
 			{
 				//trovo posizione
-				posizione = utenteSemplicePosizione(persona, id);
-				//modifico utente semplice
-				modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona[posizione]);
+				posizione = utenteAziendaPosizione(impresa, id);
+				//modifico utente azienda
+				modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa[posizione]);
 			}
 			else
 			{
-				if (idUtenteAziendaTrovato(impresa, id))
+				if (idUtenteGruppoTrovato(associazione, id))
 				{
 					//trovo posizione
-					posizione = utenteAziendaPosizione(impresa, id);
-					//modifico utente azienda
-					modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa[posizione]);
+					posizione = utenteGruppoPosizione(associazione, id);
+					//modifico utente gruppo
+					modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione[posizione]);
 				}
 				else
 				{
-					if (idUtenteGruppoTrovato(associazione, id))
-					{
-						//trovo posizione
-						posizione = utenteGruppoPosizione(associazione, id);
-						//modifico utente gruppo
-						modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione[posizione]);
-					}
-					else
-					{
-						cout << "Id non esistente, inserirne un altro: " << endl;
-						valido = false;
-					}
+					cout << "Id non esistente, inserirne un altro: " << endl;
 				}
 			}
-		} while (!valido);
+		}
 	}
 	else
 	{
@@ -834,73 +829,73 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, const vec
 		case 'A':
 		{
 			//numero utenti totali
-			modifica = conteggioGenerale(persona, impresa, associazione);
+			conteggioGenerale(persona, impresa, associazione);
 		}
 		break;
 		case 'B':
 		{
 			//numero amici e parenti diretti per ogni utente semplice
-			modifica = numeroAmiciEParentiDirettiPerUtenteSemplice(persona);
+			numeroAmiciEParentiDirettiPerUtenteSemplice(persona);
 		}
 		break;
 		case'C':
 		{
 			//numero utenti nati dopo una data
-			modifica = utentiDopoUnaData(persona, impresa, associazione);
+			utentiDopoUnaData(persona, impresa, associazione);
 		}
 		break;
 		case'D':
 		{
 			//numero dipendenti e consociate azienda
-			modifica = numeroDipendentiEConsociatePerAzienda(impresa);
+			numeroDipendentiEConsociatePerAzienda(impresa);
 		}
 		break;
 		case'E':
 		{
 			//numero utenti per gruppo
-			modifica = numeroUtentiPerGruppo(associazione);
+			numeroUtentiPerGruppo(associazione);
 		}
 		break;
 		case'F':
 		{
 			//azienda con più dipendenti diretti
-			modifica = aziendaMaggiorDipendenti(impresa, false); //false per non contare i dipendenti delle consociate
+			aziendaMaggiorDipendenti(impresa, false); //false per non contare i dipendenti delle consociate
 		}
 		break;
 		case'G':
 		{
 			//azienda con più dipendenti cumulativi con le consociate
-			modifica = aziendaMaggiorDipendenti(impresa, true); //true per contare i dipendenti delle consociate
+			aziendaMaggiorDipendenti(impresa, true); //true per contare i dipendenti delle consociate
 		}
 		break;
 		case'H':
 		{
 			//notizia con più apprezzamenti
-			modifica = migliorNotizia(news);
+			migliorNotizia(news);
 		}
 		break;
 		case'I':
 		{
 			//notizia con più indignazioni
-			modifica = peggiorNotizia(news);
+			peggiorNotizia(news);
 		}
 		break;
 		case'J':
 		{
 			//utente con piu amici
-			modifica = utenteSempliceMaggiorAmici(persona);
+			utenteSempliceMaggiorAmici(persona);
 		}
 		break;
 		case'K':
 		{
 			//utente con piu conoscenze
-			modifica = utenteSempliceMaggiorConoscenze(persona);
+			utenteSempliceMaggiorConoscenze(persona);
 		}
 		break;
 		case'L':
 		{
 			//eta media utenti semplici
-			modifica = etaMediaUtentiSemplici(persona);
+			etaMediaUtentiSemplici(persona);
 		}
 		break;
 		case MENU_PRINCIPALE:

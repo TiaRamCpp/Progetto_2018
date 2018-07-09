@@ -60,6 +60,9 @@
     <ClInclude Include="FunzionalitàRicerca.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="GestioneStringhe.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Progetto_2018.cpp">
