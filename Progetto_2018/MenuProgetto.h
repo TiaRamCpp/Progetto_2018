@@ -87,9 +87,10 @@ void stampaMenuRicerca()
 {
 	//stampo menu ricerca (2 livello)
 	cout << endl;
-	cout << "1) Albero genealogico" << endl;
-	cout << "2) Lupi solitari" << endl;
-	cout << "3) Simpatia" << endl;
+	cout << "1) Albero genealogico di Un'Utente" << endl;
+	cout << "2) Albero genealogico di Tutti gli Utenti" << endl;
+	cout << "3) Lupi solitari" << endl;
+	cout << "4) Simpatia" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -949,17 +950,26 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, const vector<UtenteSempli
 		{
 		case '1':
 		{
-			//albero genealogico
+			//Albero genealogico di Un'Utente
+			alberoGenealogicoSingoloUtente(persona);
 		}
 		break;
 		case '2':
 		{
-			//lupi solitari
+			//Albero genealogico di Tutti gli Utenti
+			alberiGenealogiciTotali(persona);
 		}
 		break;
-		case'3':
+		case '3':
+		{
+			//lupi solitari
+			ricercaLupiSolitari(persona, news);
+		}
+		break; 
+		case '4':
 		{
 			//simpatia
+			ordinaAziendaPerSimpatia(impresa, news);
 		}
 		break;
 		case MENU_PRINCIPALE:

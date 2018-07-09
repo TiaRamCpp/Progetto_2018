@@ -38,35 +38,6 @@ void stampaNotizie(const vector<Notizia> &news)
 	
 }
 
-bool convertiANumero(const string &str_numero_notizia, unsigned int &numero_notizia)
-{
-	//converte la stringa a un numero ma per sicurezza verifica che siano presenti solo cifre per evitare errori di conversione tramite stoi()
-	
-	bool convertita = false;
-	bool solo_cifre = true;
-	
-	//controllo che ci siano solo cifre
-	for (unsigned int i = 0; ((i < str_numero_notizia.size()) && (solo_cifre)); i++)
-		//se non è una cifra
-		if (!isdigit(str_numero_notizia[i]))
-			solo_cifre = false;
-
-	//se c'erano solo cifre
-	if (solo_cifre)
-	{
-		//conversione da stringa a numero
-		numero_notizia = stoi(str_numero_notizia);
-		convertita = true;
-	}
-	//caratteri non validi
-	else
-	{
-		cout << endl << "Errore : inserisci solo cifre" << endl;
-	}
-
-	return convertita;
-}
-
 bool aggiungiNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	bool modifica = false;
