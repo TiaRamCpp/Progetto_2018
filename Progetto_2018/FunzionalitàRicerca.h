@@ -177,6 +177,7 @@ void alberoGenealogicoSingoloUtente(const vector<UtenteSemplice> &persona)
 			trattino.clear();
 			livello_attuale = 0;
 			livello_massimo = 0;
+
 			//genero stringa di stampa antenati
 			alberoGenealogicoSingoloUtenteAntenati(persona, posizione_partenza, trattino, albero_genealogico, livello_massimo, livello_attuale);
 			//se esiste l'albero degli antenati
@@ -301,7 +302,7 @@ void alberiGenealogiciTotali(const vector<UtenteSemplice> &persona)
 			{
 				//stampo a video antenati
 				cout << endl << "Albero Genealogico degli Antenati dell'Utente : " << persona[i].getId() << endl;
-				cout << endl << persona[i].getId() << endl;
+				cout << endl << albero_genealogico << endl;
 				//se true stampa su file stampo su file antenati
 				if (stampa_su_file)
 				{
