@@ -980,6 +980,12 @@ bool leggiFileRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &
 	ifstream file_relazioni;
 	bool ok = true;
 	bool prima_relazione = true;
+	bool trovata;
+	vector<string> elenco_id_speculare_partenza;
+	vector<string> elenco_id_speculare_arrivo;
+	vector<string> elenco_relazione_speculare;
+	string relazione_speculare;
+
 	//apro il file
 	file_relazioni.open(nome_file_relazioni);
 	//se si è aperto il file
@@ -1007,6 +1013,37 @@ bool leggiFileRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &
 							//se non è valida
 							cerr << endl << "Errore : relazione <" << id_partenza << SEPARATORE << id_arrivo << SEPARATORE << tipo_relazione << "> non valida" << endl;
 							ok = false;
+						}
+						//se l'aggiunge
+						else
+						{
+							//se è stata letta una relazione speculare la converte automaticamente
+							if (relazioneSpeculare(tipo_relazione, relazione_speculare))
+							{
+								trovata = false;
+								//cerco la relazione speculare
+								for (unsigned int i = 0; ((i < elenco_id_speculare_arrivo.size()) && (!trovata)); i++)
+								{
+									//se l'ho letta prima
+									if ((elenco_id_speculare_partenza[i] == id_partenza) && (elenco_id_speculare_arrivo[i] == id_arrivo) && (elenco_relazione_speculare[i] == tipo_relazione))
+									{
+										trovata = true;
+										//la rimuovo dall'elenco
+										elenco_id_speculare_partenza.erase(elenco_id_speculare_partenza.begin() + i);
+										elenco_id_speculare_arrivo.erase(elenco_id_speculare_arrivo.begin() + i);
+										elenco_relazione_speculare.erase(elenco_relazione_speculare.begin() + i);
+									}
+
+								}
+								//se non l'ho mai letta 
+								if (!trovata)
+								{
+									//salvo la relazione speculare che dovrà trovare più avanti
+									elenco_id_speculare_partenza.push_back(id_arrivo);
+									elenco_id_speculare_arrivo.push_back(id_partenza);
+									elenco_relazione_speculare.push_back(relazione_speculare);
+								}
+							}
 						}
 					}
 					//errore lettura tipo relazione
@@ -1038,6 +1075,20 @@ bool leggiFileRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &
 		ok = false;
 	}
 	file_relazioni.close();
+
+	if (ok)
+	{
+		//se mancano delle relazioni speculari
+		if (elenco_id_speculare_partenza.size() != 0)
+		{
+			ok = false;
+			cerr << "Errore Lettura Relazioni, Mancano le Seguenti Relazioni Speculari : " << endl << endl;
+			for (unsigned int i = 0; i < elenco_id_speculare_partenza.size(); i++)
+				cerr << elenco_id_speculare_partenza[i] << SEPARATORE << elenco_id_speculare_arrivo[i] << SEPARATORE << elenco_relazione_speculare[i] << endl;
+			cerr << endl << "Per Rendere Operativo il Programma Copia e Incolla le Relazioni Mancanti nel File Relazioni : " << nome_file_relazioni << endl;
+		}
+	}
+
 	return ok;
 }
 bool leggiFile(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &nome_file_utenti, const string &nome_file_notizie, const string &nome_file_relazioni)

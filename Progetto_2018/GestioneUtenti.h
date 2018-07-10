@@ -366,6 +366,76 @@ void cercaUtente(const vector<UtenteSemplice> &persona, const vector<UtenteAzien
 }
 
 
+//CONTROLLO PARENTELA UTENTE SEMPLICE
+
+bool cercaDiscendente(const vector<UtenteSemplice> &persona, const unsigned int &posizione_partenza, const unsigned int &posizione_arrivo)
+{
+	//cerca se trova id_arrivo tra i discendenti dell id_partenza
+	bool discendente = false;
+	vector<string> id_arco = persona[posizione_partenza].getIdArco();
+	vector<string> tipo_relazione = persona[posizione_partenza].getTipoRelazione();
+	vector<string> id_figlio;
+	vector<unsigned int> posizione_figlio;
+
+	//calcolo id eventuali figli
+	for (unsigned int i = 0; ((i < tipo_relazione.size()) && (!discendente)); i++)
+	{
+		if (tipo_relazione[i] == STR_FIGLIO)
+		{
+			id_figlio.push_back(id_arco[i]);
+			//controllo se è l'id cercato
+			if (id_arco[i] == persona[posizione_arrivo].getId())
+				discendente = true;
+		}
+	}
+
+	//se non era tra i suoi figli allora controllo tra i figli dei suoi figli
+	if (!discendente)
+	{
+		//calcolo posizione eventuali figli
+		posizione_figlio = utenteSemplicePosizioni(persona, id_figlio);
+		//per ogni eventuale figlio dell id di partenza
+		for (unsigned int i = 0; ((i < posizione_figlio.size()) && (!discendente)); i++)
+			discendente = cercaDiscendente(persona, posizione_figlio[i], posizione_arrivo);
+	}
+
+	return discendente;
+}
+bool cercaAntenato(const vector<UtenteSemplice> &persona, const unsigned int &posizione_partenza, const unsigned int &posizione_arrivo)
+{
+	//cerca se trova id_arrivo tra gli antenati dell id_partenza
+	bool antenato = false;
+	vector<string> id_arco = persona[posizione_partenza].getIdArco();
+	vector<string> tipo_relazione = persona[posizione_partenza].getTipoRelazione();
+	vector<string> id_genitore;
+	vector<unsigned int> posizione_genitore;
+
+	//calcolo id eventuali genitori
+	for (unsigned int i = 0; ((i < tipo_relazione.size()) && (!antenato)); i++)
+	{
+		if (tipo_relazione[i] == STR_GENITORE)
+		{
+			id_genitore.push_back(id_arco[i]);
+			//controllo se è l'id cercato
+			if (id_arco[i] == persona[posizione_arrivo].getId())
+				antenato = true;
+		}
+	}
+
+	//se non era tra i suoi genitori allora controllo tra i genitori dei suoi genitori
+	if (!antenato)
+	{
+		//calcolo posizione eventuali genitori
+		posizione_genitore = utenteSemplicePosizioni(persona, id_genitore);
+		//per ogni eventuale genitore dell id di partenza
+		for (unsigned int i = 0; ((i < posizione_genitore.size()) && (!antenato)); i++)
+			antenato = cercaAntenato(persona, posizione_genitore[i], posizione_arrivo);
+	}
+
+	return antenato;
+}
+
+
 //AGGIUNTA UTENTE
 
 bool utenteSempliceAggiungi(vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)

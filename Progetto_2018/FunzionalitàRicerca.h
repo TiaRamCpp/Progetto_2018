@@ -43,7 +43,7 @@ void alberoGenealogicoSingoloUtenteDiscendenti(const vector<UtenteSemplice> &per
 					else
 						albero_genealogico += "    ";
 				}
-				albero_genealogico += "|---";
+				albero_genealogico += "|___";
 				alberoGenealogicoSingoloUtenteDiscendenti(persona, posizione_figlio[i], trattino, albero_genealogico, livello_massimo, livello_attuale);
 			}
 			livello_attuale--;
