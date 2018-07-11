@@ -434,7 +434,55 @@ bool cercaAntenato(const vector<UtenteSemplice> &persona, const unsigned int &po
 
 	return antenato;
 }
+unsigned int contaParenti(const vector<UtenteSemplice> &persona, const unsigned int &posizione_partenza, vector<string> &id_trovati)
+{
+	unsigned int parenti_trovati = 0;
+	vector<string> id_arco = persona[posizione_partenza].getIdArco();
+	vector<string> tipo_relazione = persona[posizione_partenza].getTipoRelazione();
+	vector<string> id_parenti;
+	vector<unsigned int> posizione_parente;
+	bool parente_trovato;
 
+	for (unsigned int i = 0; i < tipo_relazione.size(); i++)
+	{
+		//se è un genitore o un figlio o un coniuge
+		if ((tipo_relazione[i] == STR_GENITORE) || (tipo_relazione[i] == STR_FIGLIO) || (tipo_relazione[i] == STR_CONIUGE))
+		{
+			parente_trovato = false;
+			//cerco se non l'ho trovato prima
+			for (unsigned int j = 0; ((j < id_trovati.size()) && (!parente_trovato)); j++)
+			{
+				//se l'avevo già trovato prima
+				if (id_trovati[j] == id_arco[i])
+				{
+					parente_trovato = true;
+				}
+			}
+
+			//se non l'avevo già trovato
+			if (!parente_trovato)
+			{
+				id_parenti.push_back(id_arco[i]);
+				id_trovati.push_back(id_arco[i]);
+			}
+		}
+	}
+
+	//se ho trovato dei parenti nuovi
+	if (id_parenti.size() != 0)
+	{
+		//calcolo posizione parenti
+		posizione_parente = utenteSemplicePosizioni(persona, id_parenti);
+		//per ogni parente trovato
+		for (unsigned int i = 0; i < id_parenti.size(); i++)
+		{
+			//conto i parenti di quel utente
+			++parenti_trovati += contaParenti(persona, posizione_parente[i], id_trovati);
+		}
+	}
+
+	return parenti_trovati;
+}
 
 //AGGIUNTA UTENTE
 
@@ -1442,11 +1490,20 @@ bool utenteSempliceModificaEmail(UtenteSemplice &persona)
 	}
 	return modifica;
 }
-bool utenteSempliceModificaDataNascita(UtenteSemplice &persona)
+bool utenteSempliceModificaDataNascita(vector<UtenteSemplice> &persona, const unsigned int &posizione)
 {
 	bool modifica = false;
+	bool ok = true;
 	string str_nuova_data_nascita;
 	Data nuova_data_nascita;
+	vector<string> id_arco = persona[posizione].getIdArco();
+	vector<string> tipo_relazione = persona[posizione].getTipoRelazione();
+	vector<unsigned int> posizione_parente;
+	vector<string> id_parente;
+	vector<string> tipo_parentela;
+	vector<Data> nascita_antenato;
+	vector<Data> nascita_discendente;
+
 	//inserimento nuova data di nascita
 	cout << endl << "(Campo obbligatorio)";
 	cout << endl << "Inserire la nuova data di nascita nel formato gg/mm/aaaa : ";
@@ -1454,7 +1511,58 @@ bool utenteSempliceModificaDataNascita(UtenteSemplice &persona)
 	//converto e se è valida
 	if (nuova_data_nascita.convertiStringaAData(str_nuova_data_nascita))
 	{
-		persona.setDataNascita(nuova_data_nascita);
+		//cerco figli e genitori
+		for (unsigned int i = 0; i < tipo_relazione.size(); i++)
+		{
+			if (tipo_relazione[i] == STR_FIGLIO)
+			{
+				tipo_parentela.push_back(STR_FIGLIO);
+				id_parente.push_back(id_arco[i]);
+			}
+			else
+			{
+				if (tipo_relazione[i] == STR_GENITORE)
+				{
+					tipo_parentela.push_back(STR_GENITORE);
+					id_parente.push_back(id_arco[i]);
+				}
+			}
+		}
+
+		//se c'è qualche figlio o genitore
+		if (id_parente.size() != 0)
+		{
+			//calcolo le posizioni dei figli e dei genitori
+			posizione_parente = utenteSemplicePosizioni(persona, id_parente);
+
+			//controllo che sia compatibile con le date di nascita degli eventuali figli e dei genitori
+			for (unsigned int i = 0; ((i < id_parente.size()) && (ok)); i++)
+			{
+				if (tipo_parentela[i] == STR_FIGLIO)
+				{
+					//se la nuova data implica che è più giovane di un figlio
+					if (!(nuova_data_nascita < persona[posizione_parente[i]].getDataNascita()))
+					{
+						ok = false;
+						cout << endl << "Errore : Data Non Valida Perche' l'Utente " << id_parente[i] << " Nato/a il " << persona[posizione_parente[i]].getDataNascita() << " Essendo il/la Figlio/a dell'Utente " << persona[posizione].getId() << " Risulterebbe Nato/a Prima" << endl;
+					}
+				}
+				else
+				{
+					if (tipo_parentela[i] == STR_GENITORE)
+					{
+						//se la nuova data implica che è più vecchio di un genitore
+						if (!(persona[posizione_parente[i]].getDataNascita() < nuova_data_nascita))
+						{
+							ok = false;
+							cout << endl << "Errore : Data Non Valida Perche' l'Utente " << id_parente[i] << " Nato/a il " << persona[posizione_parente[i]].getDataNascita() << " Essendo il/la Genitore dell'Utente " << persona[posizione].getId() << " Risulterebbe Nato/a Dopo" << endl;
+						}
+					}
+				}
+			}
+		}
+
+		persona[posizione].setDataNascita(nuova_data_nascita);
 		modifica = true;
 		cout << endl << "Data di nascita modificata" << endl;
 	}

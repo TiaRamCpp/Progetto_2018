@@ -51,7 +51,7 @@ void stampaMenuGestioneRelazioni()
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
 }
-void stampaMenuGestioneNotizie() 
+void stampaMenuGestioneNotizie()
 {
 	//stampa menu gestione notizie (2 livello)
 	cout << endl;
@@ -69,7 +69,7 @@ void stampaMenuFunzionalitaStatistiche()
 	//stampa menu funzionalità statistiche (2 livello)
 	cout << endl;
 	cout << "A) Numero di utenti totali, numero di utenti semplici, azienda e gruppo" << endl;
-	cout << "B) Numero di amici e parenti diretti di ogni utente semplice" << endl;
+	cout << "B) Numero di amici e Parenti di ogni utente semplice" << endl;
 	cout << "C) Numero utenti nati/creati dopo una specifica data" << endl;
 	cout << "D) Numero dipendenti e consociate per ogni azienda" << endl;
 	cout << "E) Numero di utenti per ogni gruppo" << endl;
@@ -176,7 +176,7 @@ void stampaModificaAttributiUtenteGruppo()
 //gestione scelte menu
 
 // 3 Livello
-bool sceltaAttributiModificaUtenteSemplice(UtenteSemplice &persona)
+bool sceltaAttributiModificaUtenteSemplice(vector<UtenteSemplice> &persona, const unsigned int &posizione)
 {
 	//menu attributi modific utente sempilice (3 liv)
 	string str_azione_3;
@@ -192,7 +192,7 @@ bool sceltaAttributiModificaUtenteSemplice(UtenteSemplice &persona)
 		{
 			azione_3 = str_azione_3.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_3)) 
+			if (islower(azione_3))
 			{
 				azione_3 = toupper(azione_3);
 			}
@@ -207,37 +207,37 @@ bool sceltaAttributiModificaUtenteSemplice(UtenteSemplice &persona)
 		case '1':
 		{
 			//modifica nome
-			modifica |= utenteSempliceModificaNome(persona);
+			modifica |= utenteSempliceModificaNome(persona[posizione]);
 		}
 		break;
 		case '2':
 		{
 			//modifica cognome
-			modifica |= utenteSempliceModificaCognome(persona);
+			modifica |= utenteSempliceModificaCognome(persona[posizione]);
 		}
 		break;
 		case '3':
 		{
 			//modifica domicilio
-			modifica |= utenteSempliceModificaDomicilio(persona);
+			modifica |= utenteSempliceModificaDomicilio(persona[posizione]);
 		}
 		break;
 		case '4':
 		{
 			//modifica telefono
-			modifica |= utenteSempliceModificaTelefono(persona);
+			modifica |= utenteSempliceModificaTelefono(persona[posizione]);
 		}
 		break;
 		case '5':
 		{
 			//modifica email
-			modifica |= utenteSempliceModificaEmail(persona);
+			modifica |= utenteSempliceModificaEmail(persona[posizione]);
 		}
 		break;
 		case '6':
 		{
 			//modifica data di nascita
-			modifica |= utenteSempliceModificaDataNascita(persona);
+			modifica |= utenteSempliceModificaDataNascita(persona, posizione);
 		}
 		break;
 		case SALVA:
@@ -250,22 +250,19 @@ bool sceltaAttributiModificaUtenteSemplice(UtenteSemplice &persona)
 		{
 			//scelta non valida
 			cout << "Opzione non valida" << endl;
-			azione_3 = SCELTA_NON_VALIDA;
 		}
 		break;
 		}
-	} while (azione_3!=SALVA);
+	} while (azione_3 != SALVA);
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteAzienda( UtenteAzienda &impresa)
+bool sceltaAttributiModificaUtenteAzienda(UtenteAzienda &impresa)
 {
 	//menu attributi modific utente sazienda (3 liv)
 	string str_azione_3;
 	bool modifica = false;
 	char azione_3 = SCELTA_NON_VALIDA;
-
-	
 
 	do
 	{
@@ -277,7 +274,7 @@ bool sceltaAttributiModificaUtenteAzienda( UtenteAzienda &impresa)
 		{
 			azione_3 = str_azione_3.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_3)) 
+			if (islower(azione_3))
 			{
 				azione_3 = toupper(azione_3);
 			}
@@ -341,22 +338,19 @@ bool sceltaAttributiModificaUtenteAzienda( UtenteAzienda &impresa)
 		{
 			//scelta non valida
 			cout << "Opzione non valida" << endl;
-			azione_3 = SCELTA_NON_VALIDA;
 		}
 		break;
 		}
-	} while (azione_3!=SALVA);
+	} while (azione_3 != SALVA);
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteGruppo( UtenteGruppo &associazione)
+bool sceltaAttributiModificaUtenteGruppo(UtenteGruppo &associazione)
 {
 	//menu attributi modific utente gruppo (3 liv)
 	string str_azione_3;
 	bool modifica = false;
 	char azione_3 = SCELTA_NON_VALIDA;
-
-	
 
 	do
 	{
@@ -425,7 +419,6 @@ bool sceltaAttributiModificaUtenteGruppo( UtenteGruppo &associazione)
 		{
 			//scelta non valida
 			cout << "Opzione non valida" << endl;
-			azione_3 = SCELTA_NON_VALIDA;
 		}
 		break;
 		}
@@ -444,7 +437,7 @@ bool sceltaMenuAggiungiUtenti(bool &torna_al_menu_precedente, bool &torna_al_men
 	stampaMenuAggiungiUtenti();
 
 	//ripeti se scelta non valida
-	do 
+	do
 	{
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
@@ -452,7 +445,7 @@ bool sceltaMenuAggiungiUtenti(bool &torna_al_menu_precedente, bool &torna_al_men
 		{
 			azione_3 = str_azione_3.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_3)) 
+			if (islower(azione_3))
 			{
 				azione_3 = toupper(azione_3);
 			}
@@ -548,7 +541,7 @@ bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzien
 			//trovo posizione
 			posizione = utenteSemplicePosizione(persona, id);
 			//modifico utente semplice
-			modifica = sceltaAttributiModificaUtenteSemplice(persona[posizione]);
+			modifica = sceltaAttributiModificaUtenteSemplice(persona, posizione);
 		}
 		else
 		{
@@ -557,7 +550,7 @@ bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzien
 				//trovo posizione
 				posizione = utenteAziendaPosizione(impresa, id);
 				//modifico utente azienda
-				modifica = sceltaAttributiModificaUtenteAzienda( impresa[posizione]);
+				modifica = sceltaAttributiModificaUtenteAzienda(impresa[posizione]);
 			}
 			else
 			{
@@ -566,7 +559,7 @@ bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzien
 					//trovo posizione
 					posizione = utenteGruppoPosizione(associazione, id);
 					//modifico utente gruppo
-					modifica = sceltaAttributiModificaUtenteGruppo( associazione[posizione]);
+					modifica = sceltaAttributiModificaUtenteGruppo(associazione[posizione]);
 				}
 				else
 				{
@@ -589,7 +582,7 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 	char azione_2 = SCELTA_NON_VALIDA;
 	bool torna_al_menu_precedente = true;
 
-	do 
+	do
 	{
 		if (torna_al_menu_precedente)
 		{
@@ -608,7 +601,7 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 				azione_2 = toupper(azione_2);
 			}
 		}
-		else 
+		else
 		{
 			azione_2 = SCELTA_NON_VALIDA;
 		}
@@ -624,13 +617,13 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 		case '2':
 		{
 			//rimuovi utente
-			modifica = ricercaIdUtenteRimuovi(torna_al_menu_precedente, torna_al_menu_principale,persona, impresa, associazione, news);
+			modifica = ricercaIdUtenteRimuovi(torna_al_menu_precedente, torna_al_menu_principale, persona, impresa, associazione, news);
 		}
 		break;
 		case'3':
 		{
 			//modifica utente
-			modifica = ricercaIdUtenteModifica(persona,impresa, associazione);
+			modifica = ricercaIdUtenteModifica(persona, impresa, associazione);
 		}
 		break;
 		case MENU_PRINCIPALE:
@@ -727,7 +720,7 @@ bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, const vector<Uten
 	bool torna_al_menu_precedente = true;
 
 	//ripeti se scelta non valida
-	do 
+	do
 	{
 		if (torna_al_menu_precedente)
 		{
@@ -741,7 +734,7 @@ bool sceltaMenuGestioneNotizie(bool &torna_al_menu_principale, const vector<Uten
 		{
 			azione_2 = str_azione_2.front();
 			//converto in  maiuscolo se minuscolo
-			if (islower(azione_2)) 
+			if (islower(azione_2))
 			{
 				azione_2 = toupper(azione_2);
 			}
@@ -830,8 +823,8 @@ bool sceltaMenuFunzionalitaStatistiche(bool &torna_al_menu_principale, const vec
 		break;
 		case 'B':
 		{
-			//numero amici e parenti diretti per ogni utente semplice
-			numeroAmiciEParentiDirettiPerUtenteSemplice(persona);
+			//numero amici e parenti per ogni utente semplice
+			numeroAmiciEParentiPerUtenteSemplice(persona);
 		}
 		break;
 		case'C':
@@ -960,7 +953,7 @@ bool sceltaMenuRicerca(bool &torna_al_menu_principale, const vector<UtenteSempli
 			//lupi solitari
 			ricercaLupiSolitari(persona, news);
 		}
-		break; 
+		break;
 		case '4':
 		{
 			//simpatia
@@ -1022,7 +1015,7 @@ bool sceltaMenuInformazioniDatabase(bool &torna_al_menu_principale, const vector
 			stampaUtenti(persona, impresa, associazione);
 			cout << endl << endl;
 			stampaNotizie(news);
-			cout << endl << endl << "Relazioni :" << endl << stampaRelazioniFile(persona, impresa, associazione)<<endl;
+			cout << endl << endl << "Relazioni :" << endl << stampaRelazioniFile(persona, impresa, associazione) << endl;
 		}
 		break;
 		case 'B':
@@ -1118,13 +1111,13 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 	bool modifica = false;
 	bool torna_al_menu_principale = true;
 	string str_azione_1;
-	
+
 	//azione 1 livello
 	char azione_1 = SCELTA_NON_VALIDA;
 
-	do 
+	do
 	{
-		if (torna_al_menu_principale) 
+		if (torna_al_menu_principale)
 		{
 			stampaMenuPrincipale();
 		}
@@ -1141,7 +1134,7 @@ bool sceltaMenuPrincipale(bool &esci, vector<UtenteSemplice> &persona, vector<Ut
 				azione_1 = toupper(azione_1);
 			}
 		}
-		else 
+		else
 		{
 			azione_1 = SCELTA_NON_VALIDA;
 		}

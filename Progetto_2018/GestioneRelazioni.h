@@ -127,13 +127,13 @@ bool aggiungiRelazioneDaTipi(vector<UtenteSemplice> &persona, vector<UtenteAzien
 				if (cercaAntenato(persona, posizione_partenza, posizione_arrivo))
 				{
 					ok = false;
-					cout << endl << "Errore : l'Utente " << id_arrivo << " Non Puo' Essere il Figlio dell'Utente " << persona[posizione_partenza].getId() << " Essendo gia' un suo Antenato" << endl;
+					cout << endl << "Errore : Data Non Valida Perche' l'Utente " << id_arrivo << " Nato/a il " << persona[posizione_arrivo].getDataNascita() << " Essendo il/la Figlio/a dell'Utente " << persona[posizione_partenza].getId() << " Risulterebbe Nato/a Prima" << endl;
 				}
 				//controllo che il genitore sia piu vecchio del figlio
 				if (!((persona[posizione_partenza].getDataNascita()) < (persona[posizione_arrivo].getDataNascita())))
 				{
 					ok = false;
-					cout << endl << "Errore : l'Utente " << id_arrivo << " Non Puo' Essere il Figlio dell'Utente " << persona[posizione_partenza].getId() << " Essendo Nato Prima" << endl;
+					cout << endl << "Errore : Data Non Valida Perche' l'Utente " << id_arrivo << " Nato/a il " << persona[posizione_arrivo].getDataNascita() << " Essendo il/la Genitore dell'Utente " << persona[posizione_partenza].getId() << " Risulterebbe Nato/a Dopo" << endl;
 				}
 			}
 			else
@@ -377,7 +377,95 @@ bool rimuoviRelazione(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &im
 
 bool modificaRelazione(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
 {
-	bool modifica = true;
+	bool modifica = false;
+	string id_partenza;
+	string id_arrivo;
+	string vecchio_tipo_relazione;
+	string vecchio_tipo_relazione_speculare;
+	string nuovo_tipo_relazione;
+	string nuovo_tipo_relazione_speculare;
+	unsigned int posizione_partenza;
+	unsigned int posizione_arrivo;
+	string tipo_partenza;
+	string tipo_arrivo;
+
+	//inserisco id di partenza
+	cout << endl << "Inserisci id di partenza della relazione da modificare : ";
+	getline(cin, id_partenza);
+	//inserisco id di arrivo
+	cout << endl << "Inserisci id di arrivo della relazione da modificare : ";
+	getline(cin, id_arrivo);
+	//inserisco vecchio tipo di relazione
+	cout << endl << "Inserisci il vecchio tipo della relazione da modificare : ";
+	getline(cin, vecchio_tipo_relazione);
+	//inserisco nuovo tipo di relazione
+	cout << endl << "Inserisci il nuovo tipo della relazione da modificare : ";
+	getline(cin, nuovo_tipo_relazione);
+
+	//controllo che esista l'id di partenza e identifico il tipo e la posizione
+	if (trovaTipoEPosizioneUtente(persona, impresa, associazione, id_partenza, tipo_partenza, posizione_partenza))
+	{
+		//controllo che esista l'id di arrivo e identifico il tipo e la posizione
+		if (trovaTipoEPosizioneUtente(persona, impresa, associazione, id_arrivo, tipo_arrivo, posizione_arrivo))
+		{
+			//se salva la relazione
+			if (aggiungiRelazioneDaTipi(persona, impresa, associazione, posizione_partenza, tipo_partenza, tipo_arrivo, id_arrivo, nuovo_tipo_relazione))
+			{
+				cout << "Relazione Modificata" << endl;
+				modifica = true;
+				//se è una relazione speculare converte la relazione
+				if (relazioneSpeculare(nuovo_tipo_relazione, nuovo_tipo_relazione_speculare))
+				{
+					//salva la relazione speculare
+					if (aggiungiRelazioneDaTipi(persona, impresa, associazione, posizione_arrivo, tipo_arrivo, tipo_partenza, id_partenza, nuovo_tipo_relazione_speculare))
+					{
+						cout << "Relazione Speculare Modificata" << endl;
+					}
+					//se non l'ha salvata
+					else
+					{
+						cout << endl << "Errore : Relazione <" << id_arrivo << SEPARATORE << id_partenza << SEPARATORE << nuovo_tipo_relazione_speculare << "> Non Valida" << endl;
+						modifica = false;
+					}
+				}
+			}
+			//se non l'ha salvata
+			else
+			{
+				cout << endl << "Errore : Relazione <" << id_partenza << SEPARATORE << id_arrivo << SEPARATORE << nuovo_tipo_relazione << "> Non Valida" << endl;
+			}
+		}
+	}
+
+	//se c'è stata una modifica e quindi aggiunta la nuova relazione rimuovo quella precedente e la sua eventuale relazione speculare
+	if (modifica)
+	{
+		//se rimuove la relazione vecchia
+		if (rimuoviRelazioneDaTipi(persona, impresa, associazione, posizione_partenza, tipo_partenza, id_arrivo, vecchio_tipo_relazione))
+		{
+			//se era una relazione speculare 
+			if (relazioneSpeculare(vecchio_tipo_relazione, vecchio_tipo_relazione_speculare))
+			{
+				//rimuove la vecchia relazione speculare
+				if (rimuoviRelazioneDaTipi(persona, impresa, associazione, posizione_arrivo, tipo_arrivo, id_partenza, vecchio_tipo_relazione_speculare))
+				{
+					cout << "Relazione speculare rimossa" << endl;
+				}
+				//se non l'ha rimossa
+				else
+				{
+					cout << endl << "Errore : relazione <" << id_arrivo << SEPARATORE << id_partenza << SEPARATORE << vecchio_tipo_relazione_speculare << "> non rimossa" << endl;
+					modifica = false;
+				}
+			}
+		}
+		//se non l'ha rimossa
+		else
+		{
+			cout << endl << "Errore : relazione <" << id_partenza << SEPARATORE << id_arrivo << SEPARATORE << vecchio_tipo_relazione << "> non rimossa" << endl;
+			modifica = false;
+		}
+	}
 
 	return modifica;
 }
