@@ -110,18 +110,58 @@ bool relazioneSpeculare(const string &tipo_relazione, string &relazione_specular
 bool aggiungiRelazioneDaTipi(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, const unsigned int &posizione_partenza, const string &tipo_partenza, const string &tipo_arrivo, const string &id_arrivo, const string &tipo_relazione)
 {
 	bool ok = false;
+	unsigned int posizione_arrivo;
+
 	//se è un utente semplice
 	if (tipo_partenza == ID_TIPO_SEMPLICE)
 	{
 		//se è un tipo di collegamento possibile tra gli utenti
 		if (persona[posizione_partenza].tipoRelazionePossibile(tipo_relazione, tipo_arrivo))
 		{
-			ok = persona[posizione_partenza].aggiungiRelazione(id_arrivo, tipo_relazione);
+			ok = true;
+			//se sta cercando di aggiungere un figlio 
+			if (tipo_relazione == STR_FIGLIO)
+			{
+				posizione_arrivo = utenteSemplicePosizione(persona, id_arrivo);
+				//controllo che il figlio non sia tra i suoi antenati
+				if (cercaAntenato(persona, posizione_partenza, posizione_arrivo))
+				{
+					ok = false;
+					cout << endl << "Errore : l'Utente " << id_arrivo << " Non Puo' Essere il Figlio dell'Utente " << persona[posizione_partenza].getId() << " Essendo gia' un suo Antenato" << endl;
+				}
+				//controllo che il genitore sia piu vecchio del figlio
+				if (!((persona[posizione_partenza].getDataNascita()) < (persona[posizione_arrivo].getDataNascita())))
+				{
+					ok = false;
+					cout << endl << "Errore : l'Utente " << id_arrivo << " Non Puo' Essere il Figlio dell'Utente " << persona[posizione_partenza].getId() << " Essendo Nato Prima" << endl;
+				}
+			}
+			else
+				//se sta cercando di aggiungere un genitore
+				if (tipo_relazione == STR_GENITORE)
+				{
+					posizione_arrivo = utenteSemplicePosizione(persona, id_arrivo);
+					//controllo che il genitore non sia tra i suoi discendenti
+					if (cercaDiscendente(persona, posizione_partenza, posizione_arrivo))
+					{
+						ok = false;
+						cout << endl << "Errore : l'Utente " << id_arrivo << " Non Puo' Essere il Genitore dell'Utente " << persona[posizione_partenza].getId() << " Essendo gia' un suo Discendente" << endl;
+					}
+					//controllo che il genitore sia piu vecchio del figlio
+					if (!((persona[posizione_arrivo].getDataNascita()) < (persona[posizione_partenza].getDataNascita())))
+					{
+						ok = false;
+						cout << endl << "Errore : l'Utente " << id_arrivo << " Non Puo' Essere il Genitore dell'Utente " << persona[posizione_partenza].getId() << " Essendo Nato Prima" << endl;
+					}
+				}
+			//se non ci sono errori cercando di aggiungere relazioni impossibili
+			if(ok)
+				ok = persona[posizione_partenza].aggiungiRelazione(id_arrivo, tipo_relazione);
 		}
 		//se non è una relazione valida
 		else
 		{
-			cout << "Errore : non puo' esistere una relazione di tipo <" << tipo_relazione << "> tra un utente_semplice e un " << tipo_arrivo << endl;
+			cout << endl << "Errore : non puo' esistere una relazione di tipo <" << tipo_relazione << "> tra un utente_semplice e un " << tipo_arrivo << endl;
 		}
 	}
 	else

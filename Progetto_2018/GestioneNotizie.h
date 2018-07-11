@@ -41,6 +41,7 @@ void stampaNotizie(const vector<Notizia> &news)
 bool aggiungiNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	bool modifica = false;
+	bool messaggio_ok = true;
 	string id_mittente;
 	string messaggio;
 	string str_data_pubblicazione;
@@ -55,33 +56,45 @@ bool aggiungiNotizia(vector<Notizia> &news, const vector<UtenteSemplice> &person
 		//inserisco messaggio
 		cout << endl << "Inserisci messaggio : ";
 		getline(cin, messaggio);
-		//inserisco data pubblicazione
-		cout << endl << "Inserisci data pubblicazione formato (gg/mm/aaaa) : ";
-		getline(cin, str_data_pubblicazione);
-		//converte la stringa in una data e contemporaneamente verifica che sia valida
-		if (data_pubblicazione.convertiStringaAData(str_data_pubblicazione))
+		//controllo messaggio
+		for (unsigned int i = 0; ((i < messaggio.size()) && (messaggio_ok)); i++)
 		{
-			temp.setIdMittente(id_mittente);
-			temp.setMessaggio(messaggio);
-			temp.setDataPubblicazione(data_pubblicazione);
-			//se la notizia non contiene errori
-			if (temp.notiziaValida())
+			if (messaggio[i] == SEPARATORE)
 			{
-				//aggiungo la notizia
-				news.push_back(temp);
-				modifica = true;
-				cout << endl << "Notizia aggiunta" << endl;
+				messaggio_ok = false;
+				cout << endl << "Errore Messaggio Non Valido" << endl;
+			}
+		}
+		if (messaggio_ok)
+		{
+			//inserisco data pubblicazione
+			cout << endl << "Inserisci data pubblicazione formato (gg/mm/aaaa) : ";
+			getline(cin, str_data_pubblicazione);
+			//converte la stringa in una data e contemporaneamente verifica che sia valida
+			if (data_pubblicazione.convertiStringaAData(str_data_pubblicazione))
+			{
+				temp.setIdMittente(id_mittente);
+				temp.setMessaggio(messaggio);
+				temp.setDataPubblicazione(data_pubblicazione);
+				//se la notizia non contiene errori
+				if (temp.notiziaValida())
+				{
+					//aggiungo la notizia
+					news.push_back(temp);
+					modifica = true;
+					cout << endl << "Notizia aggiunta" << endl;
+				}
+				//se non è valida
+				else
+				{
+					cout << endl << "Errore : notizia non valida" << endl;
+				}
 			}
 			//se non è valida
 			else
 			{
-				cout << endl << "Errore : notizia non valida" << endl;
+				cout << endl << "Errore : la data di pubblicazione '" << str_data_pubblicazione << "' non e' valida" << endl;
 			}
-		}
-		//se non è valida
-		else
-		{
-			cout << endl << "Errore : la data di pubblicazione '" << str_data_pubblicazione << "' non e' valida" << endl;
 		}
 	}
 	//id utente non esistente
@@ -381,4 +394,3 @@ void cercaNotiziaReazione(const vector<Notizia> &news)
 		cout << "Nessuna Notizia Inserita nel Database" << endl;
 	}
 }
-

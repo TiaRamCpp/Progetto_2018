@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iomanip>
-
 #include "GestioneUtenti.h"
 #include "GestioneRelazioni.h"
 #include "GestioneStringhe.h"
@@ -15,13 +13,13 @@ void conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<Utent
 	unsigned int numero_utenti_azienda = impresa.size();
 	unsigned int numero_utenti_gruppo = associazione.size();
 	unsigned int numero_utenti_totali = numero_utenti_semplici + numero_utenti_azienda + numero_utenti_gruppo;
-	cout << endl<<setfill('_') << setw(40) << "_";
+	cout << endl << setfill('_') << setw(40) << "_";
 	cout << setfill(' ');
-	cout << endl << "| Numero utenti totali     |" <<setw(10)<< numero_utenti_totali<<" |";
+	cout << endl << "| Numero utenti totali     |" << setw(10) << numero_utenti_totali << " |";
 	cout << endl << "| Numero utenti semplici   |" << setw(10) << numero_utenti_semplici << " |";
 	cout << endl << "| Numero utenti azienda    |" << setw(10) << numero_utenti_azienda << " |";
 	cout << endl << "| Numero utenti gruppo     |" << setw(10) << numero_utenti_gruppo << " |";
-	cout <<endl<<setfill('-') << setw(40) << "-";
+	cout << endl << setfill('-') << setw(40) << "-";
 	cout << setfill(' ');
 	cout << endl;
 }
@@ -38,11 +36,10 @@ void numeroAmiciEParentiDirettiPerUtenteSemplice(const vector<UtenteSemplice> &p
 
 	if (persona.size() != 0)
 	{
-		
-		cout << endl << "Numero amici e parenti diretti per ogni utente semplice :"<<endl;
+		cout << endl << "Numero amici e parenti diretti per ogni utente semplice :" << endl;
 		cout << setw(71) << setfill('_') << "_";
-		cout << setfill(' ')<<endl<< "|" << setw(20) <<"ID" <<setw(20)<<"|"<< setw(15) << "n. amici |" << setw(15) << "n. parenti |" << endl;
-		cout << setw(71) << setfill('-')<<"-"<< endl;
+		cout << setfill(' ') << endl << "|" << setw(20) << "ID" << setw(20) << "|" << setw(15) << "n. amici |" << setw(15) << "n. parenti |" << endl;
+		cout << setw(71) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
 		for (unsigned int i = 0, numero_parenti_diretti; i < persona.size(); i++)
@@ -55,8 +52,8 @@ void numeroAmiciEParentiDirettiPerUtenteSemplice(const vector<UtenteSemplice> &p
 			numero_parenti_diretti += numero_tipo_relazione[2]; //risultato numero genitori
 
 
-			cout << "| " <<  stampaSinistra(37, persona[i].getId()) << " |" << setw(13) << numero_tipo_relazione[3] << " |" << setw(13) << numero_parenti_diretti << " |" << endl;
-			
+			cout << "| " << stampaSinistra(37, persona[i].getId()) << " |" << setw(13) << numero_tipo_relazione[3] << " |" << setw(13) << numero_parenti_diretti << " |" << endl;
+
 		}
 
 		cout << setw(71) << setfill('-') << "-" << endl;
@@ -66,7 +63,6 @@ void numeroAmiciEParentiDirettiPerUtenteSemplice(const vector<UtenteSemplice> &p
 	{
 		cout << endl << "Nessun utente semplice inserito nel database" << endl;
 	}
-	
 }
 
 void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
@@ -76,7 +72,7 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 	bool trovato;
 	string str_data_inserita;
 	Data data_inserita;
-	
+
 	if (almenoUnUtenteEsistente(persona, impresa, associazione))
 	{
 		//inserimento data
@@ -115,11 +111,11 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 					cout << setfill(' ') << endl;
 				}
 
-				cout << "| "<<stampaSinistra(57,persona[i].getId()) <<"|"<< endl;
-				
+				cout << "| " << stampaSinistra(57, persona[i].getId()) << "|" << endl;
+
 			}
 		}
-		if (trovato) 
+		if (trovato)
 		{
 			cout << setw(60) << setfill('-') << "-" << endl;
 			cout << setfill(' ') << endl;
@@ -140,7 +136,7 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 					//stampo il messaggio iniziale
 					cout << endl << "Utenti azienda creati dopo la data inserita :" << endl;
 					cout << setw(60) << setfill('_') << "_";
-					cout << setfill(' ')<<endl;
+					cout << setfill(' ') << endl;
 				}
 				cout << "| " << stampaSinistra(57, impresa[i].getId()) << "|" << endl;
 			}
@@ -166,7 +162,7 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 					//stampo il messaggio iniziale
 					cout << endl << "Utenti gruppo creati dopo la data inserita :" << endl;
 					cout << setw(60) << setfill('_') << "_";
-					cout << setfill(' ')<<endl;
+					cout << setfill(' ') << endl;
 				}
 				cout << "| " << stampaSinistra(57, associazione[i].getId()) << "|" << endl;
 			}
@@ -176,13 +172,11 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 			cout << setw(60) << setfill('-') << "-" << endl;
 			cout << setfill(' ') << endl;
 		}
-		
+
 		//se non ho trovato nemmeno uno
 		if (!riscontro)
 		{
-			cout << endl<<"| " <<stampaSinistra(57, "Nessun utente nato o creato dopo la data inserita")<<"|" << endl;
-			cout << setw(60) << setfill('-') << "-" << endl;
-			cout << setfill(' ')<<endl;
+			cout << endl << "Nessun utente nato o creato dopo la data inserita" << endl;
 		}
 	}
 	//se non esiste nemmeno un utente
@@ -190,7 +184,6 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 	{
 		cout << endl << "Nessun utente inserito nel database" << endl;
 	}
-
 }
 
 void numeroDipendentiEConsociatePerAzienda(const vector<UtenteAzienda> &impresa)
@@ -204,9 +197,9 @@ void numeroDipendentiEConsociatePerAzienda(const vector<UtenteAzienda> &impresa)
 	{
 		cout << endl << "Numero dipendenti e aziende consociate per ogni azienda :";
 
-		cout << endl<<setw(81) << setfill('_') << "_";
-		cout << setfill(' ')<<endl<< "|" << setw(20) <<"ID" <<setw(20)<<"|"<< setw(20) << "n. dipendenti |" << setw(20) << "n. consociate |" << endl;
-		cout << setw(81) << setfill('-')<<"-"<< endl;
+		cout << endl << setw(81) << setfill('_') << "_";
+		cout << setfill(' ') << endl << "|" << setw(20) << "ID" << setw(20) << "|" << setw(20) << "n. dipendenti |" << setw(20) << "n. consociate |" << endl;
+		cout << setw(81) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
 		for (unsigned int i = 0; i < impresa.size(); i++)
@@ -214,7 +207,7 @@ void numeroDipendentiEConsociatePerAzienda(const vector<UtenteAzienda> &impresa)
 			//conta contemporaneamente i diversi tipi di reazione
 			impresa[i].contaTipiRelazione(tipo_relazione, numero_tipo_relazione);
 
-			cout << "| " << stampaSinistra(37,impresa[i].getId()) << " |" << setw(18) << numero_tipo_relazione[0] << " |" << setw(18) << numero_tipo_relazione[1] << " |" << endl;
+			cout << "| " << stampaSinistra(37, impresa[i].getId()) << " |" << setw(18) << numero_tipo_relazione[0] << " |" << setw(18) << numero_tipo_relazione[1] << " |" << endl;
 
 		}
 
@@ -225,7 +218,6 @@ void numeroDipendentiEConsociatePerAzienda(const vector<UtenteAzienda> &impresa)
 	{
 		cout << endl << "Nessun utente azienda inserito nel database" << endl;
 	}
-
 }
 
 void numeroUtentiPerGruppo(const vector<UtenteGruppo> &associazione)
@@ -234,14 +226,14 @@ void numeroUtentiPerGruppo(const vector<UtenteGruppo> &associazione)
 	{
 		cout << endl << "Numero utenti semplici per ogni gruppo :";
 
-		cout << endl<< setw(56) << setfill('_') << "_";
-		cout << setfill(' ') << endl << "|" << setw(20) << "ID" << setw(20) << "|" << setw(15) << "n. utenti |"<< endl;
+		cout << endl << setw(56) << setfill('_') << "_";
+		cout << setfill(' ') << endl << "|" << setw(20) << "ID" << setw(20) << "|" << setw(15) << "n. utenti |" << endl;
 		cout << setw(56) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
 		for (unsigned int i = 0; i < associazione.size(); i++)
 		{
-			cout << "| " <<stampaSinistra(37, associazione[i].getId()) << " |" << setw(13) << associazione[i].contaTipoRelazione(STR_MEMBRO) << " |"<< endl;
+			cout << "| " << stampaSinistra(37, associazione[i].getId()) << " |" << setw(13) << associazione[i].contaTipoRelazione(STR_MEMBRO) << " |" << endl;
 		}
 
 		cout << setw(56) << setfill('-') << "-" << endl;
@@ -251,7 +243,6 @@ void numeroUtentiPerGruppo(const vector<UtenteGruppo> &associazione)
 	{
 		cout << endl << "Nessun utente gruppo inserito nel database" << endl;
 	}
-	
 }
 
 void aziendaMaggiorDipendenti(const vector<UtenteAzienda> &impresa, const bool &cumulativi)
@@ -288,9 +279,8 @@ void aziendaMaggiorDipendenti(const vector<UtenteAzienda> &impresa, const bool &
 		if (numero_aziende_a_parimerito == 1)
 		{
 			cout << endl << "L'azienda con piu' dipendenti ";
-			if(cumulativi)
+			if (cumulativi)
 				cout << "cumulativi con le consociate ";
-			
 
 			cout << endl << setw(81) << setfill('_') << "_";
 			cout << setfill(' ') << endl;
@@ -330,9 +320,7 @@ void aziendaMaggiorDipendenti(const vector<UtenteAzienda> &impresa, const bool &
 	}
 	else
 	{
-		cout << "| " << stampaSinistra(57, "Nessun utente azienda inserito nel database") << " |" << setw(18) <<"-" << " |" << endl;
-		cout << setw(81) << setfill('-') << "-" << endl;
-		cout << setfill(' ');
+		cout << endl << "Nessun utente azienda inserito nel database" << endl;
 	}
 	cout << endl;
 }
@@ -369,7 +357,7 @@ void migliorNotizia(const vector<Notizia> &news)
 		if (numero_notizie_a_parimerito == 1)
 		{
 			cout << endl << "La notizia con piu' like : " << massimi_like;
-			
+
 			cout << endl << "Notizia : " << news[posizione.front()] << endl << endl;
 		}
 		//se sono più notizie a parimerito
@@ -493,7 +481,7 @@ void utenteSempliceMaggiorAmici(const vector<UtenteSemplice> &persona)
 			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. amici |" << endl;
 			cout << setw(81) << setfill('-') << "-" << endl;
 			cout << setfill(' ');
-			
+
 			for (unsigned int i = 0; i < numero_utenti_a_parimerito; i++)
 			{
 				cout << "| " << stampaSinistra(57, persona[posizione[i]].getId()) << " |" << setw(18) << massimi_amici << " |" << endl;
@@ -507,9 +495,7 @@ void utenteSempliceMaggiorAmici(const vector<UtenteSemplice> &persona)
 	}
 	else
 	{
-		cout << "| " << stampaSinistra(57, "Nessun utente semplice inserito nel database") << " |" << setw(18) << "-" << " |" << endl;
-		cout << setw(81) << setfill('-') << "-" << endl;
-		cout << setfill(' ');
+		cout << endl << "Nessun utente semplice inserito nel database" << endl;
 	}
 	cout << endl;
 }
@@ -574,7 +560,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 
 			}
 		}
-		if(numero_utenti_a_parimerito!=0)
+		if (numero_utenti_a_parimerito != 0)
 		{
 			cout << setw(81) << setfill('-') << "-" << endl;
 			cout << setfill(' ');
@@ -582,9 +568,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 	}
 	else
 	{
-		cout << "| " << stampaSinistra(57, "Nessun utente semplice inserito nel database") << " |" << setw(18) << "-" << " |" << endl;
-		cout << setw(81) << setfill('-') << "-" << endl;
-		cout << setfill(' ');
+		cout << endl << "Nessun utente semplice inserito nel database" << endl;
 	}
 	cout << endl;
 }
@@ -607,10 +591,10 @@ void etaMediaUtentiSemplici(const vector<UtenteSemplice> &persona)
 		cout << endl << setw(30) << setfill('_') << "_";
 		cout << setfill(' ') << endl;
 		cout << "| " << stampaSinistra(27, "Eta' media [anni]") << "|" << endl;
-		cout  << setw(30) << setfill('-') << "-";
+		cout << setw(30) << setfill('-') << "-";
 		cout << setfill(' ') << endl;
 		cout << "| " << stampaSinistra(27, to_string(eta_media)) << "|" << endl;
-		cout  << setw(30) << setfill('-') << "-";
+		cout << setw(30) << setfill('-') << "-";
 		cout << setfill(' ') << endl;
 	}
 	else
@@ -618,4 +602,3 @@ void etaMediaUtentiSemplici(const vector<UtenteSemplice> &persona)
 		cout << endl << "Nessun utente semplice inserito nel database" << endl;
 	}
 }
-

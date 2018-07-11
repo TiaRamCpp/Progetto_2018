@@ -114,41 +114,44 @@ bool Data::convertiStringaAData(const string &data)
 		else
 			stop = true;
 	}
-	//controllo che il carattere dopo sia '/'
-	if (data[posizione - 1] == SEPARATORE_DATA)
+	if (data.size() != 0)
 	{
-		//leggo il mese
-		for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
-		{
-			if (isdigit(data[posizione]))
-				mese += data[posizione];
-			else
-				stop = true;
-		}
 		//controllo che il carattere dopo sia '/'
 		if (data[posizione - 1] == SEPARATORE_DATA)
 		{
-			//leggo l'anno
+			//leggo il mese
 			for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
 			{
 				if (isdigit(data[posizione]))
-					anno += data[posizione];
+					mese += data[posizione];
 				else
 					stop = true;
 			}
-			//controllo che quello che ho letto sia la data passata e che quindi non ci siano caratteri dopo l'anno
-			if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
+			//controllo che il carattere dopo sia '/'
+			if (data[posizione - 1] == SEPARATORE_DATA)
 			{
-				//assegno valori a data_letta
-				_giorno = stoi(giorno);
-				_mese = stoi(mese);
-				_anno = stoi(anno);
-				//la funzione stoi trasforma la stringa in un numero intero
-
-				//se la data è valida
-				if (isValid())
+				//leggo l'anno
+				for (stop = false; ((posizione < data.size()) && (!stop)); posizione++)
 				{
-					ok = true;
+					if (isdigit(data[posizione]))
+						anno += data[posizione];
+					else
+						stop = true;
+				}
+				//controllo che quello che ho letto sia la data passata e che quindi non ci siano caratteri dopo l'anno
+				if ((giorno + SEPARATORE_DATA + mese + SEPARATORE_DATA + anno) == data)
+				{
+					//assegno valori a data_letta
+					_giorno = stoi(giorno);
+					_mese = stoi(mese);
+					_anno = stoi(anno);
+					//la funzione stoi trasforma la stringa in un numero intero
+
+					//se la data è valida
+					if (isValid())
+					{
+						ok = true;
+					}
 				}
 			}
 		}
@@ -184,7 +187,7 @@ int Data::getGiorno() const
 
 bool Data::operator<(const Data &data_destra) const
 {
-	//data_sx<data_dx true se data_sx più nel passato rispetto a data_dx
+	//data_sx < data_dx true se data_sx più nel passato rispetto a data_dx
 
 	//controllo se differiscono di anno/i
 	if (this->_anno < data_destra._anno)

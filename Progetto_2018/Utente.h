@@ -90,4 +90,3 @@ protected:
 	vector<string> _id_arco;
 	vector<string> _tipo_relazione;
 };
-
