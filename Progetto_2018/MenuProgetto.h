@@ -10,6 +10,7 @@
 #define SCELTA_NON_VALIDA 'N'
 #define MENU_PRECEDENTE 'P'
 #define MENU_PRINCIPALE 'M'
+#define SALVA 'S'
 
 //stampe voci menu
 
@@ -138,8 +139,7 @@ void stampaModificaAttributiUtenteSemplice()
 	cout << "4) Telefono" << endl;
 	cout << "5) E-mail" << endl;
 	cout << "6) Data di nascita" << endl;
-	cout << MENU_PRECEDENTE << ") Torna al Menu Precedente" << endl;
-	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
+	cout << SALVA << ") Salva modifiche" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
 }
@@ -154,8 +154,7 @@ void stampaModificaAttributiUtenteAzienda()
 	cout << "5) Telefono" << endl;
 	cout << "6) E-mail" << endl;
 	cout << "7) Data di creazione" << endl;
-	cout << MENU_PRECEDENTE << ") Torna al Menu Precedente" << endl;
-	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
+	cout << SALVA << ") Salva modifiche" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
 }
@@ -169,8 +168,7 @@ void stampaModificaAttributiUtenteGruppo()
 	cout << "4) Telefono" << endl;
 	cout << "5) E-mail" << endl;
 	cout << "6) Data di creazione" << endl;
-	cout << MENU_PRECEDENTE << ") Torna al Menu Precedente" << endl;
-	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
+	cout << SALVA << ") Salva modifiche" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
 }
@@ -178,17 +176,16 @@ void stampaModificaAttributiUtenteGruppo()
 //gestione scelte menu
 
 // 3 Livello
-bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteSemplice &persona)
+bool sceltaAttributiModificaUtenteSemplice(UtenteSemplice &persona)
 {
 	//menu attributi modific utente sempilice (3 liv)
 	string str_azione_3;
 	bool modifica = false;
 	char azione_3 = SCELTA_NON_VALIDA;
 
-	stampaModificaAttributiUtenteSemplice();
-
 	do
 	{
+		stampaModificaAttributiUtenteSemplice();
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
@@ -200,55 +197,53 @@ bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool 
 				azione_3 = toupper(azione_3);
 			}
 		}
+		else
+		{
+			azione_3 = SCELTA_NON_VALIDA;
+		}
 
 		switch (azione_3)
 		{
 		case '1':
 		{
 			//modifica nome
-			modifica = utenteSempliceModificaNome(persona);
+			modifica |= utenteSempliceModificaNome(persona);
 		}
 		break;
 		case '2':
 		{
 			//modifica cognome
-			modifica = utenteSempliceModificaCognome(persona);
+			modifica |= utenteSempliceModificaCognome(persona);
 		}
 		break;
 		case '3':
 		{
 			//modifica domicilio
-			modifica = utenteSempliceModificaDomicilio(persona);
+			modifica |= utenteSempliceModificaDomicilio(persona);
 		}
 		break;
 		case '4':
 		{
 			//modifica telefono
-			modifica = utenteSempliceModificaTelefono(persona);
+			modifica |= utenteSempliceModificaTelefono(persona);
 		}
 		break;
 		case '5':
 		{
 			//modifica email
-			modifica = utenteSempliceModificaEmail(persona);
+			modifica |= utenteSempliceModificaEmail(persona);
 		}
 		break;
 		case '6':
 		{
 			//modifica data di nascita
-			modifica = utenteSempliceModificaDataNascita(persona);
+			modifica |= utenteSempliceModificaDataNascita(persona);
 		}
 		break;
-		case MENU_PRECEDENTE:
+		case SALVA:
 		{
-			//torna al menu precedente
-			torna_al_menu_precedente = true;
-		}
-		break;
-		case MENU_PRINCIPALE:
-		{
-			//torna al menu principale
-			torna_al_menu_principale = true;
+			//salvo modifiche
+			cout << "Modifiche salvate" << endl;
 		}
 		break;
 		default:
@@ -259,21 +254,23 @@ bool sceltaAttributiModificaUtenteSemplice(bool &torna_al_menu_precedente, bool 
 		}
 		break;
 		}
-	} while (azione_3 == SCELTA_NON_VALIDA);
+	} while (azione_3!=SALVA);
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteAzienda &impresa)
+bool sceltaAttributiModificaUtenteAzienda( UtenteAzienda &impresa)
 {
 	//menu attributi modific utente sazienda (3 liv)
 	string str_azione_3;
 	bool modifica = false;
 	char azione_3 = SCELTA_NON_VALIDA;
 
-	stampaModificaAttributiUtenteAzienda();
+	
 
 	do
 	{
+		stampaModificaAttributiUtenteAzienda();
+
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
@@ -285,61 +282,59 @@ bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &
 				azione_3 = toupper(azione_3);
 			}
 		}
+		else
+		{
+			azione_3 = SCELTA_NON_VALIDA;
+		}
 
 		switch (azione_3)
 		{
 		case '1':
 		{
 			//modifica nome
-			modifica = utenteAziendaModificaNome(impresa);
+			modifica |= utenteAziendaModificaNome(impresa);
 		}
 		break;
 		case '2':
 		{
 			//modifica sede fiscale
-			modifica = utenteAziendaModificaSedeFiscale(impresa);
+			modifica |= utenteAziendaModificaSedeFiscale(impresa);
 		}
 		break;
 		case '3':
 		{
 			//modifica sede operativa
-			modifica = utenteAziendaModificaSedeOperativa(impresa);
+			modifica |= utenteAziendaModificaSedeOperativa(impresa);
 		}
 		break;
 		case '4':
 		{
 			//modifica tipologia prodotto
-			modifica = utenteAziendaModificaTipoProdotto(impresa);
+			modifica |= utenteAziendaModificaTipoProdotto(impresa);
 		}
 		break;
 		case '5':
 		{
 			//modifica telefono
-			modifica = utenteAziendaModificaTelefono(impresa);
+			modifica |= utenteAziendaModificaTelefono(impresa);
 		}
 		break;
 		case '6':
 		{
 			//modifica email
-			modifica = utenteAziendaModificaEmail(impresa);
+			modifica |= utenteAziendaModificaEmail(impresa);
 		}
 		break;
 		case '7':
 		{
 			//modifica data di creazione
-			modifica = utenteAziendaModificaDataCreazione(impresa);
+			modifica |= utenteAziendaModificaDataCreazione(impresa);
 		}
 		break;
-		case MENU_PRECEDENTE:
+		case SALVA:
 		{
-			//torna al menu precedente
-			torna_al_menu_precedente = true;
-		}
-		break;
-		case MENU_PRINCIPALE:
-		{
-			//torna al menu principale
-			torna_al_menu_principale = true;
+			//salva modifiche ed esce
+			cout << "Modifiche salvate" << endl;
 		}
 		break;
 		default:
@@ -350,21 +345,23 @@ bool sceltaAttributiModificaUtenteAzienda(bool &torna_al_menu_precedente, bool &
 		}
 		break;
 		}
-	} while (azione_3 == SCELTA_NON_VALIDA);
+	} while (azione_3!=SALVA);
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, UtenteGruppo &associazione)
+bool sceltaAttributiModificaUtenteGruppo( UtenteGruppo &associazione)
 {
 	//menu attributi modific utente gruppo (3 liv)
 	string str_azione_3;
 	bool modifica = false;
 	char azione_3 = SCELTA_NON_VALIDA;
 
-	stampaModificaAttributiUtenteGruppo();
+	
 
 	do
 	{
+		stampaModificaAttributiUtenteGruppo();
+
 		//leggo carattere e se non valido non lo considero
 		getline(cin, str_azione_3);
 		if (str_azione_3.size() == 1)
@@ -374,6 +371,10 @@ bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &t
 			if (islower(azione_3)) {
 				azione_3 = toupper(azione_3);
 			}
+		}
+		else
+		{
+			azione_3 = SCELTA_NON_VALIDA;
 		}
 
 		switch (azione_3)
@@ -414,16 +415,10 @@ bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &t
 			modifica = utenteGruppoModificaDataCreazione(associazione);
 		}
 		break;
-		case MENU_PRECEDENTE:
+		case SALVA:
 		{
-			//torna al menu precedente
-			torna_al_menu_precedente = true;
-		}
-		break;
-		case MENU_PRINCIPALE:
-		{
-			//torna al menu principale
-			torna_al_menu_principale = true;
+			//salvo modifiche ed esco
+			cout << "Modifiche salvate" << endl;
 		}
 		break;
 		default:
@@ -434,7 +429,7 @@ bool sceltaAttributiModificaUtenteGruppo(bool &torna_al_menu_precedente, bool &t
 		}
 		break;
 		}
-	} while (azione_3 == SCELTA_NON_VALIDA);
+	} while (azione_3 != SALVA);
 
 	return modifica;
 }
@@ -532,7 +527,7 @@ bool ricercaIdUtenteRimuovi(bool &torna_al_menu_precedente, bool &torna_al_menu_
 	}
 	return modifica;
 }
-bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu_principale, vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
+bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
 {
 	//inserisco id e cerco se esistente e a che tipologia appartiene (2/3 liv)
 	string id;
@@ -553,7 +548,7 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 			//trovo posizione
 			posizione = utenteSemplicePosizione(persona, id);
 			//modifico utente semplice
-			modifica = sceltaAttributiModificaUtenteSemplice(torna_al_menu_precedente, torna_al_menu_principale, persona[posizione]);
+			modifica = sceltaAttributiModificaUtenteSemplice(persona[posizione]);
 		}
 		else
 		{
@@ -562,7 +557,7 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 				//trovo posizione
 				posizione = utenteAziendaPosizione(impresa, id);
 				//modifico utente azienda
-				modifica = sceltaAttributiModificaUtenteAzienda(torna_al_menu_precedente, torna_al_menu_principale, impresa[posizione]);
+				modifica = sceltaAttributiModificaUtenteAzienda( impresa[posizione]);
 			}
 			else
 			{
@@ -571,11 +566,11 @@ bool ricercaIdUtenteModifica(bool &torna_al_menu_precedente, bool &torna_al_menu
 					//trovo posizione
 					posizione = utenteGruppoPosizione(associazione, id);
 					//modifico utente gruppo
-					modifica = sceltaAttributiModificaUtenteGruppo(torna_al_menu_precedente, torna_al_menu_principale, associazione[posizione]);
+					modifica = sceltaAttributiModificaUtenteGruppo( associazione[posizione]);
 				}
 				else
 				{
-					cout << "Id non esistente, inserirne un altro: " << endl;
+					cout << "Id non esistente" << endl;
 				}
 			}
 		}
@@ -635,7 +630,7 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 		case'3':
 		{
 			//modifica utente
-			modifica = ricercaIdUtenteModifica(torna_al_menu_precedente, torna_al_menu_principale,persona, impresa, associazione);
+			modifica = ricercaIdUtenteModifica(persona,impresa, associazione);
 		}
 		break;
 		case MENU_PRINCIPALE:

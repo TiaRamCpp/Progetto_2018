@@ -1,6 +1,6 @@
-pippo.baudo,utente_semplice,{nome:pippo,cognome:baudo,domicilio:roma via lazio 10,telefono:3334545666,email:pippo.baudo@gmail.com,data di nascita:20/10/1950}
+pippo.baudo,utente_semplice,{nome:mario,cognome:baudo,domicilio:roma via lazio 10,telefono:3334545666,email:pippo.baudo@gmail.com,data di nascita:20/10/1950}
 luca.giurato,utente_semplice,{nome:luca,cognome:giurato,domicilio:roma via lazio 20,telefono:3389873173,email:lucagiurato63@yahoo.it,data di nascita:2/2/1963}
-apple.iphone,utente_azienda,{nome:apple,sede fiscale:torino via roma 1,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni,telefono:555339090,email:centro.clienti@apple.com,data di creazione:10/12/1970}
+apple.iphone,utente_azienda,{nome:apple,sede fiscale:torino,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni,telefono:555339090,email:centro.clienti@apple.com,data di creazione:10/12/1970}
 samsung.electronics,utente_azienda,{nome:samsung,sede fiscale:seul street uinpin 208,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni televisori ed elettrodomestici,telefono:0115009090,email:assistenza.clienti@samsung.com,data di creazione:1/2/1983}
 a.i.r.c.,utente_gruppo,{nome:airc,sede legale:candiolo strada vinovo 110,tipologia attivita':ricerca cancro,telefono:4088,email:donazioni_airc@gmail.com,data di creazione:5/8/1987}
 a.i.b.,utente_gruppo,{nome:aib,sede legale:reano via rivoli 290,tipologia attivita':antincendio boschivi,telefono:115,email:informazioni_aib@gmail.com,data di creazione:25/9/1993}
