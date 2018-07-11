@@ -1022,7 +1022,7 @@ bool sceltaMenuInformazioniDatabase(bool &torna_al_menu_principale, const vector
 			stampaUtenti(persona, impresa, associazione);
 			cout << endl << endl;
 			stampaNotizie(news);
-			cout << endl << endl << "Relazioni :" << endl << endl << stampaRelazioniFile(persona, impresa, associazione);
+			cout << endl << endl << "Relazioni :" << endl << stampaRelazioniFile(persona, impresa, associazione)<<endl;
 		}
 		break;
 		case 'B':
