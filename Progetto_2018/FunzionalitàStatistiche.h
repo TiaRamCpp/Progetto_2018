@@ -24,16 +24,9 @@ void conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<Utent
 	cout << endl;
 }
 
-void numeroAmiciEParentiDirettiPerUtenteSemplice(const vector<UtenteSemplice> &persona)
+void numeroAmiciEParentiPerUtenteSemplice(const vector<UtenteSemplice> &persona)
 {
-	vector<string> tipo_relazione(4);
-	vector<unsigned int> numero_tipo_relazione(4);
-
-	tipo_relazione[0] = STR_CONIUGE;
-	tipo_relazione[1] = STR_FIGLIO;
-	tipo_relazione[2] = STR_GENITORE;
-	tipo_relazione[3] = STR_AMICO;
-
+	vector<string> id_trovati;
 	if (persona.size() != 0)
 	{
 		cout << endl << "Numero amici e parenti diretti per ogni utente semplice :" << endl;
@@ -42,18 +35,11 @@ void numeroAmiciEParentiDirettiPerUtenteSemplice(const vector<UtenteSemplice> &p
 		cout << setw(71) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
-		for (unsigned int i = 0, numero_parenti_diretti; i < persona.size(); i++)
+		for (unsigned int i = 0; i < persona.size(); i++)
 		{
-			//conto contemporaneamente i 4 tipi di relazioni
-			persona[i].contaTipiRelazione(tipo_relazione, numero_tipo_relazione);
-			//sommo tutti i risultati dei diversi tipi di parentela diretta
-			numero_parenti_diretti = numero_tipo_relazione[0]; //risultato numero coniugi
-			numero_parenti_diretti += numero_tipo_relazione[1]; //risultato numero figli
-			numero_parenti_diretti += numero_tipo_relazione[2]; //risultato numero genitori
-
-
-			cout << "| " << stampaSinistra(37, persona[i].getId()) << " |" << setw(13) << numero_tipo_relazione[3] << " |" << setw(13) << numero_parenti_diretti << " |" << endl;
-
+			id_trovati.clear();
+			id_trovati.push_back(persona[i].getId());
+			cout << "| " << stampaSinistra(37, persona[i].getId()) << " |" << setw(13) << persona[i].contaTipoRelazione(STR_AMICO) << " |" << setw(13) << contaParenti(persona, i, id_trovati) << " |" << endl;
 		}
 
 		cout << setw(71) << setfill('-') << "-" << endl;
@@ -110,9 +96,7 @@ void utentiDopoUnaData(const vector<UtenteSemplice> &persona, const vector<Utent
 					cout << setw(60) << setfill('_') << "_";
 					cout << setfill(' ') << endl;
 				}
-
 				cout << "| " << stampaSinistra(57, persona[i].getId()) << "|" << endl;
-
 			}
 		}
 		if (trovato)
