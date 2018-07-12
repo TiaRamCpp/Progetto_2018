@@ -563,8 +563,11 @@ void ordinaAziendaPerSimpatia(const vector<UtenteAzienda> &impresa, const vector
 	vector<double> simpatia(impresa.size());
 	vector<double> simpatia_consociate(impresa.size());
 	vector<string> id_azienda(impresa.size());
+	vector<string> id_arco;
+	vector<string> tipo_relazione;
 	double valore_like = 1;
 	double valore_dislike = 2;
+	double valore_percentuale_consociate = 0.5;  //metà rispetto alla simpatia dell'azienda principale
 	bool con_consociate = false;
 	bool modifica_valore = false;
 	bool ok = false;
@@ -635,18 +638,40 @@ void ordinaAziendaPerSimpatia(const vector<UtenteAzienda> &impresa, const vector
 		{
 			string nuovo_valore_like;
 			string nuovo_valore_dislike;
+			string nuovo_valore_percentuale_consociate;
+			
+			//modifica valore like
 			do
 			{
 				cout << endl << "Valore Attuale Like : " << valore_like;
 				cout << endl << "Inserire Nuovo Valore Like Positivo Eventualmente con la Virgola : ";
 				getline(cin, nuovo_valore_like);
 			} while (!convertiANumero(nuovo_valore_like, valore_like));
+			
+			//modifica valore dislike
 			do
 			{
 				cout << endl << "Valore Attuale Dislike : " << valore_dislike;
 				cout << endl << "Inserire Nuovo Valore Dislike Positivo (ma saranno contati Negativamente) Eventualmente con la Virgola : ";
 				getline(cin, nuovo_valore_dislike);
 			} while (!convertiANumero(nuovo_valore_dislike, valore_dislike));
+			
+			//inserimento nuovo_valore_percentuale_consociate
+			if (con_consociate)
+			{
+				double temp = valore_percentuale_consociate;
+				do
+				{
+					do
+					{
+						cout << endl << "Valore Attuale Punteggio Consociate in Percentuale: " << valore_percentuale_consociate;
+						cout << endl << "Il Valore Percentuale delle Consociate Rappresenta quanto Vale il Punteggio delle Consociate rispetto all'Azienda Principale : " << valore_percentuale_consociate;
+						cout << endl << "Inserire Nuovo Valore Percentuale Consociate Eventualmente con la Virgola ma Compreso tra 0 e 100 : ";
+						getline(cin, nuovo_valore_percentuale_consociate);
+					} while (!convertiANumero(nuovo_valore_percentuale_consociate, valore_percentuale_consociate));
+				} while ((valore_percentuale_consociate < 0) || (valore_percentuale_consociate > 100));
+				valore_percentuale_consociate /= 100;
+			}
 		}
 
 		//calcolo la simpatia di ogni azienda
@@ -660,8 +685,6 @@ void ordinaAziendaPerSimpatia(const vector<UtenteAzienda> &impresa, const vector
 		//se si vuole contare anche il punteggio delle consociate lo calcolo e lo sommo
 		if (con_consociate)
 		{
-			vector<string> id_arco;
-			vector<string> tipo_relazione;
 			for (unsigned int i = 0; i < impresa.size(); i++)
 			{
 				id_arco = impresa[i].getIdArco();
@@ -670,7 +693,7 @@ void ordinaAziendaPerSimpatia(const vector<UtenteAzienda> &impresa, const vector
 				{
 					if (tipo_relazione[j] == STR_CONSOCIATA)
 					{
-						simpatia_consociate[i] += simpatia[utenteAziendaPosizione(impresa, id_arco[j])];
+						simpatia_consociate[i] += simpatia[utenteAziendaPosizione(impresa, id_arco[j])] * valore_percentuale_consociate;
 					}
 				}
 			}

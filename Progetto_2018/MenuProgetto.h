@@ -90,8 +90,8 @@ void stampaMenuRicerca()
 	cout << endl;
 	cout << "1) Albero genealogico di Un'Utente" << endl;
 	cout << "2) Albero genealogico di Tutti gli Utenti" << endl;
-	cout << "3) Lupi solitari" << endl;
-	cout << "4) Simpatia" << endl;
+	cout << "3) Ricerca Lupi solitari" << endl;
+	cout << "4) Ordina Aziende Per Simpatia" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
