@@ -1249,11 +1249,9 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 
 //RIMOZIONE UTENTE
 
-//rimozione id_utente dalle notizie
-bool rimuoviIdMittenteNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
+//rimozione id_utente (mittente e reazioni) dalle notizie
+bool rimuoviIdUtenteNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
 {
-	//rimuovo tutte le notizie pubblicate dall id_utente da rimuovere
-
 	bool modifica = false;
 	for (unsigned int i = 0; i < news.size(); i++)
 	{
@@ -1265,22 +1263,14 @@ bool rimuoviIdMittenteNotizie(vector<Notizia> &news, const string &id_utente_da_
 			//i-- perchè avendone tolta una il totale è diminuito di 1
 			modifica = true;
 		}
+		else
+		{
+			//controlla se abbia messo una reazione e contemporaneamente la rimuove
+			modifica |= news[i].rimuoviReazione(id_utente_da_rimuovere);
+		}
 	}
 	return modifica;
 }
-bool rimuoviIdUtenteReazioniNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
-{
-	//rimuovo tutte le reazioni messe dall id_utente da rimuovere
-
-	bool modifica = false;
-	for (unsigned int i = 0; i < news.size(); i++)
-	{
-		//controlla se abbia messo una reazione e contemporaneamente la rimuove
-		modifica |= news[i].rimuoviReazione(id_utente_da_rimuovere);
-	}
-	return modifica;
-}
-
 //rimozione id_utente dalle relazioni
 bool rimuoviIdUtenteRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, const string &id_utente_da_rimuovere)
 {
@@ -1350,10 +1340,8 @@ bool rimuoviUtente(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impre
 	//se l'id utente esisteva e quindi rimuovendolo c'è stata una modifica
 	if (modifica)
 	{
-		//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
-		rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
-		//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
-		rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+		//rimuovo contemporaneamente tutte le notizie pubblicate da lui o le reazioni messe alle notizie
+		rimuoviIdUtenteNotizie(news, id_utente_da_rimuovere);
 		//rimuovo tutte le relazioni con lui
 		rimuoviIdUtenteRelazioni(persona, impresa, associazione, id_utente_da_rimuovere);
 		cout << endl << "Utente rimosso";
