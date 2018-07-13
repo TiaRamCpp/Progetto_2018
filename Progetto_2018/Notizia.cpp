@@ -81,6 +81,33 @@ bool Notizia::stringaValida(const string & stringa) const
 	return ok;
 }
 
+bool Notizia::convertiIdReazioni(const string & vecchio_id, const string & nuovo_id)
+{
+	bool conversione = false;
+
+	//conversione like
+	for (unsigned int i = 0; ((i < _like.size()) && (!conversione)); i++)
+	{
+		if (_like[i] == vecchio_id)
+		{
+			conversione = true;
+			_like[i] = nuovo_id;
+		}
+	}
+
+	//conversione dislike
+	for (unsigned int i = 0; ((i < _dislike.size()) && (!conversione)); i++)
+	{
+		if (_dislike[i] == vecchio_id)
+		{
+			conversione = true;
+			_dislike[i] = nuovo_id;
+		}
+	}
+
+	return conversione;
+}
+
 bool Notizia::notiziaValida() const
 {
 	bool valida = true;

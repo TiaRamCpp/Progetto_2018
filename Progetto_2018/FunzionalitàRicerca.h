@@ -404,6 +404,11 @@ void ricercaLupiSolitari(const vector<UtenteSemplice> &persona, const vector<Not
 			string nuovo_valore_intervento_news;
 			string nuovo_valore_percentuale_sotto_la_media;
 
+			//stampa formule
+			cout << endl << "Formula Punteggio = (#Relazioni * Valore_Relazione) + (#Lavori * Valore_Lavoro) + (#Appartenenza_Gruppi * Valore_Appartenenza_Gruppo) + (#Reazioni * Valore_Reazioni_News)";
+			cout << endl << "Un Utente Semplice E' un Lupo Solitario se il suo Punteggio E' Inferiore alla Seguente Formula :";
+			cout << endl << "Formula : Media_Punteggio * (1 - Percentuale_Sotto_La_Media)" << endl;
+
 			//inserimento nuovo_valore_relazione
 			do
 			{
@@ -603,12 +608,12 @@ void ordinaAziendaPerSimpatia(const vector<UtenteAzienda> &impresa, const vector
 			}
 		} while (!ok);
 
-		//chiedo se si vuole modificare il peso dei like/dislike
+		//chiedo se si vuole modificare il peso dei like/dislike e del peso delle consociate
 		ok = false;
 		do
 		{
 			string scelta;
-			cout << endl << "Vuoi Modificare il Peso dei Like e Dislike ?" << endl;
+			cout << endl << "Vuoi Modificare i Valori di Default ?" << endl;
 			cout << "1) SI" << endl;
 			cout << "2) NO" << endl;
 			cout << endl << "Digitare una Risposta : ";
@@ -633,13 +638,17 @@ void ordinaAziendaPerSimpatia(const vector<UtenteAzienda> &impresa, const vector
 			}
 		} while (!ok);
 
-		//se si vuole modificare il peso dei like / dislike
+		//se si vuole modificare il peso dei like / dislike e del peso delle consociate
 		if (modifica_valore)
 		{
 			string nuovo_valore_like;
 			string nuovo_valore_dislike;
 			string nuovo_valore_percentuale_consociate;
 			
+			//stampa formule
+			cout << endl << "Formula Punteggio Simpatia Singola Azienda : Simpatia_Azienda = (#Like * Valore_Like) - (#Dislike * Valore_Dislike)";
+			cout << endl << "Formula Punteggio Simpatia Azienda Con Consociate: Simpatia_Totale = Simpatia_Azienda + (Simpatia_Consociate * Valore_Percentuale_Consociate)" << endl;
+
 			//modifica valore like
 			do
 			{

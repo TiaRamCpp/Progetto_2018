@@ -1249,11 +1249,9 @@ bool utenteGruppoAggiungi(const vector<UtenteSemplice> &persona, const vector<Ut
 
 //RIMOZIONE UTENTE
 
-//rimozione id_utente dalle notizie
-bool rimuoviIdMittenteNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
+//rimozione id_utente (mittente e reazioni) dalle notizie
+bool rimuoviIdUtenteNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
 {
-	//rimuovo tutte le notizie pubblicate dall id_utente da rimuovere
-
 	bool modifica = false;
 	for (unsigned int i = 0; i < news.size(); i++)
 	{
@@ -1265,22 +1263,14 @@ bool rimuoviIdMittenteNotizie(vector<Notizia> &news, const string &id_utente_da_
 			//i-- perchè avendone tolta una il totale è diminuito di 1
 			modifica = true;
 		}
+		else
+		{
+			//controlla se abbia messo una reazione e contemporaneamente la rimuove
+			modifica |= news[i].rimuoviReazione(id_utente_da_rimuovere);
+		}
 	}
 	return modifica;
 }
-bool rimuoviIdUtenteReazioniNotizie(vector<Notizia> &news, const string &id_utente_da_rimuovere)
-{
-	//rimuovo tutte le reazioni messe dall id_utente da rimuovere
-
-	bool modifica = false;
-	for (unsigned int i = 0; i < news.size(); i++)
-	{
-		//controlla se abbia messo una reazione e contemporaneamente la rimuove
-		modifica |= news[i].rimuoviReazione(id_utente_da_rimuovere);
-	}
-	return modifica;
-}
-
 //rimozione id_utente dalle relazioni
 bool rimuoviIdUtenteRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, const string &id_utente_da_rimuovere)
 {
@@ -1350,10 +1340,8 @@ bool rimuoviUtente(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impre
 	//se l'id utente esisteva e quindi rimuovendolo c'è stata una modifica
 	if (modifica)
 	{
-		//scandisco tutte le notizie e elimino tutte quelle con il suo id mittente
-		rimuoviIdMittenteNotizie(news, id_utente_da_rimuovere);
-		//scandisco tutte le notizie e elimino tutti i like o dislike che ha messo
-		rimuoviIdUtenteReazioniNotizie(news, id_utente_da_rimuovere);
+		//rimuovo contemporaneamente tutte le notizie pubblicate da lui o le reazioni messe alle notizie
+		rimuoviIdUtenteNotizie(news, id_utente_da_rimuovere);
 		//rimuovo tutte le relazioni con lui
 		rimuoviIdUtenteRelazioni(persona, impresa, associazione, id_utente_da_rimuovere);
 		cout << endl << "Utente rimosso";
@@ -1363,6 +1351,77 @@ bool rimuoviUtente(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impre
 
 
 //MODIFICA ATTRIBUTI UTENTE
+
+//modifica id utente
+bool utenteModificaId(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &vecchio_id)
+{
+	string nuovo_id;
+	bool modifica = true;
+
+	//inserimento nuovo id utente
+	cout << "Inserire nuovo id utente : " << endl;
+	getline(cin, nuovo_id);
+
+	//se è un nuovo id utente non esistente
+	if (!idUtenteTrovato(persona, impresa, associazione, nuovo_id))
+	{
+		//utente semplice
+		for (unsigned int i = 0; i < persona.size(); i++)
+		{
+			//modifica relazioni id utente semplice
+			persona[i].convertiIdRelazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (persona[i].getId() == vecchio_id)
+			{
+				persona[i].setId(nuovo_id);
+			}
+		}
+
+		//utente azienda
+		for (unsigned int i = 0; i < impresa.size(); i++)
+		{
+			//modifica relazioni id utente impresa
+			impresa[i].convertiIdRelazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (impresa[i].getId() == vecchio_id)
+			{
+				impresa[i].setId(nuovo_id);
+			}
+		}
+
+		//utente gruppo
+		for (unsigned int i = 0; i < associazione.size(); i++)
+		{
+			//modifica relazioni id utente gruppo
+			associazione[i].convertiIdRelazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (associazione[i].getId() == vecchio_id)
+			{
+				associazione[i].setId(nuovo_id);
+			}
+		}
+
+		//modifica notizie
+		for (unsigned int i = 0; i < news.size(); i++)
+		{
+			//modifica relazioni id utente gruppo
+			news[i].convertiIdReazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (news[i].getIdMittente() == vecchio_id)
+			{
+				news[i].setIdMittente(nuovo_id);
+			}
+		}
+	}
+	//se esiste già
+	else
+	{
+		cout << endl << "Errore : Id Utente <" << nuovo_id << "> gia' Esistente" << endl;
+		modifica = false;
+	}
+
+	return modifica;
+}
 
 //modifica singolo attributo utente semplice
 bool utenteSempliceModificaNome(UtenteSemplice &persona)

@@ -198,6 +198,20 @@ bool Utente::trovaPosizioneRelazione(const string &id, const string &tipo_relazi
 	return trovata;
 }
 
+bool Utente::convertiIdRelazioni(const string &vecchio_id, const string &nuovo_id)
+{
+	bool conversione = false;
+	for (unsigned int i = 0; i < _id_arco.size(); i++)
+	{
+		if (_id_arco[i] == vecchio_id)
+		{
+			conversione = true;
+			_id_arco[i] = nuovo_id;
+		}
+	}
+	return conversione;
+}
+
 bool Utente::aggiungiRelazione(const string &id, const string &tipo_relazione)
 {
 	bool aggiunta = false;
