@@ -41,6 +41,7 @@ public:
 
 	//metodi della classe
 	bool stringaValida(const string &stringa) const;
+	bool convertiIdReazioni(const string &vecchio_id, const string &nuovo_id);
 	bool notiziaValida() const;
 
 	//aggiunta reazione

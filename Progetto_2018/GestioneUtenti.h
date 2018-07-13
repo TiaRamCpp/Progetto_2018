@@ -1364,6 +1364,77 @@ bool rimuoviUtente(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impre
 
 //MODIFICA ATTRIBUTI UTENTE
 
+//modifica id utente
+bool utenteModificaId(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const string &vecchio_id)
+{
+	string nuovo_id;
+	bool modifica = true;
+
+	//inserimento nuovo id utente
+	cout << "Inserire nuovo id utente : " << endl;
+	getline(cin, nuovo_id);
+
+	//se è un nuovo id utente non esistente
+	if (!idUtenteTrovato(persona, impresa, associazione, nuovo_id))
+	{
+		//utente semplice
+		for (unsigned int i = 0; i < persona.size(); i++)
+		{
+			//modifica relazioni id utente semplice
+			persona[i].convertiIdRelazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (persona[i].getId() == vecchio_id)
+			{
+				persona[i].setId(nuovo_id);
+			}
+		}
+
+		//utente azienda
+		for (unsigned int i = 0; i < impresa.size(); i++)
+		{
+			//modifica relazioni id utente impresa
+			impresa[i].convertiIdRelazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (impresa[i].getId() == vecchio_id)
+			{
+				impresa[i].setId(nuovo_id);
+			}
+		}
+
+		//utente gruppo
+		for (unsigned int i = 0; i < associazione.size(); i++)
+		{
+			//modifica relazioni id utente gruppo
+			associazione[i].convertiIdRelazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (associazione[i].getId() == vecchio_id)
+			{
+				associazione[i].setId(nuovo_id);
+			}
+		}
+
+		//modifica notizie
+		for (unsigned int i = 0; i < news.size(); i++)
+		{
+			//modifica relazioni id utente gruppo
+			news[i].convertiIdReazioni(vecchio_id, nuovo_id);
+			//se è l'utente da modificare
+			if (news[i].getIdMittente() == vecchio_id)
+			{
+				news[i].setIdMittente(nuovo_id);
+			}
+		}
+	}
+	//se esiste già
+	else
+	{
+		cout << endl << "Errore : Id Utente <" << nuovo_id << "> gia' Esistente" << endl;
+		modifica = false;
+	}
+
+	return modifica;
+}
+
 //modifica singolo attributo utente semplice
 bool utenteSempliceModificaNome(UtenteSemplice &persona)
 {

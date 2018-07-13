@@ -133,12 +133,13 @@ void stampaModificaAttributiUtenteSemplice()
 {
 	//stampa menu modifica attributi utente semplice (3 liv)
 	cout << endl;
-	cout << "1) Nome" << endl;
-	cout << "2) Cognome" << endl;
-	cout << "3) Domicilio" << endl;
-	cout << "4) Telefono" << endl;
-	cout << "5) E-mail" << endl;
-	cout << "6) Data di nascita" << endl;
+	cout << "1) Id Utente" << endl;
+	cout << "2) Nome" << endl;
+	cout << "3) Cognome" << endl;
+	cout << "4) Domicilio" << endl;
+	cout << "5) Telefono" << endl;
+	cout << "6) E-mail" << endl;
+	cout << "7) Data di nascita" << endl;
 	cout << SALVA << ") Salva modifiche" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -147,13 +148,14 @@ void stampaModificaAttributiUtenteAzienda()
 {
 	//stampa menu modifica attributi utente azienda (3 liv)
 	cout << endl;
-	cout << "1) Nome" << endl;
-	cout << "2) Sede fiscale" << endl;
-	cout << "3) Sede operativa" << endl;
-	cout << "4) Tipologia prodotto" << endl;
-	cout << "5) Telefono" << endl;
-	cout << "6) E-mail" << endl;
-	cout << "7) Data di creazione" << endl;
+	cout << "1) Id Utente" << endl;
+	cout << "2) Nome" << endl;
+	cout << "3) Sede fiscale" << endl;
+	cout << "4) Sede operativa" << endl;
+	cout << "5) Tipologia prodotto" << endl;
+	cout << "6) Telefono" << endl;
+	cout << "7) E-mail" << endl;
+	cout << "8) Data di creazione" << endl;
 	cout << SALVA << ") Salva modifiche" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -162,12 +164,13 @@ void stampaModificaAttributiUtenteGruppo()
 {
 	//stampa menu modifica attributi utente gruppo (3 liv)
 	cout << endl;
-	cout << "1) Nome" << endl;
-	cout << "2) Sede legale" << endl;
-	cout << "3) Tipologia attivita'" << endl;
-	cout << "4) Telefono" << endl;
-	cout << "5) E-mail" << endl;
-	cout << "6) Data di creazione" << endl;
+	cout << "1) Id Utente" << endl;
+	cout << "2) Nome" << endl;
+	cout << "3) Sede legale" << endl;
+	cout << "4) Tipologia attivita'" << endl;
+	cout << "5) Telefono" << endl;
+	cout << "6) E-mail" << endl;
+	cout << "7) Data di creazione" << endl;
 	cout << SALVA << ") Salva modifiche" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -176,7 +179,7 @@ void stampaModificaAttributiUtenteGruppo()
 //gestione scelte menu
 
 // 3 Livello
-bool sceltaAttributiModificaUtenteSemplice(vector<UtenteSemplice> &persona, const unsigned int &posizione)
+bool sceltaAttributiModificaUtenteSemplice(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const unsigned int &posizione)
 {
 	//menu attributi modific utente sempilice (3 liv)
 	string str_azione_3;
@@ -206,35 +209,41 @@ bool sceltaAttributiModificaUtenteSemplice(vector<UtenteSemplice> &persona, cons
 		{
 		case '1':
 		{
+			//modifica id_utente
+			modifica |= utenteModificaId(persona, impresa, associazione, news, persona[posizione].getId());
+		}		
+		break;
+		case '2':
+		{
 			//modifica nome
 			modifica |= utenteSempliceModificaNome(persona[posizione]);
 		}
 		break;
-		case '2':
+		case '3':
 		{
 			//modifica cognome
 			modifica |= utenteSempliceModificaCognome(persona[posizione]);
 		}
 		break;
-		case '3':
+		case '4':
 		{
 			//modifica domicilio
 			modifica |= utenteSempliceModificaDomicilio(persona[posizione]);
 		}
 		break;
-		case '4':
+		case '5':
 		{
 			//modifica telefono
 			modifica |= utenteSempliceModificaTelefono(persona[posizione]);
 		}
 		break;
-		case '5':
+		case '6':
 		{
 			//modifica email
 			modifica |= utenteSempliceModificaEmail(persona[posizione]);
 		}
 		break;
-		case '6':
+		case '7':
 		{
 			//modifica data di nascita
 			modifica |= utenteSempliceModificaDataNascita(persona, posizione);
@@ -257,7 +266,7 @@ bool sceltaAttributiModificaUtenteSemplice(vector<UtenteSemplice> &persona, cons
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteAzienda(UtenteAzienda &impresa)
+bool sceltaAttributiModificaUtenteAzienda(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const unsigned int &posizione)
 {
 	//menu attributi modific utente sazienda (3 liv)
 	string str_azione_3;
@@ -288,44 +297,50 @@ bool sceltaAttributiModificaUtenteAzienda(UtenteAzienda &impresa)
 		{
 		case '1':
 		{
-			//modifica nome
-			modifica |= utenteAziendaModificaNome(impresa);
+			//modifica id_utente
+			modifica |= utenteModificaId(persona, impresa, associazione, news, impresa[posizione].getId());
 		}
 		break;
 		case '2':
 		{
-			//modifica sede fiscale
-			modifica |= utenteAziendaModificaSedeFiscale(impresa);
+			//modifica nome
+			modifica |= utenteAziendaModificaNome(impresa[posizione]);
 		}
 		break;
 		case '3':
 		{
-			//modifica sede operativa
-			modifica |= utenteAziendaModificaSedeOperativa(impresa);
+			//modifica sede fiscale
+			modifica |= utenteAziendaModificaSedeFiscale(impresa[posizione]);
 		}
 		break;
 		case '4':
 		{
-			//modifica tipologia prodotto
-			modifica |= utenteAziendaModificaTipoProdotto(impresa);
+			//modifica sede operativa
+			modifica |= utenteAziendaModificaSedeOperativa(impresa[posizione]);
 		}
 		break;
 		case '5':
 		{
-			//modifica telefono
-			modifica |= utenteAziendaModificaTelefono(impresa);
+			//modifica tipologia prodotto
+			modifica |= utenteAziendaModificaTipoProdotto(impresa[posizione]);
 		}
 		break;
 		case '6':
 		{
-			//modifica email
-			modifica |= utenteAziendaModificaEmail(impresa);
+			//modifica telefono
+			modifica |= utenteAziendaModificaTelefono(impresa[posizione]);
 		}
 		break;
 		case '7':
 		{
+			//modifica email
+			modifica |= utenteAziendaModificaEmail(impresa[posizione]);
+		}
+		break;
+		case '8':
+		{
 			//modifica data di creazione
-			modifica |= utenteAziendaModificaDataCreazione(impresa);
+			modifica |= utenteAziendaModificaDataCreazione(impresa[posizione]);
 		}
 		break;
 		case SALVA:
@@ -345,7 +360,7 @@ bool sceltaAttributiModificaUtenteAzienda(UtenteAzienda &impresa)
 
 	return modifica;
 }
-bool sceltaAttributiModificaUtenteGruppo(UtenteGruppo &associazione)
+bool sceltaAttributiModificaUtenteGruppo(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news, const unsigned int &posizione)
 {
 	//menu attributi modific utente gruppo (3 liv)
 	string str_azione_3;
@@ -375,38 +390,44 @@ bool sceltaAttributiModificaUtenteGruppo(UtenteGruppo &associazione)
 		{
 		case '1':
 		{
-			//modifica nome
-			modifica = utenteGruppoModificaNome(associazione);
+			//modifica id_utente
+			modifica |= utenteModificaId(persona, impresa, associazione, news, associazione[posizione].getId());
 		}
 		break;
 		case '2':
 		{
-			//modifica sede legale
-			modifica = utenteGruppoModificaSedeLegale(associazione);
+			//modifica nome
+			modifica = utenteGruppoModificaNome(associazione[posizione]);
 		}
 		break;
 		case '3':
 		{
-			//modifica tipologia attività
-			modifica = utenteGruppoModificaDataCreazione(associazione);
+			//modifica sede legale
+			modifica = utenteGruppoModificaSedeLegale(associazione[posizione]);
 		}
 		break;
 		case '4':
 		{
-			//modifica telefono
-			modifica = utenteGruppoModificaTelefono(associazione);
+			//modifica tipologia attività
+			modifica = utenteGruppoModificaDataCreazione(associazione[posizione]);
 		}
 		break;
 		case '5':
 		{
-			//modifica email
-			modifica = utenteGruppoModificaEmail(associazione);
+			//modifica telefono
+			modifica = utenteGruppoModificaTelefono(associazione[posizione]);
 		}
 		break;
 		case '6':
 		{
+			//modifica email
+			modifica = utenteGruppoModificaEmail(associazione[posizione]);
+		}
+		break;
+		case '7':
+		{
 			//modifica data di creazione
-			modifica = utenteGruppoModificaDataCreazione(associazione);
+			modifica = utenteGruppoModificaDataCreazione(associazione[posizione]);
 		}
 		break;
 		case SALVA:
@@ -520,7 +541,7 @@ bool ricercaIdUtenteRimuovi(bool &torna_al_menu_precedente, bool &torna_al_menu_
 	}
 	return modifica;
 }
-bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione)
+bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &impresa, vector<UtenteGruppo> &associazione, vector<Notizia> &news)
 {
 	//inserisco id e cerco se esistente e a che tipologia appartiene (2/3 liv)
 	string id;
@@ -541,7 +562,7 @@ bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzien
 			//trovo posizione
 			posizione = utenteSemplicePosizione(persona, id);
 			//modifico utente semplice
-			modifica = sceltaAttributiModificaUtenteSemplice(persona, posizione);
+			modifica = sceltaAttributiModificaUtenteSemplice(persona, impresa, associazione, news, posizione);
 		}
 		else
 		{
@@ -550,7 +571,7 @@ bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzien
 				//trovo posizione
 				posizione = utenteAziendaPosizione(impresa, id);
 				//modifico utente azienda
-				modifica = sceltaAttributiModificaUtenteAzienda(impresa[posizione]);
+				modifica = sceltaAttributiModificaUtenteAzienda(persona, impresa, associazione, news, posizione);
 			}
 			else
 			{
@@ -559,7 +580,7 @@ bool ricercaIdUtenteModifica(vector<UtenteSemplice> &persona, vector<UtenteAzien
 					//trovo posizione
 					posizione = utenteGruppoPosizione(associazione, id);
 					//modifico utente gruppo
-					modifica = sceltaAttributiModificaUtenteGruppo(associazione[posizione]);
+					modifica = sceltaAttributiModificaUtenteGruppo(persona, impresa, associazione, news, posizione);
 				}
 				else
 				{
@@ -623,7 +644,7 @@ bool sceltaMenuGestioneUtenti(bool &torna_al_menu_principale, vector<UtenteSempl
 		case'3':
 		{
 			//modifica utente
-			modifica = ricercaIdUtenteModifica(persona, impresa, associazione);
+			modifica = ricercaIdUtenteModifica(persona, impresa, associazione, news);
 		}
 		break;
 		case MENU_PRINCIPALE:

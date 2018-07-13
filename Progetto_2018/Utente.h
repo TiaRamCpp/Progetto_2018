@@ -64,6 +64,7 @@ public:
 	bool tipoRelazioneEsistente(const string &tipo_relazione) const;
 	virtual bool tipoRelazionePossibile(const string &tipo_relazione, const string &tipo_id) const = 0;
 	bool trovaPosizioneRelazione(const string &id, const string &tipo_relazione, unsigned int &posizione) const;
+	bool convertiIdRelazioni(const string &vecchio_id, const string &nuovo_id);
 	//rimuovo, modifico o aggiungo relazione del nodo con altri
 	bool aggiungiRelazione(const string &id, const string &tipo_relazione);
 	bool modificaRelazione(const string &id, const string &nuovo_tipo_relazione, const string &vecchio_tipo_relazione);
