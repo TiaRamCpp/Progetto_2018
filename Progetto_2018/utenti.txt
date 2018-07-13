@@ -1,6 +1,22 @@
-pippo.baudo,utente_semplice,{nome:mario,cognome:baudo,domicilio:roma via lazio 10,telefono:3334545666,email:pippo.baudo@gmail.com,data di nascita:20/10/1950}
-luca.giurato,utente_semplice,{nome:luca,cognome:giurato,domicilio:roma via lazio 20,telefono:3389873173,email:lucagiurato63@yahoo.it,data di nascita:2/2/1963}
-apple.iphone,utente_azienda,{nome:apple,sede fiscale:torino,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni,telefono:555339090,email:centro.clienti@apple.com,data di creazione:10/12/1970}
-samsung.electronics,utente_azienda,{nome:samsung,sede fiscale:seul street uinpin 208,sede operativa:milano piazza vittorio 2,tipo prodotto:telefoni televisori ed elettrodomestici,telefono:0115009090,email:assistenza.clienti@samsung.com,data di creazione:1/2/1983}
-a.i.r.c.,utente_gruppo,{nome:airc,sede legale:candiolo strada vinovo 110,tipologia attivita':ricerca cancro,telefono:4088,email:donazioni_airc@gmail.com,data di creazione:5/8/1987}
-a.i.b.,utente_gruppo,{nome:aib,sede legale:reano via rivoli 290,tipologia attivita':antincendio boschivi,telefono:115,email:informazioni_aib@gmail.com,data di creazione:25/9/1993}
+tim.cook,utente_semplice,{nome:timothy,cognome:cook,domicilio:palo alto,telefono:3821749772,email:tim.cook@icloud.com,data di nascita:01/11/1960}
+lee.jae-yong,utente_semplice,{nome:lee,cognome:jae-yong,domicilio:seoul,telefono:3558792234,email:lee.laeyoung@gmail.com,data di nascita:23/06/1968}
+jason.caufmann,utente_semplice,{nome:jason,cognome:caufmann,domicilio:texas,telefono:555239986,email:jason.caufmann@yahoo.com,data di nascita:15/12/1969}
+michael.dell,utente_semplice,{nome:michael,cognome:dell,domicilio:louisiana,telefono:577328556,email:michael.dell@dell.com,data di nascita:23/02/1965}
+juliette.dell,utente_semplice,{nome:juliette,cognome:dell,domicilio:vancouver,telefono:573244456,email:juliette.dell@dell.com,data di nascita:30/06/1990}
+susan.mcgregor,utente_semplice,{nome:susan,cognome:mcgregor,domicilio:louisiana,telefono:588367545,email:susan.mcgregor@dell.com,data di nascita:08/03/1970}
+seung.nakajima,utente_semplice,{nome:seung,cognome:nakajima,domicilio:taiwan,telefono:7552442389,email:seung.nakajima@outlook.com,data di nascita:27/11/1932}
+yoora.nakajima,utente_semplice,{nome:un,cognome:nakajima,domicilio:bangkok,telefono:732995779,email:un.nakajima@gmail.com,data di nascita:12/09/1955}
+kwang.kobayashi,utente_semplice,{nome:kwang,cognome:kobayashi,domicilio:tokyo,telefono:633425277,email:kwang.kobayashi@outlook.com,data di nascita:03/02/1980}
+aaron.steeve,utente_semplice,{nome:aaron,cognome:steeve,domicilio:new york,telefono:5564358865,email:aaron.steeve@hotmail.com,data di nascita:11/11/1984}
+mario.patrese,utente_semplice,{nome:mario,cognome:patrese,domicilio:texas,telefono:3476347899,email:mario.patrese@gmail.com,data di nascita:21/05/1979}
+esteban.lopez,utente_semplice,{nome:esteban,cognome:lopez,domicilio:miami,telefono:533862844,email:esteban.lopez@yahoo.com,data di nascita:03/12/1989}
+jessica.rogers,utente_semplice,{nome:jessica,cognome:rogers,domicilio:taiwan,telefono:7675538832,email:jessica.rogers@outlook.com,data di nascita:19/10/1981}
+apple.phone,utente_azienda,{nome:apple,sede fiscale:regno unito jersey,sede operativa:cupertino,tipo prodotto:smartphone,telefono:555339090,email:clienti.apple@apple.com,data di creazione:01/04/1976}
+samsung.phone,utente_azienda,{nome:samsung,sede fiscale:regno unito londra,sede operativa:seoul,tipo prodotto:smartphone,telefono:598336721,email:clienti.samsung@samsung.com,data di creazione:01/03/1938}
+foxconn,utente_azienda,{nome:foxconn,sede fiscale:taiwan,sede operativa:taipei,tipo prodotto:componenti elettronici,telefono:4492278459,email:support.foxconn@foxconn.com,data di creazione:01/01/1974}
+dell.pc,utente_azienda,{nome:dell,sede fiscale:indiana,sede operativa:texas,tipo prodotto:pc,telefono:5332300567,email:info.dell@dell.com,data di creazione:01/02/1984}
+flextronix,utente_azienda,{nome:flextronix,sede fiscale:oklahoma,sede operativa:singapore,tipo prodotto:componenti elettronici,telefono:7442213987,email:support.flextronix@flextronix.com,data di creazione:01/07/1969}
+xiaomi.phone,utente_azienda,{nome:xiaomi,sede fiscale:hong kong,sede operativa:beimao,tipo prodotto:smartphone,telefono:556338925,email:clienti.xiaomi@xiaomi.com,data di creazione:06/04/2010}
+brac,utente_gruppo,{nome:brac,sede legale:bangladesh,tipologia attivita':sviluppo economia,telefono:855848512,email:info.brac@gmail.com,data di creazione:01/01/1972}
+wikimedia.foundation,utente_gruppo,{nome:wikimedia,sede legale:stati uniti california,tipologia attivita':diffusione contenuti liberi,telefono:844277332,email:info.wikimedia@wiki.com,data di creazione:20/07/2003}
+product.red,utente_gruppo,{nome:product red,sede legale:stati uniti,tipologia attivita':lotta aids-malaria-tubercolosi,telefono:89943553,email:info.red.product@red.com,data di creazione:26/01/2006}
