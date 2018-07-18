@@ -380,7 +380,7 @@ void cercaNotiziaReazione(const vector<Notizia> &news)
 			for (unsigned int i = 0; i < posizione.size(); i++)
 			{
 				cout << endl << endl << news[posizione[i]].stampaNotiziaEstesa();
-				cout << endl << "Tipo Reazione Inserita dall'Utente : " << tipo_reazione[i];
+				cout << endl << "Tipo Reazione Inserita dall'Utente : " << tipo_reazione[i]<<endl;
 			}
 		}
 		//se non ne ha trovata nemmeno una

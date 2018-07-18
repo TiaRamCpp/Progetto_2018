@@ -90,7 +90,7 @@ void alberoGenealogicoSingoloUtenteAntenati(const vector<UtenteSemplice> &person
 					else
 						albero_genealogico += "    ";
 				}
-				albero_genealogico += "|---";
+				albero_genealogico += "|___";
 				alberoGenealogicoSingoloUtenteAntenati(persona, posizione_genitore[i], trattino, albero_genealogico, livello_massimo, livello_attuale);
 			}
 			livello_attuale--;

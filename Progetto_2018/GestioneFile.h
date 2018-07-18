@@ -91,7 +91,7 @@ bool leggiInformazioneGenerica(ifstream &file_utenti, const string &tipo_informa
 				//salvo valore informazione
 				valore_informazione = lettura;
 			}
-			//non formattato correttamente
+			//se non formattato correttamente
 			else
 			{
 				cerr << "Errore formattazione testo, previsto : ";
@@ -384,7 +384,7 @@ bool leggiIdUtente(ifstream &file_utenti, string &id_utente, const vector<Utente
 	//se non è il primo utente implica che deve essere a capo come nuovo utente rispetto a quello prima
 	if (almenoUnUtenteEsistente(persona, impresa, associazione))
 	{
-		//quindi all inizio avra un a capo da eliminare rispetto a quello prima
+		//quindi all inizio avrà un a capo da eliminare rispetto a quello prima
 		if (id_utente.front() == '\n')
 		{
 			//allora lo elimino
@@ -728,10 +728,10 @@ bool leggiIdVertice(ifstream &file_relazioni, string &id_vertice, bool &prima_re
 	//se è il vertice di partenza
 	if (partenza)
 	{
-		//se non è il primo nodo letto implica che deve essere a capo come nuovo nodo rispetto a quello prima
+		//se non è il primo nodo letto implica che deve essere 'a capo' come nuovo nodo rispetto a quello prima
 		if (!prima_relazione)
 		{
-			//quindi all inizio avra un a capo da eliminare rispetto a quello prima
+			//quindi all inizio avra un 'a capo' da eliminare rispetto a quello prima
 			if (id_vertice.front() == '\n')
 			{
 				//allora lo elimino
