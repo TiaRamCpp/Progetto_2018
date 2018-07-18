@@ -6,7 +6,6 @@
 
 #include "Notizia.h"
 
-
 void conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	unsigned int numero_utenti_semplici = persona.size();
@@ -520,7 +519,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 			cout << endl << setw(81) << setfill('_') << "_";
 			cout << setfill(' ') << endl;
 
-			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. amici |" << endl;
+			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. conoscenze |" << endl;
 			cout << setw(81) << setfill('-') << "-" << endl;
 			cout << setfill(' ');
 
@@ -534,7 +533,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 			cout << endl << setw(81) << setfill('_') << "_";
 			cout << setfill(' ') << endl;
 
-			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. amici |" << endl;
+			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. conoscenze |" << endl;
 			cout << setw(81) << setfill('-') << "-" << endl;
 			cout << setfill(' ');
 
