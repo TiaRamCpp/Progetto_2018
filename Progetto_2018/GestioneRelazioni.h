@@ -532,6 +532,10 @@ void cercaRelazioneUtente(const vector<UtenteSemplice> &persona, const vector<Ut
 		{
 			cout << endl << "Nessuna Relazione Trovata con L'Utente : " << id_utente << endl;
 		}
+		else
+		{
+			cout << endl;
+		}
 	}
 	else
 	{

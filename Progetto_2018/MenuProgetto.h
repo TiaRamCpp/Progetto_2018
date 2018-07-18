@@ -1055,18 +1055,21 @@ bool sceltaMenuInformazioniDatabase(bool &torna_al_menu_principale, const vector
 		{
 			//Stampa Tutti gli Utenti Semplici
 			stampaUtentiSemplici(persona);
+			cout << endl;
 		}
 		break;
 		case 'E':
 		{
 			//Stampa Tutti gli Utenti Azienda
 			stampaUtentiAzienda(impresa);
+			cout << endl;
 		}
 		break;
 		case 'F':
 		{
 			//Stampa Tutti gli Utenti Gruppo
 			stampaUtentiGruppo(associazione);
+			cout << endl;
 		}
 		break;
 		case 'G':
@@ -1078,7 +1081,7 @@ bool sceltaMenuInformazioniDatabase(bool &torna_al_menu_principale, const vector
 		case 'H':
 		{
 			//Stampa Tutte le Relazioni
-			cout << "Relazioni :" << endl << endl << stampaRelazioniFile(persona, impresa, associazione);
+			cout << "Relazioni :" << endl << endl << stampaRelazioniFile(persona, impresa, associazione) << endl;
 		}
 		break;
 		case 'I':
