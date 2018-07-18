@@ -1,31 +1,54 @@
-tim.cook,utente_semplice,{nome:timothy,cognome:cook,domicilio:palo alto,telefono:3821749772,email:tim.cook@icloud.com,data di nascita:1/11/1960}
-lee.jae-yong,utente_semplice,{nome:lee,cognome:jae-yong,domicilio:seoul,telefono:3558792234,email:lee.laeyoung@gmail.com,data di nascita:23/6/1968}
-jason.caufmann,utente_semplice,{nome:jason,cognome:caufmann,domicilio:texas,telefono:555239986,email:jason.caufmann@yahoo.com,data di nascita:15/12/1969}
-michael.dell,utente_semplice,{nome:michael,cognome:dell,domicilio:louisiana,telefono:577328556,email:michael.dell@dell.com,data di nascita:23/2/1965}
-juliette.dell,utente_semplice,{nome:juliette,cognome:dell,domicilio:vancouver,telefono:573244456,email:juliette.dell@dell.com,data di nascita:30/6/1990}
-susan.mcgregor,utente_semplice,{nome:susan,cognome:mcgregor,domicilio:louisiana,telefono:588367545,email:susan.mcgregor@dell.com,data di nascita:8/3/1970}
-seung.nakajima,utente_semplice,{nome:seung,cognome:nakajima,domicilio:taiwan,telefono:7552442389,email:seung.nakajima@outlook.com,data di nascita:27/11/1932}
-yoora.nakajima,utente_semplice,{nome:yoora,cognome:nakajima,domicilio:bangkok,telefono:732995779,email:yoora.nakajima@gmail.com,data di nascita:12/9/1955}
-kwang.kobayashi,utente_semplice,{nome:kwang,cognome:kobayashi,domicilio:tokyo,telefono:633425277,email:kwang.kobayashi@outlook.com,data di nascita:3/2/1980}
-aaron.steeve,utente_semplice,{nome:aaron,cognome:steeve,domicilio:new york,telefono:5564358865,email:aaron.steeve@hotmail.com,data di nascita:11/11/1984}
-mario.patrese,utente_semplice,{nome:mario,cognome:patrese,domicilio:texas,telefono:3476347899,email:mario.patrese@gmail.com,data di nascita:21/5/1979}
-esteban.lopez,utente_semplice,{nome:esteban,cognome:lopez,domicilio:miami,telefono:533862844,email:esteban.lopez@yahoo.com,data di nascita:3/12/1989}
-jessica.rogers,utente_semplice,{nome:jessica,cognome:rogers,domicilio:taiwan,telefono:7675538832,email:jessica.rogers@outlook.com,data di nascita:19/10/1981}
-doroty.shannon,utente_semplice,{nome:dorothy,cognome:shannon,domicilio:londra,telefono:3882637882,email:dorothy.shannon@hotmail.com,data di nascita:18/12/1993}
-robert.hansen,utente_semplice,{nome:robert,cognome:hansen,domicilio:cambridge,telefono:311747829,email:robert.hansen@outlook.com,data di nascita:2/2/1992}
-oliver.connor,utente_semplice,{nome:oliver,cognome:connor,domicilio:amsterdam,telefono:522316772,email:oliver.connor@gmail.com,data di nascita:22/8/1988}
-jerry.hansen,utente_semplice,{nome:jerry,cognome:hansen,domicilio:parigi,telefono:388262893,email:jerry.hansen@outlook.com,data di nascita:27/11/1970}
-maria.yates,utente_semplice,{nome:maria,cognome:yates,domicilio:nizza,telefono:399272937,email:maria.yates@yahoo.com,data di nascita:10/3/1947}
-bartolomy.hansen,utente_semplice,{nome:bartolomy,cognome:hansen,domicilio:nizza,telefono:399273822,email:bartolomy.hansen@outlook.com,data di nascita:18/7/1945}
-apple.phone,utente_azienda,{nome:apple,sede fiscale:regno unito jersey,sede operativa:cupertino,tipo prodotto:smartphone,telefono:555339090,email:clienti.apple@apple.com,data di creazione:1/4/1976}
-samsung.phone,utente_azienda,{nome:samsung,sede fiscale:regno unito londra,sede operativa:seoul,tipo prodotto:smartphone,telefono:598336721,email:clienti.samsung@samsung.com,data di creazione:1/3/1938}
-foxconn,utente_azienda,{nome:foxconn,sede fiscale:taiwan,sede operativa:taipei,tipo prodotto:componenti elettronici,telefono:4492278459,email:support.foxconn@foxconn.com,data di creazione:1/1/1974}
-dell.pc,utente_azienda,{nome:dell,sede fiscale:indiana,sede operativa:texas,tipo prodotto:pc,telefono:5332300567,email:info.dell@dell.com,data di creazione:1/2/1984}
-flextronix,utente_azienda,{nome:flextronix,sede fiscale:oklahoma,sede operativa:singapore,tipo prodotto:componenti elettronici,telefono:7442213987,email:support.flextronix@flextronix.com,data di creazione:1/7/1969}
-xiaomi.phone,utente_azienda,{nome:xiaomi,sede fiscale:hong kong,sede operativa:beimao,tipo prodotto:smartphone,telefono:556338925,email:clienti.xiaomi@xiaomi.com,data di creazione:6/4/2010}
-huawei.phone,utente_azienda,{nome:huawei,sede fiscale:cina,sede operativa:shenzhen,tipo prodotto:smartphone,telefono:844266188,email:support.huawei@huawei.com,data di creazione:5/12/1987}
-brac,utente_gruppo,{nome:brac,sede legale:bangladesh,tipologia attivita':sviluppo economia,telefono:855848512,email:info.brac@gmail.com,data di creazione:1/1/1972}
-wikimedia.foundation,utente_gruppo,{nome:wikimedia,sede legale:stati uniti california,tipologia attivita':diffusione contenuti liberi,telefono:844277332,email:info.wikimedia@wiki.com,data di creazione:20/7/2003}
-product.red,utente_gruppo,{nome:product red,sede legale:stati uniti,tipologia attivita':lotta aids-malaria-tubercolosi,telefono:89943553,email:info.red.product@red.com,data di creazione:26/1/2006}
-medici.senza.frontiere,utente_gruppo,{nome:medici senza frontiere,sede legale:svizzera,tipologia attivita':umanitaria,telefono:866346728,email:medici.senzafrontiere@gmail.com,data di creazione:1/1/1971}
-greenpeace,utente_gruppo,{nome:greenpeace,sede legale:amsterdam,tipologia attivita':ambientale,telefono:855443889,email:greenpeace@outlook.com,data di creazione:5/5/1971}
+Re.GiorgioV,utente_semplice,{nome:George Frederick Ernest Albert,cognome:Re di Gran Breatagna,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:3/6/1865}
+Re.EdoardoVIII,utente_semplice,{nome:Edward Albert Christian George Andrew Patrick David Windsor,cognome:Re di Gran Breatagna,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:23/6/1894}
+Re.GiorgioVI,utente_semplice,{nome:Albert Frederick Arthur George,cognome:Re di Gran Breatagna,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:14/12/1895}
+Henry.Windsor,utente_semplice,{nome:Henry William Frederick Albert Windsor,cognome:Duca di Gloucester,domicilio:York House Londra,telefono:,email:,data di nascita:31/3/1900}
+Giorgio.Windsor,utente_semplice,{nome:George Edward Alexander Edmond,cognome:Duca di Kent,domicilio:Saint George's Chapel Castello di Windsor,telefono:,email:,data di nascita:20/12/1902}
+Principe.Filippo,utente_semplice,{nome:Philip Mountbatten,cognome:Sua Altezza Reale Il Principe Filippo Duca di Edimburgo,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:10/6/1921}
+Regina.ElisabettaII,utente_semplice,{nome:Elizabeth Alexandra Mary,cognome:Sua Altezza Reale La Regina del Regno Unito,domicilio:Buckingam Palace Londra,telefono:,email:Queen@Royal.Family.uk,data di nascita:21/4/1926}
+Richard.Windsor,utente_semplice,{nome:Richard Alexander Walter George Windsor,cognome:Duca di Gloucester,domicilio:,telefono:,email:,data di nascita:26/8/1944}
+Birgitte.Deurs,utente_semplice,{nome:Birgitte Eva,cognome:Deurs Duchessa di Gloucester,domicilio:,telefono:,email:,data di nascita:20/6/1946}
+Edward.Windsor,utente_semplice,{nome:Edward George Nicholas Patrick Pau,cognome:Duca di Kent,domicilio:,telefono:,email:,data di nascita:9/10/1935}
+Katharine.Windsor,utente_semplice,{nome:Katharine Lucy Mary,cognome:Duchessa di Kent,domicilio:,telefono:,email:,data di nascita:22/2/1933}
+Michael.Windsor,utente_semplice,{nome:Michael George Charles Franklin,cognome:Duca di Kent,domicilio:,telefono:,email:,data di nascita:4/7/1942}
+Marie.Reibnitz,utente_semplice,{nome:Marie-Christine Anna Agnes Hedwig Ida,cognome:Baronessa von Reibnitz,domicilio:,telefono:,email:,data di nascita:15/1/1945}
+Alexandra.Windsor,utente_semplice,{nome:Alexandra Helen Elizabeth Olga Christabel,cognome:Onorevole Lady Ogilvy,domicilio:,telefono:,email:,data di nascita:25/12/1936}
+Principessa.Diana,utente_semplice,{nome:Diana Frances,cognome:Spencer Principessa del Regno Unito,domicilio:Althorp Northamptonshire Regno Unito,telefono:,email:,data di nascita:1/7/1961}
+Principe.Carlo,utente_semplice,{nome:Charles Philip Arthur George,cognome:Sua Altezza Reale Il Principe Charles,domicilio:Clarence House Londra,telefono:,email:,data di nascita:14/11/1948}
+Camilla.Shand,utente_semplice,{nome:Camilla Rosemary,cognome:Duchessa di Cornovaglia,domicilio:Clarence House Londra,telefono:,email:,data di nascita:17/7/1947}
+Andrea.Windsor,utente_semplice,{nome:Andrew Albert Christian Edward,cognome:Duca di York,domicilio:,telefono:,email:,data di nascita:19/2/1960}
+Edoardo.Windsor,utente_semplice,{nome:Edward Antony Richard Louis,cognome:Conte di Wessex,domicilio:,telefono:,email:,data di nascita:10/3/1964}
+Sophie.Rhys-Jones,utente_semplice,{nome:Sophie Helen,cognome:Contessa di Wessex,domicilio:,telefono:,email:,data di nascita:20/1/1965}
+Anna.Windsor,utente_semplice,{nome:Anne Elizabeth Alice Louise,cognome:Principessa del Regno Unito,domicilio:,telefono:,email:,data di nascita:15/8/1950}
+Principe.William,utente_semplice,{nome:William Arthur Philip Louis,cognome:Duca di Cambridge,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:21/6/1982}
+Catherine.Middleton,utente_semplice,{nome:Catherine Elizabeth,cognome:Middleton Duchessa di Cambridge,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:9/1/1982}
+Principe.Henry,utente_semplice,{nome:Henry Charles Albert David,cognome:Mountbatten-Windsor Duca di Sussex,domicilio:Clarence House Londra,telefono:,email:,data di nascita:15/9/1984}
+Meghan.Markle,utente_semplice,{nome:Rachel Meghan Markle,cognome:Markle Duchessa di Sussex,domicilio:Clarence House Londra,telefono:,email:,data di nascita:4/8/1981}
+Beatrice.Windsor,utente_semplice,{nome:Beatrice Elizabeth Mary,cognome:Mountbatten-Windsor Principessa del Regno Unito,domicilio:,telefono:,email:,data di nascita:8/8/1988}
+Eugenia.Windsor,utente_semplice,{nome:Eugenie Victoria Helena ,cognome:Mountbatten-Windsor Principessa del Regno Unito,domicilio:,telefono:,email:,data di nascita:23/3/1990}
+James.Windsor,utente_semplice,{nome:James Alexander Philip Theo,cognome:Mountbatten-Windsor Visconte Severn,domicilio:,telefono:,email:,data di nascita:17/12/2007}
+Louise.Windsor,utente_semplice,{nome:Louise Alice Elizabeth Mary,cognome:Mountbatten-Windsor,domicilio:,telefono:,email:,data di nascita:8/11/2003}
+Principe.George,utente_semplice,{nome:George Alexander Louis,cognome:Mountbatten-Windsor Sua Altezza Reale Il Principe George di Cambridge,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:22/7/2013}
+Principessa.Charlotte,utente_semplice,{nome:Charlotte Elizabeth Diana,cognome:Mountbatten-Windsor Sua Altezza Reale Principessa Charlotte di Cambridge,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:2/5/2015}
+Principe.Luois,utente_semplice,{nome:Louis Arthur Charles,cognome:Mountbatten-Windsor Sua Altezza Reale Il Principe Louis di Cambridge,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:23/4/2018}
+Sarah.Ferguson,utente_semplice,{nome:Sarah,cognome:Ferguson,domicilio:Londra,telefono:,email:,data di nascita:15/10/1959}
+Mark.Phillips,utente_semplice,{nome:Mark,cognome:Phillips,domicilio:Londra,telefono:,email:,data di nascita:22/9/1948}
+Timothy.Laurence,utente_semplice,{nome:Timothy,cognome:Laurence,domicilio:Londra,telefono:,email:,data di nascita:1/3/1955}
+Peter.Phillips,utente_semplice,{nome:Peter,cognome:Phillips,domicilio:Londra,telefono:,email:,data di nascita:15/11/1977}
+Zara.Phillips,utente_semplice,{nome:Zara,cognome:Phillips,domicilio:Londra,telefono:,email:,data di nascita:15/5/1981}
+Autumn.Kelly,utente_semplice,{nome:Autumn,cognome:Kelly,domicilio:Londra,telefono:,email:,data di nascita:3/5/1978}
+Michael.Tindall,utente_semplice,{nome:Micheal,cognome:Tindall,domicilio:Londra,telefono:,email:,data di nascita:18/10/1978}
+Savannah.Phillips,utente_semplice,{nome:Savannah,cognome:Phillips,domicilio:Londra,telefono:,email:,data di nascita:29/12/2010}
+Isla.Phillips,utente_semplice,{nome:Isla,cognome:Phillips,domicilio:Londra,telefono:,email:,data di nascita:29/3/2012}
+Mia.Tindall,utente_semplice,{nome:Mia,cognome:Tindall,domicilio:Londra,telefono:,email:,data di nascita:17/1/2014}
+Principessa.Margaret,utente_semplice,{nome:Margaret,cognome:Mountbatten-Windsor Sua Altezza Reale Principessa Margaret,domicilio:Buckingam Palace Londra,telefono:,email:,data di nascita:21/8/1930}
+Antony.Armstrong,utente_semplice,{nome:Antony,cognome:Armstrong,domicilio:Londra,telefono:,email:,data di nascita:7/3/1930}
+David.Armstrong,utente_semplice,{nome:David,cognome:Armstrong-Jones,domicilio:Londra,telefono:,email:,data di nascita:3/11/1961}
+Lady.Sarah,utente_semplice,{nome:Sarah,cognome:Lady Armstrong,domicilio:Londra,telefono:,email:,data di nascita:1/5/1964}
+Onorevole.Serena,utente_semplice,{nome:Serena,cognome:Onorevole Stanhope,domicilio:Londra,telefono:,email:,data di nascita:1/3/1970}
+Visconte.Charles,utente_semplice,{nome:Charles,cognome:Visconte Armstrong-Jones,domicilio:Londra,telefono:,email:,data di nascita:1/7/1999}
+Onorevole.Margarita,utente_semplice,{nome:Margarita,cognome:Onorevole Armstrong-Jones,domicilio:Londra,telefono:,email:,data di nascita:14/5/2002}
+Daniel.Chatto,utente_semplice,{nome:Daniel,cognome:Chatto,domicilio:Londra,telefono:,email:,data di nascita:22/4/1957}
+Samuel.Chatto,utente_semplice,{nome:Samuel,cognome:Chatto,domicilio:Londra,telefono:,email:,data di nascita:28/7/1996}
+Arthur.Chatto,utente_semplice,{nome:Arthur,cognome:Chatto,domicilio:Londra,telefono:,email:,data di nascita:5/2/1999}
+Principe.John,utente_semplice,{nome:John,cognome:Windsor,domicilio:Londra,telefono:,email:,data di nascita:12/7/1905}
+Principessa.Mary,utente_semplice,{nome:Mary,cognome:Windsor,domicilio:Londra,telefono:,email:,data di nascita:25/4/1897}

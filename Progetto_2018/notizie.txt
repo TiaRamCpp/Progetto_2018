@@ -1,6 +1,1 @@
-tim.cook,nuova linea di prodotti a novembre,2/5/2018,like:{aaron.steeve,jessica.rogers},dislike:{dell.pc,michael.dell,juliette.dell}
-apple.phone,iphone x in vendita per questo mese a 800?,15/1/2018,like:{aaron.steeve,tim.cook,mario.patrese,jessica.rogers},dislike:{esteban.lopez,kwang.kobayashi,juliette.dell}
-lee.jae-yong,risolti problemi software sui nuovi smartphone,22/11/2017,like:{yoora.nakajima,samsung.phone,susan.mcgregor},dislike:{flextronix,xiaomi.phone,seung.nakajima,tim.cook}
-flextronix,sviluppata nuova tecnologia per chip in silicio,27/12/2016,like:{apple.phone,dell.pc,michael.dell,jason.caufmann,jessica.rogers},dislike:{samsung.phone,lee.jae-yong,foxconn}
-mario.patrese,stipendi troppo bassi per troppe ore lavorative,18/1/2018,like:{seung.nakajima,aaron.steeve,esteban.lopez,flextronix},dislike:{dell.pc,michael.dell,juliette.dell,susan.mcgregor}
-yoora.nakajima,tanti auguri a mio papa',27/11/2016,like:{seung.nakajima,kwang.kobayashi,jessica.rogers},dislike:{}
+Principe.William,hello world,3/6/2018,like:{},dislike:{}
