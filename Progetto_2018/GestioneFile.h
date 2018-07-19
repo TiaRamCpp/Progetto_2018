@@ -432,7 +432,11 @@ bool leggiIdUtente(ifstream &file_utenti, string &id_utente, const vector<Utente
 		//non formattato correttamente
 		else
 		{
-			cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+			//se non era a fine file
+			if (!file_utenti.eof())
+			{
+				cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+			}
 		}
 	}
 	return ok;
@@ -773,7 +777,11 @@ bool leggiIdVertice(ifstream &file_relazioni, string &id_vertice, bool &prima_re
 		//non formattato correttamente
 		else
 		{
-			cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+			//se non era a fine file
+			if (!file_relazioni.eof())
+			{
+				cerr << "Errore formattazione testo, previsto : " << SEPARATORE << endl;
+			}
 		}
 	}
 	return ok;
@@ -837,6 +845,8 @@ bool leggiFileUtenti(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &imp
 					cerr << "Errore lettura id_utente" << endl;
 					ok = false;
 				}
+				else
+					ok = true;
 			}
 		}
 	}
@@ -1063,8 +1073,14 @@ bool leggiFileRelazioni(vector<UtenteSemplice> &persona, vector<UtenteAzienda> &
 			//errore lettura id partenza
 			else
 			{
-				cerr << endl << "Errore lettura id vertice partenza" << endl;
-				ok = false;
+				//se non era a fine file
+				if (!file_relazioni.eof())
+				{
+					cerr << endl << "Errore lettura id vertice partenza" << endl;
+					ok = false;
+				}
+				else
+					ok = true;
 			}
 		}
 	}

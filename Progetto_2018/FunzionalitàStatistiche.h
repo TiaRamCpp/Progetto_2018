@@ -6,7 +6,6 @@
 
 #include "Notizia.h"
 
-
 void conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
 	unsigned int numero_utenti_semplici = persona.size();
@@ -298,7 +297,7 @@ void aziendaMaggiorDipendenti(const vector<UtenteAzienda> &impresa, const bool &
 
 		if (numero_aziende_a_parimerito != 0)
 		{
-			cout << setw(81) << setfill('-') << "-" << endl;
+			cout << setw(81) << setfill('-') << "-";
 			cout << setfill(' ');
 		}
 	}
@@ -340,18 +339,18 @@ void migliorNotizia(const vector<Notizia> &news)
 		//se c'è solo una notizia con più like
 		if (numero_notizie_a_parimerito == 1)
 		{
-			cout << endl << "La notizia con piu' like : " << massimi_like;
+			cout << endl << "La notizia con piu' like : " << massimi_like << endl;
 
-			cout << endl << "Notizia : " << news[posizione.front()] << endl << endl;
+			cout << endl << "Notizia : " << endl << endl << news[posizione.front()].stampaNotiziaEstesa() << endl;
 		}
 		//se sono più notizie a parimerito
 		else
 		{
 			cout << endl << "Ci sono " << numero_notizie_a_parimerito << " notizie a parimerito con " << massimi_like << " like";
-			cout << endl << "Elenco :";
+			cout << endl << "Elenco :" << endl;
 			for (unsigned int i = 0; i < numero_notizie_a_parimerito; i++)
 			{
-				cout << endl << "Notizia : " << news[posizione[i]];
+				cout << endl << "Notizia : " << endl << news[posizione[i]].stampaNotiziaEstesa() << endl;
 			}
 		}
 	}
@@ -392,17 +391,17 @@ void peggiorNotizia(const vector<Notizia> &news)
 		//se c'è solo una notizia con più dislike
 		if (numero_notizie_a_parimerito == 1)
 		{
-			cout << endl << "La notizia con piu' dislike ne ha : " << massimi_dislike;
-			cout << endl << "Notizia : " << news[posizione.front()] << endl << endl;
+			cout << endl << "La notizia con piu' dislike ne ha : " << massimi_dislike << endl;
+			cout << endl << "Notizia : " << endl << endl << news[posizione.front()].stampaNotiziaEstesa() << endl;
 		}
 		//se sono più notizie a parimerito
 		else
 		{
 			cout << endl << "Ci sono " << numero_notizie_a_parimerito << " notizie a parimerito con " << massimi_dislike << " dislike";
-			cout << endl << "Elenco :";
+			cout << endl << "Elenco :" << endl;
 			for (unsigned int i = 0; i < numero_notizie_a_parimerito; i++)
 			{
-				cout << endl << "Notizia : " << news[posizione[i]];
+				cout << endl << "Notizia : " << endl << news[posizione[i]].stampaNotiziaEstesa() << endl;
 			}
 		}
 	}
@@ -473,7 +472,7 @@ void utenteSempliceMaggiorAmici(const vector<UtenteSemplice> &persona)
 		}
 		if (numero_utenti_a_parimerito != 0)
 		{
-			cout << setw(81) << setfill('-') << "-" << endl;
+			cout << setw(81) << setfill('-') << "-";
 			cout << setfill(' ');
 		}
 	}
@@ -520,7 +519,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 			cout << endl << setw(81) << setfill('_') << "_";
 			cout << setfill(' ') << endl;
 
-			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. amici |" << endl;
+			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. conoscenze |" << endl;
 			cout << setw(81) << setfill('-') << "-" << endl;
 			cout << setfill(' ');
 
@@ -534,7 +533,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 			cout << endl << setw(81) << setfill('_') << "_";
 			cout << setfill(' ') << endl;
 
-			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. amici |" << endl;
+			cout << "|" << setw(30) << "ID" << setw(30) << "|" << setw(20) << "n. conoscenze |" << endl;
 			cout << setw(81) << setfill('-') << "-" << endl;
 			cout << setfill(' ');
 
@@ -546,7 +545,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 		}
 		if (numero_utenti_a_parimerito != 0)
 		{
-			cout << setw(81) << setfill('-') << "-" << endl;
+			cout << setw(81) << setfill('-') << "-";
 			cout << setfill(' ');
 		}
 	}

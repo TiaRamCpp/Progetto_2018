@@ -315,10 +315,10 @@ void cercaNotiziaMittente(const vector<Notizia> &news)
 		//se ne ha trovato qualche notizia
 		if (posizione.size() != 0)
 		{
-			cout << endl << "Notizia/e Pubblicata/e da : " << id_mittente;
+			cout << endl << "Notizia/e Pubblicata/e da : " << id_mittente << endl;
 			for (unsigned int i = 0; i < posizione.size(); i++)
 			{
-				cout << endl << endl << news[posizione[i]].stampaNotiziaEstesa();
+				cout << endl << news[posizione[i]].stampaNotiziaEstesa() << endl;
 			}
 		}
 		//se non ne ha trovata nemmeno una
@@ -329,7 +329,7 @@ void cercaNotiziaMittente(const vector<Notizia> &news)
 	}
 	else
 	{
-		cout << "Nessuna Notizia Inserita nel Database" << endl;
+		cout << endl << "Nessuna Notizia Inserita nel Database" << endl;
 	}
 }
 
@@ -376,21 +376,21 @@ void cercaNotiziaReazione(const vector<Notizia> &news)
 		//se ne ha trovato qualche notizia a cui messo una reazione
 		if (posizione.size() != 0)
 		{
-			cout << endl << "Notizia/e Pubblicata/e con delle Reazioni dell'Utente : " << id_utente;
+			cout << endl << "Notizia/e Pubblicata/e con delle Reazioni dell'Utente : " << id_utente << endl;
 			for (unsigned int i = 0; i < posizione.size(); i++)
 			{
-				cout << endl << endl << news[posizione[i]].stampaNotiziaEstesa();
+				cout << endl << news[posizione[i]].stampaNotiziaEstesa();
 				cout << endl << "Tipo Reazione Inserita dall'Utente : " << tipo_reazione[i]<<endl;
 			}
 		}
 		//se non ne ha trovata nemmeno una
 		else
 		{
-			cout << endl << "L'Utente " << id_utente << " Non ha messo Nessuna Reazione";
+			cout << endl << "L'Utente " << id_utente << " Non ha messo Nessuna Reazione" << endl;
 		}
 	}
 	else
 	{
-		cout << "Nessuna Notizia Inserita nel Database" << endl;
+		cout << endl << "Nessuna Notizia Inserita nel Database" << endl;
 	}
 }
