@@ -12,6 +12,8 @@ void conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<Utent
 	size_t numero_utenti_azienda = impresa.size();
 	size_t numero_utenti_gruppo = associazione.size();
 	size_t numero_utenti_totali = numero_utenti_semplici + numero_utenti_azienda + numero_utenti_gruppo;
+	
+	//stampo il numero di tutti gli utenti
 	cout << endl << setfill('_') << setw(40) << "_";
 	cout << setfill(' ');
 	cout << endl << "| Numero utenti totali     |" << setw(10) << numero_utenti_totali << " |";
@@ -34,6 +36,7 @@ void numeroAmiciEParentiPerUtenteSemplice(const vector<UtenteSemplice> &persona)
 		cout << setw(71) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
+		//cerco tutti i parenti e gli amici di ogni utente semplice
 		for (unsigned int i = 0; i < persona.size(); i++)
 		{
 			id_trovati.clear();
@@ -185,6 +188,7 @@ void numeroDipendentiEConsociatePerAzienda(const vector<UtenteAzienda> &impresa)
 		cout << setw(81) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
+		//cerco dipendenti e consociate per ogni azienda
 		for (unsigned int i = 0; i < impresa.size(); i++)
 		{
 			//conta contemporaneamente i diversi tipi di reazione
@@ -214,6 +218,7 @@ void numeroUtentiPerGruppo(const vector<UtenteGruppo> &associazione)
 		cout << setw(56) << setfill('-') << "-" << endl;
 		cout << setfill(' ');
 
+		//cerco numero utenti per ogni gruppo
 		for (unsigned int i = 0; i < associazione.size(); i++)
 		{
 			cout << "| " << stampaSinistra(37, associazione[i].getId()) << " |" << setw(13) << associazione[i].contaTipoRelazione(STR_MEMBRO) << " |" << endl;
