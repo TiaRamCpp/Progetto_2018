@@ -133,6 +133,7 @@ void stampaIdUtenti(const vector<UtenteSemplice> &persona, const vector<UtenteAz
 }
 void stampaFormattazione() 
 {
+	//stampo formattazione di tutto
 	cout << endl<<"Formattazione Utente:" << endl;
 	cout << endl << "Utente Semplice:" << endl;
 	cout << "Id_Utente,Utente_Semplice,{Nome:* ,Cognome:* ,Domicilio: ,Telefono: ,E-mail: ,Data_di_Nascita:* }" << endl;
@@ -150,6 +151,7 @@ void stampaFormattazione()
 	cout <<endl<< "Formattazione Relazione:" << endl;
 	cout << "Id_Utente_1,Id_Utente_2,Tipologia_relazione" << endl;
 
+	cout << endl << "Formattazione di ogni data: gg/mm/aaaa (anche con una cifra sola)" << endl;
 }
 //TROVA UTENTE E CALCOLA INFORMAZIONI
 
