@@ -347,7 +347,7 @@ void ricercaLupiSolitari(const vector<UtenteSemplice> &persona, const vector<Not
 	vector<unsigned int> posizione_persona_intervento_news;
 
 	//variabili per il conteggio di ogni parametro per ogni utente
-	vector<unsigned int> numero_relazioni_totali(persona.size());  
+	vector<size_t> numero_relazioni_totali(persona.size());
 	vector<unsigned int> numero_aziende_dipendente(persona.size());  
 	vector<unsigned int> numero_appartenenza_gruppo(persona.size());
 	vector<unsigned int> numero_interventi_news(persona.size());

@@ -8,10 +8,10 @@
 
 void conteggioGenerale(const vector<UtenteSemplice> &persona, const vector<UtenteAzienda> &impresa, const vector<UtenteGruppo> &associazione)
 {
-	unsigned int numero_utenti_semplici = persona.size();
-	unsigned int numero_utenti_azienda = impresa.size();
-	unsigned int numero_utenti_gruppo = associazione.size();
-	unsigned int numero_utenti_totali = numero_utenti_semplici + numero_utenti_azienda + numero_utenti_gruppo;
+	size_t numero_utenti_semplici = persona.size();
+	size_t numero_utenti_azienda = impresa.size();
+	size_t numero_utenti_gruppo = associazione.size();
+	size_t numero_utenti_totali = numero_utenti_semplici + numero_utenti_azienda + numero_utenti_gruppo;
 	cout << endl << setfill('_') << setw(40) << "_";
 	cout << setfill(' ');
 	cout << endl << "| Numero utenti totali     |" << setw(10) << numero_utenti_totali << " |";
@@ -312,8 +312,8 @@ void migliorNotizia(const vector<Notizia> &news)
 {
 	vector<unsigned int> posizione;
 	unsigned int numero_notizie_a_parimerito = 0;
-	unsigned int massimi_like = 0;
-	unsigned int numero_like;
+	size_t massimi_like = 0;
+	size_t numero_like;
 	//se c'è almeno una notizia
 	if (news.size() != 0)
 	{
@@ -364,8 +364,8 @@ void peggiorNotizia(const vector<Notizia> &news)
 {
 	vector<unsigned int> posizione;
 	unsigned int numero_notizie_a_parimerito = 0;
-	unsigned int massimi_dislike = 0;
-	unsigned int numero_dislike;
+	size_t massimi_dislike = 0;
+	size_t numero_dislike;
 	//se c'è almeno una notizia
 	if (news.size() != 0)
 	{
@@ -558,7 +558,7 @@ void utenteSempliceMaggiorConoscenze(const vector<UtenteSemplice> &persona)
 
 void etaMediaUtentiSemplici(const vector<UtenteSemplice> &persona)
 {
-	int eta_media = 0;
+	size_t eta_media = 0;
 	//se c'è almeno un utente semplice
 	if (persona.size() != 0)
 	{
