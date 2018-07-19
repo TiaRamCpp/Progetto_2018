@@ -62,3 +62,7 @@ wikimedia.foundation,jessica.rogers,membro
 wikimedia.foundation,lee.jae-yong,membro
 product.red,tim.cook,membro
 product.red,aaron.steeve,membro
+bartolomy.hansen,jerry.hansen,figlio
+jerry.hansen,robert.hansen,figlio
+jerry.hansen,bartolomy.hansen,genitore
+robert.hansen,jerry.hansen,genitore
