@@ -136,22 +136,22 @@ void stampaFormattazione()
 	//stampo formattazione di tutto
 	cout << endl<<"Formattazione Utente:" << endl;
 	cout << endl << "Utente Semplice:" << endl;
-	cout << "Id_Utente,Utente_Semplice,{Nome:* ,Cognome:* ,Domicilio: ,Telefono: ,E-mail: ,Data_di_Nascita:* }" << endl;
+	cout << "Id_Utente,Utente_Semplice,{Nome:*,Cognome:*,Domicilio:,Telefono:,E-mail:,Data_di_Nascita:*}" << endl;
 
 	cout << endl << "Utente Azienda:" << endl;
-	cout << "Id_Utente,Utente_Azienda,{Nome:* ,Sede_Fiscale: ,Sede_Operativa: ,Tipologia_prodotto: ,Telefono: ,E-mail: ,Data_di_Creazione:* }" << endl;
+	cout << "Id_Utente,Utente_Azienda,{Nome:*,Sede_Fiscale:,Sede_Operativa:,Tipologia_prodotto:,Telefono:,E-mail:,Data_di_Creazione:*}" << endl;
 
 	cout << endl << "Utente Gruppo:" << endl;
-	cout << "Id_Utente,Utente_Gruppo,{Nome:* ,Sede_legale: ,Tipologia_attività: ,Telefono: ,E-mail: ,Data_di_Creazione:* }" << endl;
+	cout << "Id_Utente,Utente_Gruppo,{Nome:*,Sede_legale:,Tipologia_attività:,Telefono:,E-mail:,Data_di_Creazione:*}" << endl;
 	
-	cout << endl << "* =campo obbligatorio" << endl;
+	cout << endl << "* = campo obbligatorio" << endl;
 	cout <<endl<< "Formattazione Notizia:" << endl;
 	cout << "Id_Utente,Testo_Notizia,Data_Pubblicazione,like:{},dislike:{}" << endl;
 
 	cout <<endl<< "Formattazione Relazione:" << endl;
 	cout << "Id_Utente_1,Id_Utente_2,Tipologia_relazione" << endl;
 
-	cout << endl << "Formattazione di ogni data: gg/mm/aaaa (anche con una cifra sola)" << endl;
+	cout << endl << "Formattazione di ogni data: gg/mm/aaaa (anche con una cifra sola per il giorno e/o il mese)" << endl;
 }
 //TROVA UTENTE E CALCOLA INFORMAZIONI
 
