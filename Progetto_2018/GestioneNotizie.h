@@ -30,6 +30,7 @@ void stampaNotizie(const vector<Notizia> &news)
 		{
 			cout << endl << endl << news[i].stampaNotiziaEstesa();
 		}
+		cout << endl;
 	}
 	else
 	{
