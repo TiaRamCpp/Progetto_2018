@@ -1,0 +1,2 @@
+utente_anziano,utente_semplice,{nome:utente,cognome:anziano,domicilio:,telefono:,email:,data di nascita:4/3/1945}
+utente_giovane,utente_semplice,{nome:utente,cognome:giovane,domicilio:,telefono:,email:,data di nascita:26/11/1993}

@@ -1,0 +1,6 @@
+utente_1,utente_2,figlio
+utente_2,utente_1,genitore
+utente_2,utente_3,figlio
+utente_3,utente_2,genitore
+utente_3,utente_1,figlio
+utente_1,utente_3,genitore

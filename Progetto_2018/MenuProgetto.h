@@ -108,10 +108,11 @@ void stampaMenuInformazioniDatabase()
 	cout << "F) Stampa Tutti gli Utenti Gruppo" << endl;
 	cout << "G) Stampa Tutte le Notizie" << endl;
 	cout << "H) Stampa Tutte le Relazioni" << endl;
-	cout << "I) Cerca un Utente" << endl;
-	cout << "J) Cerca Notizie di un Utente" << endl;
-	cout << "K) Cerca Notizie a cui un Utente ha messo una Reazione" << endl;
-	cout << "L) Cerca Relazioni con un Utente" << endl;
+	cout << "I) Stampa Tutte le Formattazioni" << endl;
+	cout << "J) Cerca un Utente" << endl;
+	cout << "K) Cerca Notizie di un Utente" << endl;
+	cout << "L) Cerca Notizie a cui un Utente ha messo una Reazione" << endl;
+	cout << "N) Cerca Relazioni con un Utente" << endl;
 	cout << MENU_PRINCIPALE << ") Torna al Menu Principale" << endl;
 	cout << endl;
 	cout << "Selezionare una voce del menu: ";
@@ -1083,23 +1084,29 @@ bool sceltaMenuInformazioniDatabase(bool &torna_al_menu_principale, const vector
 		break;
 		case 'I':
 		{
+			//Stampa tutte le formattazioni
+			stampaFormattazione();
+		}
+		break;
+		case 'J':
+		{
 			//Cerca un Utente
 			cercaUtente(persona, impresa, associazione);
 		}
 		break;
-		case 'J':
+		case 'K':
 		{
 			//Cerca Notizie di un Utente
 			cercaNotiziaMittente(news);
 		}
 		break;
-		case 'K':
+		case 'L':
 		{
 			//Cerca Notizie a cui un Utente ha messo una Reazione
 			cercaNotiziaReazione(news);
 		}
 		break;
-		case 'L':
+		case 'N':
 		{
 			//Cerca Relazioni con un Utente
 			cercaRelazioneUtente(persona, impresa, associazione);

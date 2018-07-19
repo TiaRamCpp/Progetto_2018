@@ -1,0 +1,3 @@
+utente_1,utente_semplice,{nome:1,cognome:1,domicilio:,telefono:,email:,data di nascita:13/6/1950}
+utente_2,utente_semplice,{nome:2,cognome:2,domicilio:,telefono:,email:,data di nascita:12/9/1980}
+utente_3,utente_semplice,{nome:3,cognome:3,domicilio:,telefono:,email:,data di nascita:29/5/2010}

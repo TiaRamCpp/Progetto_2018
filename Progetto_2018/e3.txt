@@ -1,0 +1,2 @@
+tim.cook,apple.phone,coniuge
+apple.phone,tim.cook,coniuge

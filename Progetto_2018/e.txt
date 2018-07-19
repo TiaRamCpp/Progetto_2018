@@ -1,0 +1,2 @@
+tim.cook,utente_semplice,{nome:timothy,cognome:cook,domicilio:palo alto,telefono:3821749772,email:tim.cook@icloud.com,data di nascita:01/11/1960}
+apple.phone,utente_azienda,{nome:apple,sede fiscale:regno unito jersey,sede operativa:cupertino,tipo prodotto:smartphone,telefono:555339090,email:clienti.apple@apple.com,data di creazione:01/04/1976}

@@ -1,0 +1,37 @@
+Re.GiorgioV
+|---Re.EdoardoVIII
+|---Re.GiorgioVI
+|   |---Regina.ElisabettaII --- Principe.Filippo
+|   |   |---Principe.Carlo --- Principessa.Diana --- Camilla.Shand
+|   |   |   |---Principe.William --- Catherine.Middleton
+|   |   |   |   |---Principe.George
+|   |   |   |   |---Principessa.Charlotte
+|   |   |   |   |---Principe.Luois
+|   |   |   |---Principe.Henry --- Meghan.Markle
+|   |   |---Andrea.Windsor --- Sarah.Ferguson
+|   |   |   |---Beatrice.Windsor
+|   |   |   |---Eugenia.Windsor
+|   |   |---Edoardo.Windsor --- Sophie.Rhys-Jones
+|   |   |   |---James.Windsor
+|   |   |   |---Louise.Windsor
+|   |   |---Anna.Windsor --- Mark.Phillips --- Timothy.Laurence
+|   |       |---Peter.Phillips --- Autumn.Kelly
+|   |       |   |---Savannah.Phillips
+|   |       |   |---Isla.Phillips
+|   |       |---Zara.Phillips --- Michael.Tindall
+|   |           |---Mia.Tindall
+|   |---Principessa.Margaret --- Antony.Armstrong
+|       |---David.Armstrong --- Onorevole.Serena
+|       |   |---Visconte.Charles
+|       |   |---Onorevole.Margarita
+|       |---Lady.Sarah --- Daniel.Chatto
+|           |---Samuel.Chatto
+|           |---Arthur.Chatto
+|---Henry.Windsor
+|   |---Richard.Windsor --- Birgitte.Deurs
+|---Giorgio.Windsor
+|   |---Edward.Windsor --- Katharine.Windsor
+|   |---Michael.Windsor --- Marie.Reibnitz
+|   |---Alexandra.Windsor
+|---Principe.John
+|---Principessa.Mary
